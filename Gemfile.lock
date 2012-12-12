@@ -31,6 +31,9 @@ GEM
     addressable (2.3.2)
     arel (3.0.2)
     bcrypt-ruby (3.0.1)
+    bourbon (3.0.1)
+      sass (>= 3.2.0)
+      thor
     builder (3.0.4)
     cancan (1.6.8)
     capybara (2.0.1)
@@ -96,6 +99,9 @@ GEM
       treetop (~> 1.4.8)
     mime-types (1.19)
     multi_json (1.5.0)
+    neat (1.0.2)
+      bourbon (>= 2.1)
+      sass (>= 3.2)
     nokogiri (1.5.5)
     orm_adapter (0.4.0)
     pg (0.14.1)
@@ -184,6 +190,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  bourbon
   cancan (>= 1.6.8)
   capybara (>= 2.0.1)
   coffee-rails (~> 3.2.1)
@@ -196,6 +203,7 @@ DEPENDENCIES
   hominid (>= 3.0.5)
   hpricot (>= 0.8.6)
   jquery-rails
+  neat
   pg
   quiet_assets (>= 1.0.1)
   rails (= 3.2.9)
