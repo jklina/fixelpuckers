@@ -1,4 +1,5 @@
 source 'https://rubygems.org'
+
 gem 'rails', '3.2.9'
 gem 'pg'
 gem 'jquery-rails'
@@ -32,6 +33,7 @@ group :test do
   gem "database_cleaner", ">= 0.9.1"
   gem "email_spec", ">= 1.4.0"
   gem "rspec-rails", ">= 2.11.4"
+  gem 'shoulda-matchers'
   gem "factory_girl_rails", ">= 4.1.0"
 end
 
