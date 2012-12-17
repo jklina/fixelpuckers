@@ -11,6 +11,8 @@ describe User do
     }
   end
 
+  it { should have_many(:submissions) }
+
   it { should allow_mass_assignment_of(:name) }
   it { should allow_mass_assignment_of(:email) }
   it { should allow_mass_assignment_of(:password) } 
