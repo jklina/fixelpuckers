@@ -4,5 +4,6 @@ FactoryGirl.define do
   factory :submission do
     title "MyString"
     description "MyText"
+    user
   end
 end
