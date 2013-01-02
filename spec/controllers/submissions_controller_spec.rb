@@ -4,13 +4,6 @@ require 'spec_helper'
 describe SubmissionsController do
 
   let(:submission) { mock_model(Submission, save: true) }
-  # This should return the minimal set of attributes required to create a valid
-  # Submission. As you add validations to Submission, be sure to
-  # update the return value of this method accordingly.
-  def valid_attributes
-    {  }
-  end
-
   # This should return the minimal set of values that should be in the session
   # in order to pass any filters (e.g. authentication) defined in
   # SubmissionsController. Be sure to keep this updated too.
@@ -98,13 +91,13 @@ describe SubmissionsController do
 
       it "assigns the requested submission as @submission" do
         submission.stub(:update_attributes).and_return(true)
-        put :update, {:id => submission.to_param, :submission => valid_attributes}, valid_session
+        put :update, {:id => submission.to_param}, valid_session
         assigns(:submission).should eq(submission)
       end
 
       it "redirects to the submission" do
         submission.stub(:update_attributes).and_return(true)
-        put :update, {:id => submission.to_param, :submission => valid_attributes}, valid_session
+        put :update, {:id => submission.to_param}, valid_session
         response.should redirect_to(submission)
       end
     end
@@ -144,5 +137,4 @@ describe SubmissionsController do
       response.should redirect_to(submissions_url)
     end
   end
-
 end
