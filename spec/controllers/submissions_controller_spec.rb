@@ -13,7 +13,8 @@ describe SubmissionsController do
 
   describe "GET index" do
     it "assigns all submissions as @submissions" do
-      Submission.stub(:all).and_return([submission])
+      Submission.stub(:accessible_by).and_return([submission])
+      Submission.should_receive(:accessible_by)
       get :index, {}, valid_session
       assigns(:submissions).should eq([submission])
     end
