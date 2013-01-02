@@ -63,7 +63,6 @@ class SubmissionsController < ApplicationController
   # DELETE /submissions/1
   # DELETE /submissions/1.json
   def destroy
-    # @submission = Submission.find(params[:id])
     @submission.destroy
 
     respond_to do |format|
