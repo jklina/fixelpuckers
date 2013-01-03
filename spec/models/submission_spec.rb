@@ -9,4 +9,5 @@ describe Submission do
 
   it { should allow_mass_assignment_of(:title) }
   it { should allow_mass_assignment_of(:description) }
+  it { should_not allow_mass_assignment_of(:user_id) }
 end
