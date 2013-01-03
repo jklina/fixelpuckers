@@ -3,7 +3,7 @@ require 'spec_helper'
 
 describe SubmissionsController do
 
-  let(:submission) { mock_model(Submission, save: true) }
+  let(:submission) { mock_model(Submission, save: true, :user= => true) }
   # This should return the minimal set of values that should be in the session
   # in order to pass any filters (e.g. authentication) defined in
   # SubmissionsController. Be sure to keep this updated too.
@@ -58,6 +58,13 @@ describe SubmissionsController do
       it "assigns a newly created submission as @submission" do
         post :create, {submission: submission.to_param}, valid_session
         assigns(:submission).should eq(submission)
+      end
+
+      it 'assigns the submission user to the current user' do
+        user = double('user')
+        controller.stub(:current_user).and_return(user)
+        submission.should_receive(:user=).with(user)
+        post :create, {submission: submission.to_param}, valid_session
       end
 
       it "redirects to the created submission" do
