@@ -36,6 +36,7 @@ class SubmissionsController < ApplicationController
   # POST /submissions.json
   def create
     @submission.user = current_user
+
     respond_to do |format|
       if @submission.save
         format.html { redirect_to @submission, notice: 'Submission was successfully created.' }
