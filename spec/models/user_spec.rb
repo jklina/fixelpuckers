@@ -1,4 +1,5 @@
 require 'spec_helper'
+require "cancan/matchers"
 
 describe User do
 
@@ -34,14 +35,6 @@ describe User do
     user
   end
 
-  describe "passwords" do
-
-    it "should have a password confirmation attribute" do
-      user.should respond_to(:password_confirmation)
-    end
-
-  end
-
   describe "password encryption" do
     it "should have an encrypted password attribute" do
       user.should respond_to(:encrypted_password)
@@ -52,9 +45,21 @@ describe User do
     end
   end
 
-  # describe "abilities" do
-  #   subject { ability }
-  #   let 
-  # end
+  describe 'abilities' do
+    subject { ability }
+    let(:ability) { Ability.new(user) }
+    let(:user) { nil }
+
+    context 'when is a normal user' do
+      let(:user) { FactoryGirl.create(:user) }
+      let(:submission) do
+        s = Submission.new
+        s.user = user
+        s
+      end
+      it { should be_able_to(:manage, submission) }
+      it { should_not be_able_to(:manage, Submission.new) }
+    end
+  end
 
 end
