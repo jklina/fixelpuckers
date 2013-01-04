@@ -6,6 +6,7 @@ class Ability
     #
     user ||= User.new # guest user (not logged in)
     can :manage, Submission, user_id: user.id
+    can :read, :all
     # if user.admin?
     #   can :manage, :all
     # else

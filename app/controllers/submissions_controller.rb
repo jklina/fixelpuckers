@@ -1,5 +1,5 @@
 class SubmissionsController < ApplicationController
-  load_resource
+  load_and_authorize_resource
 
   # GET /submissions
   # GET /submissions.json

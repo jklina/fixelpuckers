@@ -52,13 +52,16 @@ describe User do
 
     context 'when is a normal user' do
       let(:user) { FactoryGirl.create(:user) }
-      let(:submission) do
+      let(:a_submisison) { Submission.new }
+      let(:her_submission) do
         s = Submission.new
         s.user = user
         s
       end
-      it { should be_able_to(:manage, submission) }
-      it { should_not be_able_to(:manage, Submission.new) }
+      it { should be_able_to(:manage, her_submission) }
+
+      it { should be_able_to(:read, a_submission) }
+      it { should_not be_able_to(:manage, a_submission) }
     end
   end
 
