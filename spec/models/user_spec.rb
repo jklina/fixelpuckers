@@ -52,7 +52,7 @@ describe User do
 
     context 'when is a normal user' do
       let(:user) { FactoryGirl.create(:user) }
-      let(:a_submisison) { Submission.new }
+      let(:a_submission) { Submission.new }
       let(:her_submission) do
         s = Submission.new
         s.user = user

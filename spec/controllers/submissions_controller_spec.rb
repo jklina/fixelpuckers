@@ -49,7 +49,13 @@ describe SubmissionsController do
     describe "with valid params" do
       before(:each) do
         Submission.stub(:new).and_return(submission)
+        # Need to stub ability so we can get past authorization
+        @ability = Object.new
+        @ability.extend(CanCan::Ability)
+        controller.stub(:current_ability) { @ability }
+        @ability.can :create, Submission
       end
+
       it "creates a new Submission" do
         Submission.should_receive(:new).with(submission.to_param)
         post :create, {submission: submission.to_param}, valid_session

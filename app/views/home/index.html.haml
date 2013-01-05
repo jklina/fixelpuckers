@@ -1,2 +1,19 @@
-%h3 Home
-%p This is the homepage
+%h1 Welcome to PFv2
+
+%table
+  %tr
+    %th
+    %th
+    %th
+    %th
+
+  - @submissions.each do |submission|
+    %tr
+      %td= submission.title
+      %td= link_to 'Show', submission
+      %td= link_to 'Edit', edit_submission_path(submission)
+      %td= link_to 'Destroy', submission, method: :delete, data: { confirm: 'Are you sure?' }
+
+%br
+
+= link_to 'New Submission', new_submission_path
