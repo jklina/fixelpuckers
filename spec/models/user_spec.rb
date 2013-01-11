@@ -59,7 +59,6 @@ describe User do
         s
       end
       it { should be_able_to(:manage, her_submission) }
-
       it { should be_able_to(:read, a_submission) }
       it { should_not be_able_to(:manage, a_submission) }
     end
