@@ -11,7 +11,16 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121217234327) do
+ActiveRecord::Schema.define(:version => 20130105165006) do
+
+  create_table "reviews", :force => true do |t|
+    t.integer  "rating"
+    t.text     "comment"
+    t.datetime "created_at",    :null => false
+    t.datetime "updated_at",    :null => false
+    t.integer  "user_id"
+    t.integer  "submission_id"
+  end
 
   create_table "roles", :force => true do |t|
     t.string   "name"
