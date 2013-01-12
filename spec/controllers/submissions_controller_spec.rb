@@ -1,9 +1,9 @@
 require 'spec_helper'
 
-
 describe SubmissionsController do
 
-  let(:submission) { mock_model(Submission, save: true, :user= => true) }
+  let(:submission) { stub_model(Submission, to_param: '37') }
+  let(:review) { stub_model(Review) }
   # This should return the minimal set of values that should be in the session
   # in order to pass any filters (e.g. authentication) defined in
   # SubmissionsController. Be sure to keep this updated too.
@@ -12,16 +12,24 @@ describe SubmissionsController do
   end
 
   describe "GET index" do
-    it "assigns all submissions as @submissions" do
+    before(:each) do
+      submission.stub_chain(:reviews, :build).and_return(review)
       Submission.stub(:accessible_by).and_return([submission])
+    end
+    it "assigns all submissions as @submissions" do
       Submission.should_receive(:accessible_by)
       get :index, {}, valid_session
       assigns(:submissions).should eq([submission])
+    end
+
+    it "builds a new review for the submission" do
+
     end
   end
 
   describe "GET show" do
     it "assigns the requested submission as @submission" do
+      # Submission.stub_chain(:reviews, :build).and_return(review)
       Submission.stub(:find).and_return(submission)
       Submission.should_receive(:find).with(submission.to_param)
       get :show, {:id => submission.to_param}, valid_session
@@ -48,6 +56,8 @@ describe SubmissionsController do
   describe "POST create" do
     describe "with valid params" do
       before(:each) do
+        # Need to stub user= to since its called in controller
+        submission.stub(:user=).and_return(true)
         Submission.stub(:new).and_return(submission)
         # Need to stub ability so we can get past authorization
         @ability = Object.new
@@ -74,6 +84,7 @@ describe SubmissionsController do
       end
 
       it "redirects to the created submission" do
+        submission.stub(:save).and_return(true)
         post :create, {submission: submission.to_param}, valid_session
         response.should redirect_to(submission)
       end
@@ -147,6 +158,7 @@ describe SubmissionsController do
     end
 
     it "redirects to the submissions list" do
+      submission.stub(:destroy).and_return(true)
       delete :destroy, {:id => submission.to_param}, valid_session
       response.should redirect_to(submissions_url)
     end
