@@ -1,8 +1,8 @@
 require 'spec_helper'
 
 describe ReviewsController do
-  let(:submission) { stub_model(Submission, to_param: '37') }
-  let(:review) { stub_model(Review, to_param: '14') }
+  let(:submission) { stub_model(Submission, id: '37') }
+  let(:review) { stub_model(Review, id: '14') }
   # This should return the minimal set of values that should be in the session
   # in order to pass any filters (e.g. authentication) defined in
   # ReviewsController. Be sure to keep this updated too.
@@ -26,42 +26,39 @@ describe ReviewsController do
   # end
 
   describe "POST create" do
-    describe "with valid params" do
-      before(:each) do
-        Submission.stub(:find).and_return(submission)
-        # Need to stub user= to since its called in controller
-        review.stub(:user=).and_return(true)
-        # Need to stub ability so we can get past authorization
-        @ability = Object.new
-        @ability.extend(CanCan::Ability)
-        controller.stub(:current_ability) { @ability }
-        @ability.can :create, Submission
-      end
+    before(:each) do
+      Submission.stub(:find).and_return(submission)
+      # Need to stub user= to since its called in controller
+      review.stub(:user=).and_return(true)
+      submission.stub_chain(:reviews, :build).and_return(review)
+      # Need to stub ability so we can get past authorization
+      @ability = Object.new
+      @ability.extend(CanCan::Ability)
+      controller.stub(:current_ability) { @ability }
+      @ability.can :create, Submission
+    end
 
+    describe "with valid params" do
       it "finds the submission that will build the review" do
         Submission.should_receive(:find).with(submission.to_param)
-        post :create, submission_id: submission.to_param,
-                      review: review.to_param
+        post :create, submission_id: submission.to_param, review: review.to_param
       end
 
       it "creates a new Review from the given submission" do
-        submission.stub_chain(:reviews, :build).and_return(review)
-        post :create, submission_id: submission.to_param,
-                      review: review.to_param
+        submission.reviews.should_receive(:build).with(review.to_param)
+        post :create, submission_id: submission.to_param, review: review.to_param
         assigns(:review).should eq(review)
       end
 
       it 'assigns the submission user to the current user' do
         user = double('user')
         controller.stub(:current_user).and_return(user)
-        submission.stub_chain(:reviews, :build).and_return(review)
         review.should_receive(:user=).with(user)
         post :create, submission_id: submission.to_param,
                       review: review.to_param
       end
 
       it "redirects to the submission show page" do
-        submission.stub_chain(:reviews, :build).and_return(review)
         review.stub(:save).and_return(true)
         post :create, submission_id: submission.to_param,
                       review: review.to_param
@@ -69,25 +66,24 @@ describe ReviewsController do
       end
     end
 
+    describe "with invalid params" do
+      before(:each) do
+        # Trigger the behavior that occurs when invalid params are submitted
+        review.stub(:save).and_return(false)
+        submission.stub_chain(:reviews, :build).and_return(review)
+        post :create, submission_id: submission.to_param,
+                      review: review.to_param
+      end
 
+      it "assigns a newly created but unsaved submission as @submission" do
+        assigns(:review).should eq(review)
+      end
 
-
-    # end
-
-    # describe "with invalid params" do
-    #   before(:each) do
-    #     # Trigger the behavior that occurs when invalid params are submitted
-    #     submission.stub(:save).and_return(false)
-    #     post :create, {:submission => {  }}, valid_session
-    #   end
-    #   it "assigns a newly created but unsaved submission as @submission" do
-    #     assigns(:submission).should be_a_new(Submission)
-    #   end
-
-    #   it "re-renders the 'new' template" do
-    #     response.should render_template("new")
-    #   end
-    # end
+      it "re-renders the 'new' template" do
+        response.should render_template("submissions/show")
+        # response.should redirect_to(submission)
+      end
+    end
   end
 
   # describe "PUT update" do

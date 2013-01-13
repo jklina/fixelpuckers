@@ -2,7 +2,7 @@ require 'spec_helper'
 
 describe SubmissionsController do
 
-  let(:submission) { stub_model(Submission, to_param: '37') }
+  let(:submission) { stub_model(Submission, id: '37') }
   let(:review) { stub_model(Review) }
   # This should return the minimal set of values that should be in the session
   # in order to pass any filters (e.g. authentication) defined in

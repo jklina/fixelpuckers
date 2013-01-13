@@ -21,7 +21,7 @@ class ReviewsController < ApplicationController
   # POST /reviews.json
   def create
     @submission = Submission.find(params[:submission_id])
-    @review = @submission.reviews.build
+    @review = @submission.reviews.build(params[:review])
     @review.user = current_user
 
     respond_to do |format|
@@ -29,7 +29,7 @@ class ReviewsController < ApplicationController
         format.html { redirect_to @submission, notice: 'Review was successfully created.' }
         format.json { render json: @submission, status: :created, location: @submission }
       else
-        format.html { render action: "new" }
+        format.html { render template: 'submissions/show' }
         format.json { render json: @review.errors, status: :unprocessable_entity }
       end
     end

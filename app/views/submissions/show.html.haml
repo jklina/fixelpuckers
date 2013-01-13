@@ -3,15 +3,14 @@
 %h1= @submission.title
 %p= @submission.description
 
-= form_for [@submission, @review] do |f|
-  %p
-    = f.label :rating
-    = f.text_field :rating
-  %p
-    = f.label :comment
-    = f.text_area :comment
-  %p
-    = f.submit
+= simple_form_for [@submission, @review] do |f|
+  = f.input :rating
+  = f.input :comment
+  = f.button :submit
+
+- @submission.reviews.each do |review|
+  %p= "#{review.rating}"
+  %p= "#{review.comment}"
 
 = link_to 'Edit', edit_submission_path(@submission)
 \|
