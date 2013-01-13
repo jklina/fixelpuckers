@@ -6,6 +6,7 @@ describe Submission do
   it { should validate_presence_of (:user_id) }
 
   it { should belong_to(:user) }
+  it { should have_many(:reviews) }
 
   it { should allow_mass_assignment_of(:title) }
   it { should allow_mass_assignment_of(:description) }

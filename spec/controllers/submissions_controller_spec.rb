@@ -28,12 +28,20 @@ describe SubmissionsController do
   end
 
   describe "GET show" do
-    it "assigns the requested submission as @submission" do
-      # Submission.stub_chain(:reviews, :build).and_return(review)
+    before(:each) do
       Submission.stub(:find).and_return(submission)
+      submission.stub_chain(:reviews, :build).and_return(review)
+    end
+
+    it "assigns the requested submission as @submission" do
       Submission.should_receive(:find).with(submission.to_param)
       get :show, {:id => submission.to_param}, valid_session
       assigns(:submission).should eq(submission)
+    end
+
+    it "builds a new review off of the given submission" do
+      get :show, {:id => submission.to_param}, valid_session
+      assigns(:review).should eq(review)
     end
   end
 
