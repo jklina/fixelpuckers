@@ -13,7 +13,7 @@ class SubmissionsController < ApplicationController
   # GET /submissions/1
   # GET /submissions/1.json
   def show
-    @review = @submission.reviews.build
+    @review = @submission.review_from(current_user)
     respond_to do |format|
       format.html # show.html.erb
       format.json { render json: @submission }
