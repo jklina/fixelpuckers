@@ -16,14 +16,11 @@ describe SubmissionsController do
       submission.stub_chain(:reviews, :build).and_return(review)
       Submission.stub(:accessible_by).and_return([submission])
     end
+
     it "assigns all submissions as @submissions" do
       Submission.should_receive(:accessible_by)
       get :index, {}, valid_session
       assigns(:submissions).should eq([submission])
-    end
-
-    it "builds a new review for the submission" do
-
     end
   end
 
