@@ -9,11 +9,13 @@
         = csrf_meta_tags
         = yield(:head)
   %body{:class => "#{controller_name} #{action_name}"}
-    #container.container
-      %header
+    %header
+      %div.wrapper
+        %h1 Pixelfuckers
         = render 'layouts/navigation'
         = render 'layouts/messages'
-      #main{:role => "main"}
+    #main{:role => "main"}
+      %div.wrapper
         = yield
-      %footer
+    %footer
     / ! end of #container

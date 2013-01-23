@@ -1,3 +1,4 @@
+@import 'reset';
 @import 'bourbon';
 @import 'neat';
 
@@ -7,7 +8,6 @@
 }
 ul.nav {
   list-style: none;
-  margin: 0 0 2em;
   padding: 0;
 }
 ul.nav li {
@@ -24,4 +24,60 @@ ul.nav li {
 #flash_alert {
   background-color: #FCC;
   border: solid 1px #C66;
+}
+
+/********************************************************************/
+body {
+  background-color: #111;
+  color: #fff;
+  font-family: $helvetica;
+  -webkit-font-smoothing: antialiased;
+}
+
+h1 {
+  text-transform: uppercase;
+  font-weight: 200;
+  font-size: 2em;
+  letter-spacing: .25em;
+}
+
+h2 {
+  font-family: georgia;
+  font-size: 1.25em;
+  font-style: italic;
+  font-weight: 100;
+  margin-bottom: 1em;
+}
+
+.wrapper {
+  @include outer-container;
+}
+
+header {
+  background-color: black;
+  padding: 1em 0;
+  margin-bottom: $gutter * 2;
+}
+
+ol.thumbs {
+  list-style: none;
+  @include clearfix;
+
+  li.thumb {
+    @include span-columns(3); 
+    @include omega(4n);
+    float: left;
+    margin-bottom: $gutter;
+    @include box-shadow(2px 1px black);
+
+    &:hover {
+      @include transform(scale(1.05));
+    }
+
+    img {
+      max-width: 100%;
+      z-index: -1;
+      position: relative;
+    }
+  }
 }

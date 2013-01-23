@@ -1,19 +1,44 @@
-%h1 Welcome to PFv2
-
-%table
+- @submissions.each do |submission|
   %tr
-    %th
-    %th
-    %th
-    %th
+    %td= submission.title
+    %td= link_to 'Show', submission
+    %td= link_to 'Edit', edit_submission_path(submission)
+    %td= link_to 'Destroy', submission, method: :delete, data: { confirm: 'Are you sure?' }
 
-  - @submissions.each do |submission|
-    %tr
-      %td= submission.title
-      %td= link_to 'Show', submission
-      %td= link_to 'Edit', edit_submission_path(submission)
-      %td= link_to 'Destroy', submission, method: :delete, data: { confirm: 'Are you sure?' }
+%h2 Recent Submissions
 
-%br
+%ol.thumbs
+  %li.thumb
+    = link_to image_tag('http://lorempixel.com/360/225/nature/1'), '#'
+  %li.thumb
+    = link_to image_tag('http://lorempixel.com/360/225/nature/2'), '#'
+  %li.thumb
+    = link_to image_tag('http://lorempixel.com/360/225/nature/3'), '#'
+  %li.thumb
+    = link_to image_tag('http://lorempixel.com/360/225/nature/4'), '#'
+  %li.thumb
+    = link_to image_tag('http://lorempixel.com/360/225/nature/5'), '#'
+  %li.thumb
+    = link_to image_tag('http://lorempixel.com/360/225/nature/6'), '#'
+  %li.thumb
+    = link_to image_tag('http://lorempixel.com/360/225/nature/7'), '#'
+  %li.thumb
+    = link_to image_tag('http://lorempixel.com/360/225/nature/8'), '#'
+  %li.thumb
+    = link_to image_tag('http://lorempixel.com/360/225/nature/1'), '#'
+  %li.thumb
+    = link_to image_tag('http://lorempixel.com/360/225/nature/2'), '#'
+  %li.thumb
+    = link_to image_tag('http://lorempixel.com/360/225/nature/3'), '#'
+  %li.thumb
+    = link_to image_tag('http://lorempixel.com/360/225/nature/4'), '#'
+  %li.thumb
+    = link_to image_tag('http://lorempixel.com/360/225/nature/5'), '#'
+  %li.thumb
+    = link_to image_tag('http://lorempixel.com/360/225/nature/6'), '#'
+  %li.thumb
+    = link_to image_tag('http://lorempixel.com/360/225/nature/1'), '#'
+  %li.thumb
+    = link_to image_tag('http://lorempixel.com/360/225/nature/2'), '#'
 
 = link_to 'New Submission', new_submission_path
