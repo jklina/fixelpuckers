@@ -5,6 +5,10 @@
     %td= link_to 'Edit', edit_submission_path(submission)
     %td= link_to 'Destroy', submission, method: :delete, data: { confirm: 'Are you sure?' }
 
+%section.featured
+  
+  = link_to image_tag('http://lorempixel.com/1200/300/abstract/3'), '#', :class => 'feature'
+
 %section.submissions
   %h2 Recent Submissions
   %ol.thumbs
@@ -25,19 +29,19 @@
     %li.thumb
       = link_to image_tag('http://lorempixel.com/360/225/nature/8'), '#'
     %li.thumb
-      = link_to image_tag('http://lorempixel.com/360/225/nature/1'), '#'
+      = link_to image_tag('http://lorempixel.com/360/225/abstract/1'), '#'
     %li.thumb
-      = link_to image_tag('http://lorempixel.com/360/225/nature/2'), '#'
+      = link_to image_tag('http://lorempixel.com/360/225/abstract/2'), '#'
     %li.thumb
-      = link_to image_tag('http://lorempixel.com/360/225/nature/3'), '#'
+      = link_to image_tag('http://lorempixel.com/360/225/abstract/3'), '#'
     %li.thumb
-      = link_to image_tag('http://lorempixel.com/360/225/nature/4'), '#'
+      = link_to image_tag('http://lorempixel.com/360/225/abstract/4'), '#'
     %li.thumb
-      = link_to image_tag('http://lorempixel.com/360/225/nature/5'), '#'
+      = link_to image_tag('http://lorempixel.com/360/225/abstract/5'), '#'
     %li.thumb
-      = link_to image_tag('http://lorempixel.com/360/225/nature/6'), '#'
+      = link_to image_tag('http://lorempixel.com/360/225/abstract/6'), '#'
     %li.thumb
-      = link_to image_tag('http://lorempixel.com/360/225/nature/1'), '#'
+      = link_to image_tag('http://lorempixel.com/360/225/abstract/1'), '#'
 
   %nav.pagination
     %ul
