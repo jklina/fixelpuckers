@@ -32,6 +32,7 @@ body {
   color: #fff;
   font-family: $helvetica;
   -webkit-font-smoothing: antialiased;
+  line-height: 1.5;
 }
 
 h1 {
@@ -49,14 +50,45 @@ h2 {
   margin-bottom: 1em;
 }
 
+p {
+  font-size: .875em;
+}
+
+a {
+  color: #f1eee5;
+  text-decoration: none;
+  @include transition;
+
+  &:hover {
+    color: white;
+    text-decoration: underline;
+  }
+
+  img {
+    @include box-shadow(2px 1px black);
+  }
+
+  img:hover {
+    @include transform(scale(1.02));
+  }
+}
+
 .wrapper {
   @include outer-container;
+}
+
+section {
+  padding: $gutter 0;
 }
 
 header {
   background-color: black;
   padding: 1em 0;
-  margin-bottom: $gutter * 2;
+  margin-bottom: $gutter;
+
+  .account {
+    float: right;
+  }
 }
 
 ol.thumbs {
@@ -64,20 +96,67 @@ ol.thumbs {
   @include clearfix;
 
   li.thumb {
-    @include span-columns(3); 
-    @include omega(4n);
+    @include span-columns(4); 
+    @include omega(3n);
     float: left;
     margin-bottom: $gutter;
-    @include box-shadow(2px 1px black);
-
-    &:hover {
-      @include transform(scale(1.05));
-    }
 
     img {
       max-width: 100%;
-      z-index: -1;
-      position: relative;
+    }
+  }
+}
+
+/*********************************************************/
+
+nav.pagination ul {
+  text-align: right;
+
+ li {
+   display: inline;
+   margin: 0 4px 0 0;
+ }
+}
+
+nav.pagination ul li a {
+  padding: 3px 8px;
+  font-size: 14px;
+  font-weight: bold;
+
+  &.current {
+    background-color: black;
+  }
+
+  &.inactive {
+    color: #999;
+  }
+}
+
+li.forum-post {
+  @include span-columns(4);
+  @include omega(3n);
+  float: left;
+  margin-bottom: $gutter;
+
+  .avatar {
+    @include span-columns(1 of 4);
+    float: left;
+
+    img {
+      max-width: 100%;
+    }
+  }
+
+  hgroup {
+    float: left;
+    @include span-columns(3 of 4);
+
+    h3 {
+      font-weight: 600;
+    }
+
+    p {
+      color: #999;
     }
   }
 }

@@ -5,40 +5,99 @@
     %td= link_to 'Edit', edit_submission_path(submission)
     %td= link_to 'Destroy', submission, method: :delete, data: { confirm: 'Are you sure?' }
 
-%h2 Recent Submissions
+%section.submissions
+  %h2 Recent Submissions
+  %ol.thumbs
+    %li.thumb
+      = link_to image_tag('http://lorempixel.com/360/225/nature/1'), '#'
+    %li.thumb
+      = link_to image_tag('http://lorempixel.com/360/225/nature/2'), '#'
+    %li.thumb
+      = link_to image_tag('http://lorempixel.com/360/225/nature/3'), '#'
+    %li.thumb
+      = link_to image_tag('http://lorempixel.com/360/225/nature/4'), '#'
+    %li.thumb
+      = link_to image_tag('http://lorempixel.com/360/225/nature/5'), '#'
+    %li.thumb
+      = link_to image_tag('http://lorempixel.com/360/225/nature/6'), '#'
+    %li.thumb
+      = link_to image_tag('http://lorempixel.com/360/225/nature/7'), '#'
+    %li.thumb
+      = link_to image_tag('http://lorempixel.com/360/225/nature/8'), '#'
+    %li.thumb
+      = link_to image_tag('http://lorempixel.com/360/225/nature/1'), '#'
+    %li.thumb
+      = link_to image_tag('http://lorempixel.com/360/225/nature/2'), '#'
+    %li.thumb
+      = link_to image_tag('http://lorempixel.com/360/225/nature/3'), '#'
+    %li.thumb
+      = link_to image_tag('http://lorempixel.com/360/225/nature/4'), '#'
+    %li.thumb
+      = link_to image_tag('http://lorempixel.com/360/225/nature/5'), '#'
+    %li.thumb
+      = link_to image_tag('http://lorempixel.com/360/225/nature/6'), '#'
+    %li.thumb
+      = link_to image_tag('http://lorempixel.com/360/225/nature/1'), '#'
 
-%ol.thumbs
-  %li.thumb
-    = link_to image_tag('http://lorempixel.com/360/225/nature/1'), '#'
-  %li.thumb
-    = link_to image_tag('http://lorempixel.com/360/225/nature/2'), '#'
-  %li.thumb
-    = link_to image_tag('http://lorempixel.com/360/225/nature/3'), '#'
-  %li.thumb
-    = link_to image_tag('http://lorempixel.com/360/225/nature/4'), '#'
-  %li.thumb
-    = link_to image_tag('http://lorempixel.com/360/225/nature/5'), '#'
-  %li.thumb
-    = link_to image_tag('http://lorempixel.com/360/225/nature/6'), '#'
-  %li.thumb
-    = link_to image_tag('http://lorempixel.com/360/225/nature/7'), '#'
-  %li.thumb
-    = link_to image_tag('http://lorempixel.com/360/225/nature/8'), '#'
-  %li.thumb
-    = link_to image_tag('http://lorempixel.com/360/225/nature/1'), '#'
-  %li.thumb
-    = link_to image_tag('http://lorempixel.com/360/225/nature/2'), '#'
-  %li.thumb
-    = link_to image_tag('http://lorempixel.com/360/225/nature/3'), '#'
-  %li.thumb
-    = link_to image_tag('http://lorempixel.com/360/225/nature/4'), '#'
-  %li.thumb
-    = link_to image_tag('http://lorempixel.com/360/225/nature/5'), '#'
-  %li.thumb
-    = link_to image_tag('http://lorempixel.com/360/225/nature/6'), '#'
-  %li.thumb
-    = link_to image_tag('http://lorempixel.com/360/225/nature/1'), '#'
-  %li.thumb
-    = link_to image_tag('http://lorempixel.com/360/225/nature/2'), '#'
+  %nav.pagination
+    %ul
+      %li.page-prev
+        = link_to "←  Previous", "#", :class => "inactive"
+      %li
+        = link_to "1", "#", :class => "current"
+      %li
+        = link_to "2", "#"
+      %li
+        = link_to "3", "#"
+      %li
+        = link_to "4", "#"
+      %li.page-next
+        = link_to "Next →", "#"
+
+%section.forums
+  %h2 In the Forums
+  %ol.forum-posts
+    %li.forum-post
+      .avatar
+        = link_to image_tag('http://lorempixel.com/100/100/nature/1'), '#'
+      %hgroup
+        %h3 
+          = link_to "Building myself a website", "#"
+        %p Loving the colors, icons, and logo. A few thoughts: ...
+    %li.forum-post
+      .avatar
+        = link_to image_tag('http://lorempixel.com/100/100/nature/2'), '#'
+      %hgroup
+        %h3 
+          = link_to "Skype Chat Style", "#"
+        %p Loving the colors, icons, and logo. A few thoughts: ...
+    %li.forum-post
+      .avatar
+        = link_to image_tag('http://lorempixel.com/100/100/nature/3'), '#'
+      %hgroup
+        %h3 
+          = link_to "Inspiration", "#"
+        %p Loving the colors, icons, and logo. A few thoughts: ...
+    %li.forum-post
+      .avatar
+        = link_to image_tag('http://lorempixel.com/100/100/nature/4'), '#'
+      %hgroup
+        %h3 
+          = link_to "How do you rate?", "#"
+        %p Loving the colors, icons, and logo. A few thoughts: ...
+    %li.forum-post
+      .avatar
+        = link_to image_tag('http://lorempixel.com/100/100/nature/5'), '#'
+      %hgroup
+        %h3 
+          = link_to "Building myself a website", "#"
+        %p Loving the colors, icons, and logo. A few thoughts: ...
+    %li.forum-post
+      .avatar
+        = link_to image_tag('http://lorempixel.com/100/100/nature/6'), '#'
+      %hgroup
+        %h3 
+          = link_to "Skype Chat Style", "#"
+        %p Loving the colors, icons, and logo. A few thoughts: ...
 
 = link_to 'New Submission', new_submission_path
