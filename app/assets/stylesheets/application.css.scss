@@ -3,36 +3,12 @@
 @import 'bourbon';
 @import 'neat';
 
-.brand {
-  float: left;
-  padding-right: 8px;
-}
+@import 'variables';
+@import 'typography';
+@import 'flashes';
 
-ul.nav {
-  list-style: none;
-  padding: 0;
-}
+@import 'header';
 
-ul.nav li {
-  display: inline;
-}
-
-#flash_notice, #flash_alert {
-  padding: 5px 8px;
-  margin: 10px 0;
-}
-
-#flash_notice {
-  background-color: #CFC;
-  border: solid 1px #6C6;
-}
-
-#flash_alert {
-  background-color: #FCC;
-  border: solid 1px #C66;
-}
-
-/********************************************************************/
 body {
   background-color: #111;
   color: #fff;
@@ -41,41 +17,11 @@ body {
   line-height: 1.5;
 }
 
-h1 {
-  text-transform: uppercase;
-  font-weight: 200;
-  font-size: 2em;
-  letter-spacing: .125em;
-  font-family: 'Open Sans Condensed', $helvetica;
-}
-
-h2 {
-  font-family: georgia;
-  font-size: 1.25em;
-  font-style: italic;
-  font-weight: 100;
-  margin-bottom: 1em;
-}
-
-p {
-  font-size: .875em;
-}
-
-a {
-  color: #f1eee5;
-  text-decoration: none;
-  @include transition;
+a img {
+  opacity: .95;
+  @include box-shadow(2px 2px 2px black);
 
   &:hover {
-    color: white;
-    text-decoration: underline;
-  }
-
-  img {
-    opacity: .95;
-  }
-
-  img:hover {
     opacity: 1;
   }
 }
@@ -86,35 +32,6 @@ a {
 
 section {
   padding: $gutter 0;
-}
-
-header {
-  background-color: black;
-  padding: 1em 0;
-  margin-bottom: $gutter;
-
-  .account {
-    float: right;
-    margin-top: .75em;
-
-    .login {
-      margin-right: 1em;
-    }
-  }
-}
-
-.banner {
-  position: absolute;
-  height: 101px;
-  width: 101px;
-  background-image: url('https://dl.dropbox.com/u/7641/featured.png');
-  background-color: red;
-  display: block;
-  content: " ";
-  float: left;
-  z-index: 1;
-  left: 0;
-  top: 0;
 }
 
 .featured {
@@ -144,27 +61,78 @@ header {
 ol.thumbs {
   list-style: none;
   @include clearfix;
+  @include row;
 
   li.thumb {
-    @include span-columns(4); 
-    @include omega(3n);
     float: left;
     margin-bottom: $gutter;
+    margin-right: $gutter;
+    @include transition;
+    @include span-columns(4);
+    @include omega(3n);
+    position: relative;
+
+    &:hover span {
+      opacity: 1;
+    }
+
+    .img-wrap {
+      width: 320px;
+      height: 200px;
+    }
 
     img {
       max-width: 100%;
+      max-height: 215px;
+      @include transition;
+      display: block;
+      margin: 0 auto;
+    }
+
+    span {
+      font-size: .875em;
+      color: rgba(255,255,255,.6);
+      font-style: italic;
+      font-family: $georgia;
+      margin: 0 auto;
+      display: block;
+      margin-top: 5px;
+      position: absolute;
+      bottom: 0;
+      background-color: rgba(0,0,0,.6);
+      width: 100%;
+      padding: 6px 14px;
+      opacity: 0;
+      @include transition;
+
+      &.comments {
+        float: right;
+
+        img {
+          margin-left: .375em;}
+        }
+
+      a {
+        font-style: normal;
+        font-family: $helvetica;
+        color: rgba(255,255,255,.8);
+      }
+
+
+
+      img {
+        opacity: .5;
+      }
     }
   }
 }
-
-/*********************************************************/
 
 nav.pagination ul {
   text-align: right;
 
  li {
    display: inline;
-   margin: 0 4px 0 0;
+   margin: 0 .25em 0 0;
  }
 }
 
@@ -178,8 +146,12 @@ nav.pagination ul li a {
   }
 
   &.inactive {
-    color: #999;
+    color: rgba(255,255,255,.65);
   }
+}
+
+ol.forum-posts {
+  @include row;
 }
 
 li.forum-post {
@@ -206,7 +178,8 @@ li.forum-post {
     }
 
     p {
-      color: #999;
+      color: rgba(255,255,255,0.65);
     }
   }
 }
+

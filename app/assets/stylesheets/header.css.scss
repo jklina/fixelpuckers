@@ -1,0 +1,28 @@
+a.brand {
+  float: left;
+  padding-right: 8px;
+}
+
+ul.nav {
+  list-style: none;
+  padding: 0;
+}
+
+ul.nav li {
+  display: inline;
+}
+
+header {
+  background-color: black;
+  padding: 1em 0;
+  margin-bottom: $gutter;
+
+  .account {
+    float: right;
+    margin-top: .75em;
+
+    .login {
+      margin-right: 1em;
+    }
+  }
+}
