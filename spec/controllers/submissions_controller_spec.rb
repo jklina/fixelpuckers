@@ -28,7 +28,7 @@ describe SubmissionsController do
     before(:each) do
       Submission.stub(:find).and_return(submission)
       submission.stub_chain(:reviews, :build).and_return(review)
-      submission.stub(:review_from).and_return(review)
+      submission.stub(:find_or_build_review_from).and_return(review)
     end
 
     it "assigns the requested submission as @submission" do
@@ -40,7 +40,7 @@ describe SubmissionsController do
     it "finds or creates a review and assigns it to @review" do
       user = double(id: 5)
       controller.stub(:current_user).and_return(user)
-      submission.should_receive(:review_from).with(user)
+      submission.should_receive(:find_or_build_review_from).with(user)
       get :show, {:id => submission.to_param}, valid_session
       assigns(:review).should eq(review)
     end
