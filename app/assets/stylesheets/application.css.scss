@@ -28,6 +28,10 @@ a img {
 
 .wrapper {
   @include outer-container;
+
+  @include breakpoint(max-width $max-width) {
+    padding: 0 1.5em;
+  }
 }
 
 section {
