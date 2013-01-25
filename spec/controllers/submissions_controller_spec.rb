@@ -38,11 +38,21 @@ describe SubmissionsController do
       assigns(:submission).should eq(submission)
     end
 
-    it "finds or creates a review and assigns it to @review" do
-      controller.stub(:current_user).and_return(user)
-      submission.should_receive(:find_or_build_review_from).with(user)
-      get :show, {:id => submission.to_param}, valid_session
-      assigns(:review).should eq(review)
+    context "if current_user is present" do
+      it "finds or creates a review and assigns it to @review" do
+        controller.stub(:current_user).and_return(user)
+        submission.should_receive(:find_or_build_review_from).with(user)
+        get :show, {:id => submission.to_param}, valid_session
+        assigns(:review).should eq(review)
+      end
+    end
+
+    context "if current_user is not present" do
+      it "does not find or creates a review and assign it to @review" do
+        controller.stub(:current_user).and_return(nil)
+        submission.should_not_receive(:find_or_build_review_from)
+        get :show, {:id => submission.to_param}, valid_session
+      end
     end
   end
 
