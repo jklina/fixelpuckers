@@ -4,6 +4,7 @@ describe SubmissionsController do
 
   let(:submission) { stub_model(Submission, id: '37') }
   let(:review) { stub_model(Review) }
+  let(:user) { stub_model(User, id: 3, confirmed?: true) }
   # This should return the minimal set of values that should be in the session
   # in order to pass any filters (e.g. authentication) defined in
   # SubmissionsController. Be sure to keep this updated too.
@@ -38,7 +39,6 @@ describe SubmissionsController do
     end
 
     it "finds or creates a review and assigns it to @review" do
-      user = double(id: 5, confirmed?: true)
       controller.stub(:current_user).and_return(user)
       submission.should_receive(:find_or_build_review_from).with(user)
       get :show, {:id => submission.to_param}, valid_session
@@ -86,7 +86,6 @@ describe SubmissionsController do
       end
 
       it 'assigns the submission user to the current user' do
-        user = double('user')
         controller.stub(:current_user).and_return(user)
         submission.should_receive(:user=).with(user)
         post :create, {submission: submission.to_param}, valid_session
@@ -104,7 +103,6 @@ describe SubmissionsController do
         # Trigger the behavior that occurs when invalid params are submitted
         submission.stub(:save).and_return(false)
         # Needed to pass CanCan check
-        user = stub_model(User, id: 3, confirmed?: true)
         controller.stub(:current_user).and_return(user)
 
         post :create, {:submission => {  }}, valid_session
