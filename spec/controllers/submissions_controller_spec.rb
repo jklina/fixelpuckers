@@ -38,7 +38,7 @@ describe SubmissionsController do
     end
 
     it "finds or creates a review and assigns it to @review" do
-      user = double(id: 5)
+      user = double(id: 5, confirmed?: true)
       controller.stub(:current_user).and_return(user)
       submission.should_receive(:find_or_build_review_from).with(user)
       get :show, {:id => submission.to_param}, valid_session
@@ -103,6 +103,10 @@ describe SubmissionsController do
       before(:each) do
         # Trigger the behavior that occurs when invalid params are submitted
         submission.stub(:save).and_return(false)
+        # Needed to pass CanCan check
+        user = stub_model(User, id: 3, confirmed?: true)
+        controller.stub(:current_user).and_return(user)
+
         post :create, {:submission => {  }}, valid_session
       end
       it "assigns a newly created but unsaved submission as @submission" do
