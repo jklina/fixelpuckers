@@ -3,10 +3,13 @@
 %h1= @submission.title
 %p= @submission.description
 
-= simple_form_for [@submission, @review] do |f|
-  = f.input :rating
-  = f.input :comment
-  = f.button :submit
+- if current_user.present?
+  = simple_form_for [@submission, @review] do |f|
+    = f.input :rating
+    = f.input :comment
+    = f.button :submit
+- else
+  %p Please sign up to leave a review.
 
 - @submission.reviews.each do |review|
   %p= "#{review.rating}"

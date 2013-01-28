@@ -1,24 +1,4 @@
 class ReviewsController < ApplicationController
-  # GET /reviews/new
-  # GET /reviews/new.json
-  # def new
-  #   @submission.find(params[submission_id])
-  #   @review = @submission.reviews.build
-
-  #   respond_to do |format|
-  #     format.html # new.html.erb
-  #     format.json { render json: @review }
-  #   end
-  # end
-
-  # GET /reviews/1/edit
-  # def edit
-  #   @submission.find(params[submission_id])
-  #   @review = @submission.reviews.find(params[:id])
-  # end
-
-  # POST /reviews
-  # POST /reviews.json
   def create
     @submission = Submission.find(params[:submission_id])
     @review = @submission.reviews.build(params[:review])
@@ -29,6 +9,7 @@ class ReviewsController < ApplicationController
         format.html { redirect_to @submission, notice: 'Review was successfully created.' }
         format.json { render json: @submission, status: :created, location: @submission }
       else
+        flash[:error] = 'Review not saved.'
         format.html { render template: 'submissions/show' }
         format.json { render json: @review.errors, status: :unprocessable_entity }
       end
