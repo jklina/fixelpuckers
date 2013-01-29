@@ -10,11 +10,11 @@
         = yield(:head)
   %body{:class => "#{controller_name} #{action_name}"}
     %header
-      %div.wrapper
+      .wrapper
         = render 'layouts/navigation'
-        = render 'layouts/messages'
+    .wrapper
+      = render 'layouts/messages'
     #main{:role => "main"}
-      %div.wrapper
-        = yield
+      = yield
     %footer
     / ! end of #container

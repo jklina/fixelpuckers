@@ -1,0 +1,22 @@
+nav.pagination ul {
+  font-size: .875em;
+  text-align: right;
+
+ li {
+   display: inline;
+
+   a, span {
+     border-top: 1px solid $border-color;
+     padding: 12px;
+     margin: 1.5em -2px;
+   }
+
+   .inactive {
+    color: $icon-color;
+  }
+ }
+}
+
+nav.pagination ul li span.current {
+  border-top: 1px solid $text-color;
+}

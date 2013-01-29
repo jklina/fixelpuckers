@@ -1,18 +1,50 @@
 %h1
   = link_to "Pixelfuckers", root_path, :class => 'brand'
-%ul.nav.account
-  - if user_signed_in?
+%nav
+  %ul.main-nav
     %li
-      = link_to 'Logout', destroy_user_session_path, :method=>'delete'
-  - else
+      = link_to 'Browse', '#'
     %li
-      = link_to 'Login', new_user_session_path, :class=> 'login'
-  - if user_signed_in?
+      = link_to 'Forums', '#'
     %li
-      = link_to 'Edit account', edit_user_registration_path
-    - if current_user.has_role? :admin
+      = link_to 'News', '#'
+    %li
+      = link_to 'Chat', '#'
+%nav.account
+  %ul.dropdown-list
+    - if user_signed_in?
+      %li.dropdown
+        .avatar.img-wrap
+          = link_to '#' do
+            = image_tag('http://lorempixel.com/100/100/nature/1')
+            .img-shadow
+        %ul
+          %li
+            = link_to edit_user_registration_path do
+              <i class="ss-icon">user</i>
+              Profile
+          %li
+            = link_to '#' do
+              <i class="ss-icon">inbox</i>
+              Activity
+          - if current_user.has_role? :admin
+            %li
+              = link_to users_path do
+                <i class="ss-icon">star</i>
+                Admin
+          %li
+            = link_to '#' do
+              <i class="ss-icon">settings</i>
+              Settings
+          %li
+            = link_to destroy_user_session_path, :method=>'delete' do
+              <i class="ss-icon">logout</i>
+              Sign Out
+    - else
       %li
-        = link_to 'Admin', users_path
-  - else
+        = link_to 'Login', new_user_session_path, :class=> 'login'
+      %li
+        = link_to 'Register', new_user_registration_path, :class => 'register'
+  %ul.search
     %li
-      = link_to 'Register', new_user_registration_path, :class => 'register'
+      %i.ss-icon search

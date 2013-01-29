@@ -1,60 +1,26 @@
 @import url(http://fonts.googleapis.com/css?family=Open+Sans+Condensed:300);
+@import url(http://fonts.googleapis.com/css?family=PT+Sans);
+
 @import 'reset';
 @import 'bourbon';
 @import 'neat';
+@import 'ss-standard';
 
+@import 'mixins';
 @import 'variables';
+@import 'base';
 @import 'typography';
-@import 'flashes';
 
+@import 'flashes';
+@import 'pagination';
 @import 'header';
 
-body {
-  background-color: #111;
-  color: #fff;
-  font-family: $helvetica;
-  -webkit-font-smoothing: antialiased;
-  line-height: 1.5;
-}
-
-a img {
-  opacity: .95;
-  @include box-shadow(2px 2px 2px black);
-
-  &:hover {
-    opacity: 1;
-  }
-}
-
-.wrapper {
-  @include outer-container;
-
-  @include breakpoint(max-width $max-width) {
-    padding: 0 1.5em;
-  }
-}
-
-section {
-  padding: $gutter 0;
-}
-
 .featured {
-  position: relative;
-  @include clearfix;
-  padding-top: 0;
-  margin-top: $gutter;
+  background-image: image-url("feature-bg.png");
+  padding: $gutter 0;
 
-  &:before {
-    position: absolute;
-    height: 101px;
-    width: 101px;
-    background-image: url('https://dl.dropbox.com/u/7641/featured.png');
-    display: block;
-    content: " ";
-    float: left;
-    z-index: 1;
-    left: -3px;
-    top: -3px;
+  .thumb {
+    margin: $gutter 0;
   }
 
   img {
@@ -64,126 +30,98 @@ section {
 
 ol.thumbs {
   list-style: none;
-  @include clearfix;
-  @include row;
 
   li.thumb {
+    @include omega(3n);
+    @include span-columns(4);
     float: left;
     margin-bottom: $gutter;
-    margin-right: $gutter;
+
+    p.title {
+      margin-top: .5em;
+    }
+
+    p.author {
+      font-size: .75em;
+    }
+  }
+}
+
+.img-wrap {
+  @include box-shadow(0 0 0 1px rgba(0,0,0,.04), 0 1px 5px rgba(0,0,0,0.1));
+  @include linear-gradient(#fdfdfd, #fff);
+  @include transition;
+  background-color: #fff;
+  border: 1px solid rgba(255,255,255,0.15);
+  position: relative;
+
+  img {
     @include transition;
-    @include span-columns(4);
-    @include omega(3n);
+    max-width: 100%;
+    display: block;
+    margin: 0 auto;
+    padding: 5px;
     position: relative;
+  }
 
-    &:hover span {
-      opacity: 1;
-    }
-
-    .img-wrap {
-      width: 320px;
-      height: 200px;
-    }
-
-    img {
-      max-width: 100%;
-      max-height: 215px;
-      @include transition;
-      display: block;
-      margin: 0 auto;
-    }
-
-    span {
-      font-size: .875em;
-      color: rgba(255,255,255,.6);
-      font-style: italic;
-      font-family: $georgia;
-      margin: 0 auto;
-      display: block;
-      margin-top: 5px;
-      position: absolute;
-      bottom: 0;
-      background-color: rgba(0,0,0,.6);
-      width: 100%;
-      padding: 6px 14px;
-      opacity: 0;
-      @include transition;
-
-      &.comments {
-        float: right;
-
-        img {
-          margin-left: .375em;}
-        }
-
-      a {
-        font-style: normal;
-        font-family: $helvetica;
-        color: rgba(255,255,255,.8);
-      }
-
-
-
-      img {
-        opacity: .5;
-      }
-    }
+  .img-shadow {
+    @include transition;
+    background-color: rgba(0,0,0,0.1);
+    border: 1px solid rgba(0,0,0,0.15);
+    bottom: 5px;
+    left: 5px;
+    position: absolute;
+    right: 5px;
+    top: 5px;
+    z-index: 1;
   }
 }
 
-nav.pagination ul {
-  text-align: right;
-
- li {
-   display: inline;
-   margin: 0 .25em 0 0;
- }
-}
-
-nav.pagination ul li a {
-  padding: 3px 8px;
-  font-size: 14px;
-  font-weight: bold;
-
-  &.current {
-    background-color: black;
-  }
-
-  &.inactive {
-    color: rgba(255,255,255,.65);
-  }
+.img-wrap:hover .img-shadow {
+    background-color: rgba(0,0,0,0);
 }
 
 ol.forum-posts {
   @include row;
-}
 
-li.forum-post {
-  @include span-columns(4);
-  @include omega(3n);
-  float: left;
-  margin-bottom: $gutter;
-
-  .avatar {
-    @include span-columns(1 of 4);
+  li.forum-post {
+    @include omega(3n);
+    @include span-columns(4);
     float: left;
+    margin-bottom: $gutter;
 
-    img {
-      max-width: 100%;
-    }
-  }
-
-  hgroup {
-    float: left;
-    @include span-columns(3 of 4);
-
-    h3 {
-      font-weight: 600;
+    .avatar {
+      @include span-columns(1 of 6);
+      float: left;
     }
 
-    p {
-      color: rgba(255,255,255,0.65);
+    hgroup {
+      @include span-columns(5 of 6);
+      float: left;
     }
   }
 }
 
+.avatar.img-wrap {
+  border: none;
+  box-shadow: none;
+
+  img {
+    border-radius: 3px;
+    padding: 0;
+  }
+
+  .img-shadow {
+    @include box-shadow(inset 0 1px rgba(0,0,0,.2));
+    border: 1px solid rgba(0,0,0,0.25);
+    border-radius: 3px;
+    bottom: 0px;
+    left: 0px;
+    right: 0px;
+    top: 0px;
+
+    &:hover {
+      @include box-shadow(inset 0 1px rgba(255,255,255,0.15));
+    }
+  }
+}

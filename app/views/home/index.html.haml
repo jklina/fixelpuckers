@@ -6,120 +6,171 @@
     %td= link_to 'Destroy', submission, method: :delete, data: { confirm: 'Are you sure?' }
 
 %section.featured
-  
-  = link_to image_tag('http://lorempixel.com/1200/300/abstract/3'), '#', :class => 'feature'
+  .wrapper
+    .thumb
+      .img-wrap
+        = link_to '#' do
+          = image_tag('http://lorempixel.com/1200/400/abstract/3')
+          .img-shadow
 
 %section.submissions
-  %h2 Recent Submissions
-  %ol.thumbs
-    %li.thumb
-      = link_to image_tag('http://lorempixel.com/360/225/nature/1'), '#'
-      %span
-        <a href="#">Ants go marching</a> by <a href="#">akka</a>
-    %li.thumb
-      = link_to image_tag('http://lorempixel.com/360/225/nature/2'), '#'
-      %span
-        <a href="#">Ants go marching</a> by <a href="#">akka</a>
-    %li.thumb
-      = link_to image_tag('http://lorempixel.com/360/225/nature/3'), '#'
-      %span
-        <a href="#">Ants go marching</a> by <a href="#">akka</a>
-    %li.thumb
-      = link_to image_tag('http://lorempixel.com/360/225/nature/4'), '#'
-      %span
-        <a href="#">Ants go marching</a> by <a href="#">akka</a>
-    %li.thumb
-      = link_to image_tag('http://lorempixel.com/360/225/nature/5'), '#'
-      %span
-        <a href="#">Ants go marching</a> by <a href="#">akka</a>
-    %li.thumb
-      = link_to image_tag('http://lorempixel.com/360/225/nature/6'), '#'
-      %span
-        <a href="#">Ants go marching</a> by <a href="#">akka</a>
-    %li.thumb
-      = link_to image_tag('http://lorempixel.com/360/225/nature/7'), '#'
-      %span
-        <a href="#">Ants go marching</a> by <a href="#">akka</a>
-    %li.thumb
-      = link_to image_tag('http://lorempixel.com/360/225/nature/8'), '#'
-      %span
-        <a href="#">Ants go marching</a> by <a href="#">akka</a>
-    %li.thumb
-      = link_to image_tag('http://lorempixel.com/360/225/abstract/1'), '#'
-      %span
-        <a href="#">Ants go marching</a> by <a href="#">akka</a>
-    %li.thumb
-      = link_to image_tag('http://lorempixel.com/360/225/abstract/2'), '#'
-      %span
-        <a href="#">Ants go marching</a> by <a href="#">akka</a>
-    %li.thumb
-      = link_to image_tag('http://lorempixel.com/360/225/abstract/3'), '#'
-      %span
-        <a href="#">Ants go marching</a> by <a href="#">akka</a>
-    %li.thumb
-      = link_to image_tag('http://lorempixel.com/360/225/abstract/4'), '#'
-      %span
-        <a href="#">Ants go marching</a> by <a href="#">akka</a>
+  .wrapper
+    %h2 Recent Submissions
+    %ol.thumbs
+      %li.thumb
+        .img-wrap
+          = link_to '#' do
+            = image_tag('http://lorempixel.com/360/225/nature/1')
+            .img-shadow
+        %p.title
+          <a href="#">Ants go marching</a> 
+        %p.author
+          by <a href="#">akka</a>
+      %li.thumb
+        .img-wrap
+          = link_to '#' do
+            = image_tag('http://lorempixel.com/360/225/nature/2')
+            .img-shadow
+        %p.title
+          <a href="#">Ants go marching</a> 
+        %p.author
+          by <a href="#">akka</a>
+      %li.thumb
+        .img-wrap
+          = link_to '#' do
+            = image_tag('http://lorempixel.com/360/225/nature/3')
+            .img-shadow
+        %p.title
+          <a href="#">Ants go marching</a> 
+        %p.author
+          by <a href="#">akka</a>
+      %li.thumb
+        .img-wrap
+          = link_to '#' do
+            = image_tag('http://lorempixel.com/360/225/nature/4')
+            .img-shadow
+        %p.title
+          <a href="#">Ants go marching</a> 
+        %p.author
+          by <a href="#">akka</a>
+      %li.thumb
+        .img-wrap
+          = link_to '#' do
+            = image_tag('http://lorempixel.com/360/225/nature/5')
+            .img-shadow
+        %p.title
+          <a href="#">Ants go marching</a> 
+        %p.author
+          by <a href="#">akka</a>
+      %li.thumb
+        .img-wrap
+          = link_to '#' do
+            = image_tag('http://lorempixel.com/360/225/nature/6')
+            .img-shadow
+        %p.title
+          <a href="#">Ants go marching</a> 
+        %p.author
+          by <a href="#">akka</a>
+      %li.thumb
+        .img-wrap
+          = link_to '#' do
+            = image_tag('http://lorempixel.com/360/225/nature/7')
+            .img-shadow
+        %p.title
+          <a href="#">Ants go marching</a> 
+        %p.author
+          by <a href="#">akka</a>
+      %li.thumb
+        .img-wrap
+          = link_to '#' do
+            = image_tag('http://lorempixel.com/360/225/nature/8')
+            .img-shadow
+        %p.title
+          <a href="#">Ants go marching</a> 
+        %p.author
+          by <a href="#">akka</a>
+      %li.thumb
+        .img-wrap
+          = link_to '#' do
+            = image_tag('http://lorempixel.com/360/225/abstract/9')
+            .img-shadow
+        %p.title
+          <a href="#">Ants go marching</a> 
+        %p.author
+          by <a href="#">akka</a>
 
-  %nav.pagination
-    %ul
-      %li.page-prev
-        = link_to "←  Previous", "#", :class => "inactive"
-      %li
-        = link_to "1", "#", :class => "current"
-      %li
-        = link_to "2", "#"
-      %li
-        = link_to "3", "#"
-      %li
-        = link_to "4", "#"
-      %li.page-next
-        = link_to "Next →", "#"
+    %nav.pagination
+      %ul
+        %li.page-prev
+          %span.inactive &larr;
+        %li
+          %span.current 1
+        %li
+          = link_to "2", "#"
+        %li
+          = link_to "3", "#"
+        %li
+          = link_to "4", "#"
+        %li.page-next
+          = link_to "&rarr;".html_safe, "#"
 
 %section.forums
-  %h2 In the Forums
-  %ol.forum-posts
-    %li.forum-post
-      .avatar
-        = link_to image_tag('http://lorempixel.com/100/100/nature/1'), '#'
-      %hgroup
-        %h3 
-          = link_to "Building myself a website", "#"
-        %p Loving the colors, icons, and logo. A few thoughts: ...
-    %li.forum-post
-      .avatar
-        = link_to image_tag('http://lorempixel.com/100/100/nature/2'), '#'
-      %hgroup
-        %h3 
-          = link_to "Skype Chat Style", "#"
-        %p Loving the colors, icons, and logo. A few thoughts: ...
-    %li.forum-post
-      .avatar
-        = link_to image_tag('http://lorempixel.com/100/100/nature/3'), '#'
-      %hgroup
-        %h3 
-          = link_to "Inspiration", "#"
-        %p Loving the colors, icons, and logo. A few thoughts: ...
-    %li.forum-post
-      .avatar
-        = link_to image_tag('http://lorempixel.com/100/100/nature/4'), '#'
-      %hgroup
-        %h3 
-          = link_to "How do you rate?", "#"
-        %p Loving the colors, icons, and logo. A few thoughts: ...
-    %li.forum-post
-      .avatar
-        = link_to image_tag('http://lorempixel.com/100/100/nature/5'), '#'
-      %hgroup
-        %h3 
-          = link_to "Building myself a website", "#"
-        %p Loving the colors, icons, and logo. A few thoughts: ...
-    %li.forum-post
-      .avatar
-        = link_to image_tag('http://lorempixel.com/100/100/nature/6'), '#'
-      %hgroup
-        %h3 
-          = link_to "Skype Chat Style", "#"
-        %p Loving the colors, icons, and logo. A few thoughts: ...
+  .wrapper
+    %h2 In the Forums
+    %ol.forum-posts
+      %li.thumb.forum-post
+        .avatar.img-wrap
+          = link_to '#' do
+            = image_tag('http://lorempixel.com/100/100/people/1')
+            .img-shadow
+        %hgroup
+          %h3 
+            = link_to "Building myself a website", "#"
+          %p Loving the colors, icons, and logo. A few thoughts: ...
+      %li.thumb.forum-post
+        .avatar.img-wrap
+          = link_to '#' do
+            = image_tag('http://lorempixel.com/100/100/people/4')
+            .img-shadow
+        %hgroup
+          %h3 
+            = link_to "Skype Chat Style", "#"
+          %p Loving the colors, icons, and logo. A few thoughts: ...
+      %li.thumb.forum-post
+        .avatar.img-wrap
+          = link_to '#' do
+            = image_tag('http://lorempixel.com/100/100/people/3')
+            .img-shadow
+        %hgroup
+          %h3 
+            = link_to "Inspiration", "#"
+          %p Loving the colors, icons, and logo. A few thoughts: ...
+      %li.thumb.forum-post
+        .avatar.img-wrap
+          = link_to '#' do
+            = image_tag('http://lorempixel.com/100/100/people/4')
+            .img-shadow
+        %hgroup
+          %h3 
+            = link_to "How do you rate?", "#"
+          %p Loving the colors, icons, and logo. A few thoughts: ...
+      %li.thumb.forum-post
+        .avatar.img-wrap
+          = link_to '#' do
+            = image_tag('http://lorempixel.com/100/100/people/5')
+            .img-shadow
+        %hgroup
+          %h3 
+            = link_to "Building myself a website", "#"
+          %p Loving the colors, icons, and logo. A few thoughts: ...
+      %li.thumb.forum-post
+        .avatar.img-wrap
+          = link_to '#' do
+            = image_tag('http://lorempixel.com/100/100/people/9')
+            .img-shadow
+        %hgroup
+          %h3 
+            = link_to "Skype Chat Style", "#"
+          %p Loving the colors, icons, and logo. A few thoughts: ...
 
 = link_to 'New Submission', new_submission_path
