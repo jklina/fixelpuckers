@@ -10,20 +10,6 @@ describe ReviewsController do
     {}
   end
 
-  # describe "GET new" do
-  #   it "assigns a new review as @review" do
-  #     get :new, {}, valid_session
-  #     assigns(:review).should be_a_new(Review)
-  #   end
-  # end
-
-  # describe "GET edit" do
-  #   it "assigns the requested review as @review" do
-  #     review = Review.create! valid_attributes
-  #     get :edit, {:id => review.to_param}, valid_session
-  #     assigns(:review).should eq(review)
-  #   end
-  # end
 
   describe "POST create" do
     before(:each) do

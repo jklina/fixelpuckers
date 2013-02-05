@@ -19,14 +19,15 @@ class ReviewsController < ApplicationController
   # PUT /reviews/1
   # PUT /reviews/1.json
   def update
-    @review = Review.find(params[:id])
+    @submission = Submission.find(params[:submission_id])
+    @review = @submission.reviews.find(params[:id])
 
     respond_to do |format|
       if @review.update_attributes(params[:review])
-        format.html { redirect_to @review, notice: 'Review was successfully updated.' }
+        format.html { redirect_to @submission, notice: 'Review was successfully updated.' }
         format.json { head :no_content }
       else
-        format.html { render action: "edit" }
+        format.html { render template: "submissions/show" }
         format.json { render json: @review.errors, status: :unprocessable_entity }
       end
     end

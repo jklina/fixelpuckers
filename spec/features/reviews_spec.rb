@@ -18,17 +18,20 @@ describe "Submitting a review" do
 
   context "when a reviewer is a registered user" do
     before (:each) do
-      @user = FactoryGirl.create(:user)
-      login @user
+      # @user = FactoryGirl.create(:user)
+      # login @user
+      @user = create_logged_in_user
       @submission = FactoryGirl.create(:submission)
-      visit submission_path(@submission)
     end
 
     it "should let a user place a review on a submission" do
+      visit submission_path(@submission)
       page.should have_selector('form#new_review')
     end
 
     context "and a review doesn't pass validation" do
+      before(:each) { visit submission_path(@submission) }
+
       it "should flash an error message" do
         click_button('Create Review')
         within(:css, "#flash_error") do
@@ -44,6 +47,7 @@ describe "Submitting a review" do
     context "and a review is created" do
       before(:each) do
         @paragraph = Faker::Lorem.paragraph
+        visit submission_path(@submission)
         fill_in('Rating', with: 5)
         fill_in('Comment', with: @paragraph)
         click_button('Create Review')
@@ -62,6 +66,31 @@ describe "Submitting a review" do
 
       it "should redirect the user to the submission's show page" do
         current_path.should == submission_path(@submission)
+      end
+    end
+
+    context "and an existing review is updated" do
+      before(:each) do
+        @review = FactoryGirl.create(:review, user: @user)
+        @submission.reviews << @review
+        # save_and_open_page
+        visit submission_path(@submission)
+      end
+
+      it "should have the review form filled out with the existing review" do
+        find_field('Rating').value.should eq(@review.rating.to_s)
+        find_field('Comment').value.should eq(@review.comment.to_s)
+      end
+
+      it "should change the existing review when the review is updated"  do
+        # find(:xpath, "//*[(@id = 'review_rating')]").set '44'
+        save_and_open_page
+        find(:xpath, "//*[(@id = 'review_comment')]").set "hello"
+        # fill_in('Comment', with: 'hello')
+        save_and_open_page
+        click_button('Update Review')
+        # @review.rating.should eq(44)
+        @review.comment.should eq('hello')
       end
     end
   end
