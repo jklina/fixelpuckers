@@ -8,45 +8,8 @@
 %h2 Recent Submissions
 
 %ol.thumbs
-  %li.thumb
-    = link_to image_tag('http://lorempixel.com/360/225/nature/1'), '#'
-  %li.thumb
-    = link_to image_tag('http://lorempixel.com/360/225/nature/2'), '#'
-  %li.thumb
-    = link_to image_tag('http://lorempixel.com/360/225/nature/3'), '#'
-  %li.thumb
-    = link_to image_tag('http://lorempixel.com/360/225/nature/4'), '#'
-  %li.thumb
-    = link_to image_tag('http://lorempixel.com/360/225/nature/5'), '#'
-  %li.thumb
-    = link_to image_tag('http://lorempixel.com/360/225/nature/6'), '#'
-  %li.thumb
-    = link_to image_tag('http://lorempixel.com/360/225/nature/7'), '#'
-  %li.thumb
-    = link_to image_tag('http://lorempixel.com/360/225/nature/8'), '#'
-  %li.thumb
-    = link_to image_tag('http://lorempixel.com/360/225/nature/1'), '#'
-  %li.thumb
-    = link_to image_tag('http://lorempixel.com/360/225/nature/2'), '#'
-  %li.thumb
-    = link_to image_tag('http://lorempixel.com/360/225/nature/3'), '#'
-  %li.thumb
-    = link_to image_tag('http://lorempixel.com/360/225/nature/4'), '#'
-  %li.thumb
-    = link_to image_tag('http://lorempixel.com/360/225/nature/5'), '#'
-  %li.thumb
-    = link_to image_tag('http://lorempixel.com/360/225/nature/6'), '#'
-  %li.thumb
-    = link_to image_tag('http://lorempixel.com/360/225/nature/1'), '#'
-  %li.thumb
-    = link_to image_tag('http://lorempixel.com/360/225/nature/2'), '#'
+  - 16.times.each do
+    %li.thumb
+      = link_to image_tag("http://lorempixel.com/360/225/nature/#{rand(8)}"), '#'
 
 = link_to 'New Submission', new_submission_path
-=======
-%h1 Welcome to PFv2
-%p There are no submissions yet!
-
-- @submissions.each do |submission|
-  .submission
-    %title= submission.title
-    -# %address.author= submission.user.username
