@@ -2,8 +2,8 @@
 
 FactoryGirl.define do
   factory :submission do
-    title "MyString"
-    description "MyText"
+    sequence(:title) {|n| "Title:#{n}" }
+    description "#{Faker::Lorem.paragraph}"
     user
   end
 end

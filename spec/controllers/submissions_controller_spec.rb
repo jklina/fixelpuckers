@@ -1,9 +1,10 @@
 require 'spec_helper'
 
-
 describe SubmissionsController do
 
-  let(:submission) { mock_model(Submission, save: true, :user= => true) }
+  let(:submission) { stub_model(Submission, id: '37') }
+  let(:review) { stub_model(Review) }
+  let(:user) { stub_model(User, id: 3, confirmed?: true) }
   # This should return the minimal set of values that should be in the session
   # in order to pass any filters (e.g. authentication) defined in
   # SubmissionsController. Be sure to keep this updated too.
@@ -12,8 +13,12 @@ describe SubmissionsController do
   end
 
   describe "GET index" do
-    it "assigns all submissions as @submissions" do
+    before(:each) do
+      submission.stub_chain(:reviews, :build).and_return(review)
       Submission.stub(:accessible_by).and_return([submission])
+    end
+
+    it "assigns all submissions as @submissions" do
       Submission.should_receive(:accessible_by)
       get :index, {}, valid_session
       assigns(:submissions).should eq([submission])
@@ -21,11 +26,33 @@ describe SubmissionsController do
   end
 
   describe "GET show" do
-    it "assigns the requested submission as @submission" do
+    before(:each) do
       Submission.stub(:find).and_return(submission)
+      submission.stub_chain(:reviews, :build).and_return(review)
+      submission.stub(:find_or_build_review_from).and_return(review)
+    end
+
+    it "assigns the requested submission as @submission" do
       Submission.should_receive(:find).with(submission.to_param)
       get :show, {:id => submission.to_param}, valid_session
       assigns(:submission).should eq(submission)
+    end
+
+    context "if current_user is present" do
+      it "finds or creates a review and assigns it to @review" do
+        controller.stub(:current_user).and_return(user)
+        submission.should_receive(:find_or_build_review_from).with(user)
+        get :show, {:id => submission.to_param}, valid_session
+        assigns(:review).should eq(review)
+      end
+    end
+
+    context "if current_user is not present" do
+      it "does not find or creates a review and assign it to @review" do
+        controller.stub(:current_user).and_return(nil)
+        submission.should_not_receive(:find_or_build_review_from)
+        get :show, {:id => submission.to_param}, valid_session
+      end
     end
   end
 
@@ -48,6 +75,8 @@ describe SubmissionsController do
   describe "POST create" do
     describe "with valid params" do
       before(:each) do
+        # Need to stub user= to since its called in controller
+        submission.stub(:user=).and_return(true)
         Submission.stub(:new).and_return(submission)
         # Need to stub ability so we can get past authorization
         @ability = Object.new
@@ -67,13 +96,13 @@ describe SubmissionsController do
       end
 
       it 'assigns the submission user to the current user' do
-        user = double('user')
         controller.stub(:current_user).and_return(user)
         submission.should_receive(:user=).with(user)
         post :create, {submission: submission.to_param}, valid_session
       end
 
       it "redirects to the created submission" do
+        submission.stub(:save).and_return(true)
         post :create, {submission: submission.to_param}, valid_session
         response.should redirect_to(submission)
       end
@@ -83,6 +112,9 @@ describe SubmissionsController do
       before(:each) do
         # Trigger the behavior that occurs when invalid params are submitted
         submission.stub(:save).and_return(false)
+        # Needed to pass CanCan check
+        controller.stub(:current_user).and_return(user)
+
         post :create, {:submission => {  }}, valid_session
       end
       it "assigns a newly created but unsaved submission as @submission" do
@@ -147,6 +179,7 @@ describe SubmissionsController do
     end
 
     it "redirects to the submissions list" do
+      submission.stub(:destroy).and_return(true)
       delete :destroy, {:id => submission.to_param}, valid_session
       response.should redirect_to(submissions_url)
     end

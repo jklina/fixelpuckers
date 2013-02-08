@@ -1,5 +1,4 @@
 source 'https://rubygems.org'
-
 ruby '1.9.3'
 
 gem 'rails', '3.2.11'
@@ -28,9 +27,11 @@ group :development do
   gem "quiet_assets", ">= 1.0.1"
   gem "rspec-rails", "~> 2.0"
   gem "factory_girl_rails", ">= 4.1.0"
+  gem "faker"
 end
 
 group :test do
+  gem "faker"
   gem "capybara", ">= 2.0.1"
   gem "database_cleaner", ">= 0.9.1"
   gem "email_spec", ">= 1.4.0"

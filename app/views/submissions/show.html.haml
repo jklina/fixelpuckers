@@ -3,6 +3,17 @@
 %h1= @submission.title
 %p= @submission.description
 
+- if current_user.present?
+  = simple_form_for [@submission, @review] do |f|
+    = f.input :rating
+    = f.input :comment
+    = f.button :submit
+- else
+  %p Please sign up to leave a review.
+
+- @submission.reviews.each do |review|
+  %p= "#{review.rating}"
+  %p= "#{review.comment}"
 
 = link_to 'Edit', edit_submission_path(@submission)
 \|
