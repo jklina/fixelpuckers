@@ -83,14 +83,18 @@ describe "Submitting a review" do
       end
 
       it "should change the existing review when the review is updated"  do
-        # find(:xpath, "//*[(@id = 'review_rating')]").set '44'
-        save_and_open_page
+        find(:xpath, "//*[(@id = 'review_rating')]").set '44'
         find(:xpath, "//*[(@id = 'review_comment')]").set "hello"
-        # fill_in('Comment', with: 'hello')
-        save_and_open_page
         click_button('Update Review')
-        # @review.rating.should eq(44)
-        @review.comment.should eq('hello')
+        @submission.reviews.last.comment.should eq('hello')
+        @submission.reviews.last.rating.should eq(44)
+      end
+
+      it "should display a message saying the review has been updated" do
+        click_button('Update Review')
+        within(:css, "#flash_notice") do
+          page.should have_content('Review was successfully updated.')
+        end
       end
     end
   end
