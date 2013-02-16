@@ -23,9 +23,18 @@
             = link_to '#' do
               = image_tag("http://lorempixel.com/360/225/nature/#{rand(8)}")
               .img-shadow
-          %p.title
-            <a href="#">Ants go marching</a> 
-          %p.author
-            by <a href="#">akka</a>
+          .identity
+            %p.title
+              <a href="#">Ants go marching</a> 
+            %p.author
+              by <a href="#">akka</a>
+          .stats
+            -# Might use jquery sparklines instead
+            :javascript
+              $("span.pie").peity("pie", {
+                colours: ["#e20000", "#d8d8d8"]
+                })
+            %span.pie{data: {diameter: 27}}= "#{rand(1..100)}/#{rand(100..200)}"
+            %span.average-rating= rand(10000)/100.00
 
 = link_to 'New Submission', new_submission_path

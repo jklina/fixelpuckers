@@ -37,12 +37,24 @@ ol.thumbs {
     float: left;
     margin-bottom: $gutter;
 
-    p.title {
-      margin-top: .5em;
+    div.identity {
+      @include span-columns(2 of 4);
+
+      p.title {
+        margin-top: .5em;
+      }
+
+      p.author {
+        font-size: .75em;
+      }
     }
 
-    p.author {
-      font-size: .75em;
+    div.stats {
+      @include span-columns(2 of 4);
+      text-align: right;
+      span.average-rating {
+        font: 400 2.25em 'Open Sans Condensed', $helvetica;
+      }
     }
   }
 }
