@@ -12,5 +12,5 @@
 //
 //= require jquery
 //= require jquery_ujs
-//= require jquery.peity.min.js
+//= require jquery.sparkline.js
 //= require_tree .

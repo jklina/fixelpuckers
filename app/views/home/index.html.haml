@@ -17,7 +17,7 @@
   .wrapper
     %h2 Recent Submissions
     %ol.thumbs
-      - 16.times.each do
+      - 15.times.each do
         %li.thumb
           .img-wrap
             = link_to '#' do
@@ -30,11 +30,18 @@
               by <a href="#">akka</a>
           .stats
             -# Might use jquery sparklines instead
-            :javascript
-              $("span.pie").peity("pie", {
-                colours: ["#e20000", "#d8d8d8"]
-                })
-            %span.pie{data: {diameter: 27}}= "#{rand(1..100)}/#{rand(100..200)}"
+            - values = 10.times.map { rand(1..100) }
+            %span.boxplot= "#{values.join(',')}"
             %span.average-rating= rand(10000)/100.00
 
 = link_to 'New Submission', new_submission_path
+:javascript
+  $("span.boxplot").sparkline('html', {
+      type: 'box', 
+      height: '2.0em',
+      lineColor: '#333333',
+      whiskerColor: '#333333',
+      boxLineColor: '#333333',
+      boxFillColor: '#F8F8F5',
+      medianColor: '#e20000'
+    });
