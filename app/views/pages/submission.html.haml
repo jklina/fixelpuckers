@@ -77,34 +77,3 @@
         document.getElementById("range").innerHTML=newValue;
     }
 
-    one : function(img){
-    var parentDim = $(img).parent().getHiddenDimensions();        
-    var heightWidthRatio = $(img).attr('startheight') / $(img).attr('startwidth');
-    var newWidth, newHeight;
-
-    //Width > height.
-    if(heightWidthRatio < 1) {            
-        newWidth = parentDim.outerWidth > $(img).attr('startwidth')
-            ? $(img).attr('startwidth') : parentDim.outerWidth;
-        newHeight = Math.round(newWidth * heightWidthRatio);
-
-        if(newHeight > parentDim.outerHeight) {
-            newHeight = parentDim.outerHeight;
-            newWidth = Math.round(newHeight / heightWidthRatio);
-        }
-    }
-    //Height >= width.
-    else {            
-        newHeight = parentDim.outerHeight > $(img).attr('startheight')
-            ? $(img).attr('startheight') : parentDim.outerHeight;
-        newWidth = Math.round(newHeight / heightWidthRatio);
-
-        if(newWidth > parentDim.outerWidth) {
-            newWidth = parentDim.outerWidth;
-            newHeight = Math.round(newWidth * heightWidthRatio);
-        }
-    }
-
-    $(img).width(newWidth).height(newHeight)
-        .css({marginTop: Math.round(($(window).height() - $(img).height()) / 2 )});
-}
