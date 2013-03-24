@@ -24,6 +24,7 @@ body {
 }
 
 h1, h2, h3, h4, h5, h6 {
+  font-family: $header-font-family;
   font-weight: 600;
   text-rendering: optimizelegibility; // Fix the character spacing for headings
 }
@@ -71,8 +72,8 @@ p {
 }
 
 a:link, a:visited {
-  color: $base-link-color;
-  text-decoration: underline;
+  color: $base-font-color;
+  text-decoration: none;
   @include transition(color, 0.1s linear);
 
   &:hover {
@@ -145,7 +146,8 @@ pre, code {
 /////////////////////////////////////////////////////////////
 
 h2 {
-  font: 400 1.5em 'Open Sans Condensed', $helvetica;
+  font-weight: 400;
+  font-size: 1.5em;
   border-left: 1px solid rgba(0,0,0,.2);
   color: rgba(0,0,0,.6);
   letter-spacing: .125em;
@@ -154,11 +156,7 @@ h2 {
   text-transform: uppercase;
 }
 
-a {
-  text-decoration: none;
-  color: $text-color;
-
-  &:hover {
-    color: $link-color;
-  }
+.meta {
+    font-style: italic;
+    font-size: .875rem;
 }

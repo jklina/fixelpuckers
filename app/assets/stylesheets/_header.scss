@@ -1,21 +1,15 @@
 header {
   background-color: white;
-
-  a:link, a:visited {
-    color: $base-font-color;
-    text-decoration: none;
-  }
 }
 
 h1.brand {
   float: left;
-  font-size: 2em;
+  font-size: 2rem;
   font-weight: 200;
-  font: 200 2rem 'Open Sans Condensed', $helvetica;
   letter-spacing: .125em;
   line-height: 1;
   margin: 0;
-  padding: .6875rem 0;
+  padding: 1rem 0;
   text-transform: uppercase;
 }
 
@@ -127,7 +121,7 @@ ul.dropdown-list li ul {
     width: 100%;
 
     &:hover i {
-      color: $link-color;
+      color: $hover-link-color;
     }
 
     i {
