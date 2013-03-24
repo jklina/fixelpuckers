@@ -1,7 +1,7 @@
-%h1
-  = link_to "Pixelfuckers", root_path, :class => 'brand'
-%nav
-  %ul.main-nav
+%h1.brand
+  = link_to "Pixelfuckers", root_path
+%nav.main-nav
+  %ul.main
     %li
       = link_to 'Browse', '#'
     %li
@@ -14,10 +14,11 @@
   %ul.dropdown-list
     - if user_signed_in?
       %li.dropdown
-        .avatar.img-wrap
-          = link_to '#' do
-            = image_tag('http://lorempixel.com/100/100/nature/1')
-            .img-shadow
+        .avatar
+          .img-wrap
+            = link_to '#' do
+              = image_tag('http://lorempixel.com/100/100/nature/1')
+              .img-shadow
         %ul
           %li
             = link_to edit_user_registration_path do

@@ -20,7 +20,7 @@
       - 15.times.each do
         %li.thumb
           .img-wrap
-            = link_to '#' do
+            = link_to page_path("submission") do
               = image_tag("http://lorempixel.com/360/225/nature/#{rand(8)}")
               .img-shadow
           .identity
@@ -38,8 +38,8 @@
 :javascript
   $("span.boxplot").sparkline('html', {
       type: 'box', 
-      height: '2.0em',
-      lineColor: '#333333',
+      height: '1.0em',
+      lineColor: '#888',
       whiskerColor: '#333333',
       boxLineColor: '#333333',
       boxFillColor: '#F8F8F5',
