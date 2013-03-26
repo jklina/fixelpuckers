@@ -34,6 +34,88 @@
             %span.boxplot= "#{values.join(',')}"
             %span.average-rating= rand(10000)/100.00
 
+    %nav.pagination
+      %ul
+        %li.page-prev
+          %span.inactive &larr;
+        %li
+          %span.current 1
+        %li
+          = link_to "2", "#"
+        %li
+          = link_to "3", "#"
+        %li
+          = link_to "4", "#"
+        %li.page-next
+          = link_to "&rarr;".html_safe, "#"
+
+%section.forums
+  .wrapper
+    %h2 In the Forums
+    %ol.forum-posts
+      .row-3n.row-2n
+        %li.forum-post
+          .avatar
+            .img-wrap
+              = link_to '#' do
+                = image_tag('http://lorempixel.com/100/100/people/1')
+                .img-shadow
+          %hgroup
+            %h5 
+              = link_to "Building myself a website", "#"
+            %p Loving the colors, icons, and logo. A few thoughts: ...
+        %li.forum-post
+          .avatar
+            .img-wrap
+              = link_to '#' do
+                = image_tag('http://lorempixel.com/100/100/people/4')
+                .img-shadow
+          %hgroup
+            %h5 
+              = link_to "Skype Chat Style", "#"
+            %p Loving the colors, icons, and logo. A few thoughts: ...
+        %li.forum-post
+          .avatar
+            .img-wrap
+              = link_to '#' do
+                = image_tag('http://lorempixel.com/100/100/people/3')
+                .img-shadow
+          %hgroup
+            %h5 
+              = link_to "Inspiration", "#"
+            %p Loving the colors, icons, and logo. A few thoughts: ...
+      .row 
+        %li.forum-post
+          .avatar
+            .img-wrap
+              = link_to '#' do
+                = image_tag('http://lorempixel.com/100/100/people/4')
+                .img-shadow
+          %hgroup
+            %h5
+              = link_to "How do you rate?", "#"
+            %p Loving the colors, icons, and logo. A few thoughts: ...
+        %li.forum-post
+          .avatar
+            .img-wrap
+              = link_to '#' do
+                = image_tag('http://lorempixel.com/100/100/people/5')
+                .img-shadow
+          %hgroup
+            %h5 
+              = link_to "Building myself a website", "#"
+            %p Loving the colors, icons, and logo. A few thoughts: ...
+        %li.forum-post
+          .avatar
+            .img-wrap
+              = link_to '#' do
+                = image_tag('http://lorempixel.com/100/100/people/9')
+                .img-shadow
+          %hgroup
+            %h5 
+              = link_to "Skype Chat Style", "#"
+            %p Loving the colors, icons, and logo. A few thoughts: ...
+
 = link_to 'New Submission', new_submission_path
 :javascript
   $("span.boxplot").sparkline('html', {
