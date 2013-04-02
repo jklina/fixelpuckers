@@ -11,22 +11,7 @@
     %h2 Recent Submissions
     - if @submissions.present?
       %ol.thumbs
-        - 15.times.each do
-          %li.thumb
-            .img-wrap
-              = link_to page_path("submission") do
-                = image_tag("http://lorempixel.com/360/225/nature/#{rand(8)}")
-                .img-shadow
-            .identity
-              %p.title
-                <a href="#">Ants go marching</a> 
-              %p.author
-                by <a href="#">akka</a>
-            .stats
-              -# Might use jquery sparklines instead
-              - values = 10.times.map { rand(1..100) }
-              %span.boxplot= "#{values.join(',')}"
-              %span.average-rating= rand(10000)/100.00
+        = render partial: 'shared/submission', collection: @submissions
     - else
       %p There are no submissions yet!
 
