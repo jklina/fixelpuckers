@@ -8,7 +8,7 @@ describe "Home Page" do
     end
   end
 
-  context "where there are submissions" do
+  context "when there are submissions" do
     it "should display the submissions" do
       submissions = FactoryGirl.create_list(:submission, 5)
       visit root_url
