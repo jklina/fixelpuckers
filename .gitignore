@@ -19,6 +19,8 @@
 db/*.sqlite3
 /log/*
 /tmp/*
+.powrc
+.rvmrc
 
 # various artifacts
 **.war

@@ -1,18 +1,43 @@
-- if @submissions.present?
-  - @submissions.each do |submission|
-    %tr
-      %td= submission.title
-      %td= link_to 'Show', submission
-      %td= link_to 'Edit', edit_submission_path(submission)
-      %td= link_to 'Destroy', submission, method: :delete, data: { confirm: 'Are you sure?' }
+%section.featured
+  .wrapper
+    .thumb
+      .img-wrap
+        = link_to '#' do
+          = image_tag('http://lorempixel.com/1200/400/abstract/3')
+          .img-shadow
 
-  %h2 Recent Submissions
-
-  %ol.thumbs
-    - 16.times.each do
-      %li.thumb
-        = link_to image_tag("http://lorempixel.com/360/225/nature/#{rand(8)}"), '#'
-- else
-  %p There are no submissions yet!
+%section.submissions
+  .wrapper
+    %h2 Recent Submissions
+    - if @submissions.present?
+      %ol.thumbs
+        - 15.times.each do
+          %li.thumb
+            .img-wrap
+              = link_to page_path("submission") do
+                = image_tag("http://lorempixel.com/360/225/nature/#{rand(8)}")
+                .img-shadow
+            .identity
+              %p.title
+                <a href="#">Ants go marching</a> 
+              %p.author
+                by <a href="#">akka</a>
+            .stats
+              -# Might use jquery sparklines instead
+              - values = 10.times.map { rand(1..100) }
+              %span.boxplot= "#{values.join(',')}"
+              %span.average-rating= rand(10000)/100.00
+    - else
+      %p There are no submissions yet!
 
 = link_to 'New Submission', new_submission_path
+:javascript
+  $("span.boxplot").sparkline('html', {
+      type: 'box', 
+      height: '1.0em',
+      lineColor: '#888',
+      whiskerColor: '#333333',
+      boxLineColor: '#333333',
+      boxFillColor: '#F8F8F5',
+      medianColor: '#e20000'
+    });

@@ -1,7 +1,7 @@
 source 'https://rubygems.org'
 ruby '1.9.3'
 
-gem 'rails', '3.2.11'
+gem 'rails', '3.2.13'
 gem 'pg'
 gem 'jquery-rails'
 gem "thin", ">= 1.5.0"
@@ -13,6 +13,7 @@ gem "rolify", ">= 3.2.0"
 gem "simple_form", ">= 2.0.4"
 gem "bourbon"
 gem "neat"
+gem "high_voltage"
 
 group :assets do
   gem 'sass-rails',   '~> 3.2.3'

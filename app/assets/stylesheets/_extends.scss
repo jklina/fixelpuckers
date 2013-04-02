@@ -1,0 +1,9 @@
+%dark {
+  background-image: image-url("feature-bg.png");
+  padding: $base-line-height 0;
+  color: white;
+
+  a:link, a:visited {
+      color: white;
+  }
+}
