@@ -1,4 +1,4 @@
-%li.thumb
+%li.thumb.submission-preview
   .img-wrap
     = link_to page_path("submission") do
       = image_tag("http://lorempixel.com/360/225/nature/#{rand(8)}")
@@ -6,7 +6,8 @@
   .identity
     %p.title= link_to(submission.title, submission_path(submission))
     %p.author
-      by <a href="#">akka</a>
+      by
+      = link_to(submission.user.username, user_path(submission.user))
   .stats
     -# Might use jquery sparklines instead
     - values = 10.times.map { rand(1..100) }
