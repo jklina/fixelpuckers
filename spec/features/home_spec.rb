@@ -23,8 +23,10 @@ describe "Home Page" do
       submission = FactoryGirl.create(:submission)
       visit root_url
       within(".submission-preview") do
-        page.should have_link("#{submission.title}")
-        page.should have_link("#{submission.user.username}")
+        page.should have_link("#{submission.title}", 
+                              href: submission_path(submission))
+        page.should have_link("#{submission.user.username}", 
+                              href: user_path(submission.user))
       end
     end
   end

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130402200028) do
+ActiveRecord::Schema.define(:version => 20130403193442) do
 
   create_table "reviews", :force => true do |t|
     t.integer  "rating"
@@ -60,10 +60,12 @@ ActiveRecord::Schema.define(:version => 20130402200028) do
     t.datetime "confirmation_sent_at"
     t.string   "unconfirmed_email"
     t.string   "username"
+    t.string   "slug"
   end
 
   add_index "users", ["email"], :name => "index_users_on_email", :unique => true
   add_index "users", ["reset_password_token"], :name => "index_users_on_reset_password_token", :unique => true
+  add_index "users", ["slug"], :name => "index_users_on_slug", :unique => true
 
   create_table "users_roles", :id => false, :force => true do |t|
     t.integer "user_id"

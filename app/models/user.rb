@@ -1,10 +1,13 @@
 class User < ActiveRecord::Base
+  extend FriendlyId
+
   rolify
   # Include default devise modules. Others available are:
   # :token_authenticatable, :confirmable,
   # :lockable, :timeoutable and :omniauthable
   devise :database_authenticatable, :registerable, :confirmable,
          :recoverable, :rememberable, :trackable, :validatable
+  friendly_id :username, use: :slugged
 
   has_many :submissions
 
@@ -14,4 +17,5 @@ class User < ActiveRecord::Base
   validates :username, length: { maximum: 20 },
                        presence: true,
                        uniqueness: true
+  validates :slug, presence: true
 end
