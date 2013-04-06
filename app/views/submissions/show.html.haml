@@ -1,20 +1,58 @@
-%p#notice= notice
+%section.submission
+  .wrapper
+    .vcard
+      .avatar
+        .img-wrap
+          = link_to '#' do
+            = image_tag('http://lorempixel.com/100/100/nature/1')
+            .img-shadow
+      .byline
+        %p.title
+          = "#{@submission.title} by "
+          = link_to @submission.user.username, user_path(@submission.user)
+        %span.date
+          = @submission.created_at
+          -# May 23, 2013
+    .thumb
+      .img-wrap
+        = link_to '#' do
+          = image_tag('http://placekitten.com/1280/768')
+          .img-shadow
 
-%h1= @submission.title
-%p= @submission.description
+%section.comments
+  .wrapper
+    %ol
+      = render partial: 'review', collection: @submission.reviews
+      %li 
+        - if current_user.present?
+          .avatar
+            .img-wrap
+              = link_to '#' do
+                = image_tag('http://lorempixel.com/100/100/nature/5')
+          %form
+            %h2 Leave a Review
+            %input{:type => "range", :min => "0", :max => "100", :onchange => "showValue(this.value)"}
+            %span#range 50
+            %textarea
+              %input{:type => "submit", :name => "comment", :value => "Comment"}
+        - else
+          %p Please sign up to leave a review.
 
-- if current_user.present?
-  = simple_form_for [@submission, @review] do |f|
-    = f.input :rating
-    = f.input :comment
-    = f.button :submit
-- else
-  %p Please sign up to leave a review.
+:javascript
+    function showValue(newValue) {
+        document.getElementById("range").innerHTML=newValue;
+    }
 
-- @submission.reviews.each do |review|
-  %p= "#{review.rating}"
-  %p= "#{review.comment}"
-
-= link_to 'Edit', edit_submission_path(@submission)
-\|
-= link_to 'Back', submissions_path
+-# %p#notice= notice
+-# 
+-# - if current_user.present?
+-#   = simple_form_for [@submission, @review] do |f|
+-#     = f.input :rating
+-#     = f.input :comment
+-#     = f.button :submit
+-# - else
+-#   %p Please sign up to leave a review.
+-# 
+-# = link_to 'Edit', edit_submission_path(@submission)
+-# \|
+-# = link_to 'Back', submissions_path
