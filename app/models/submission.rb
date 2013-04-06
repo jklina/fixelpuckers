@@ -1,10 +1,15 @@
 class Submission < ActiveRecord::Base
+  extend FriendlyId
+
   belongs_to :user
   has_many :reviews
 
   attr_accessible :description, :title
 
-  validates :title, :description, :user_id, presence: true
+  friendly_id :title, use: :slugged
+
+  validates :title, :description, :user_id, :slug, presence: true
+  validates :title, length: { maximum: 120 }
 
   # TODO: Validate that there can only be 1 review per user per submission
 

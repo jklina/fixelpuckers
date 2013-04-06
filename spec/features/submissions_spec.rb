@@ -6,6 +6,10 @@ describe "Submission page" do
     visit submission_path(@submission)
   end
 
+  it "uses friendly urls" do
+    @submission.to_param.should eq(@submission.slug)
+  end
+
   it "shows the submission's title" do
     page.should have_content(@submission.title)
   end
