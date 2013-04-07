@@ -18,6 +18,10 @@ describe "Submission page" do
     page.should have_content(@submission.user.username)
   end
 
+  it "shows the submission's date" do
+    page.should have_content(@submission.created_at.strftime("%B %-d, %Y"))
+  end
+
   context "when there are reviews" do 
     before (:each) do
       @submission = FactoryGirl.create(:submission)

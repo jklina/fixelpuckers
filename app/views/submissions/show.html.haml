@@ -11,8 +11,7 @@
           = "#{@submission.title} by "
           = link_to @submission.user.username, user_path(@submission.user)
         %span.date
-          = @submission.created_at
-          -# May 23, 2013
+          = @submission.created_at.to_formatted_s(:pf_long)
     .thumb
       .img-wrap
         = link_to '#' do
