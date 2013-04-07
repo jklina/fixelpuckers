@@ -13,9 +13,10 @@ html {
 
 .wrapper {
     @include outer-container;
+    padding: 0 1em;
 
-    @include breakpoint(max-width $max-width) {
-        padding: 0 3rem;
+    @include media($max-width) {
+        padding: 0;
     }
 }
 
@@ -32,21 +33,30 @@ section {
     @extend %dark;
 
     .thumb {
-        margin: $gutter 0;
+        margin: $base-line-height 0;
     }
 }
 
 ol.thumbs {
+    @include row;
     list-style: none;
     padding: 0;
 
     li.thumb {
-        float: left;
-        margin-bottom: $gutter;
+        margin-bottom: $base-line-height;
 
-        @include breakpoint(min-width 769px) {
-            @include omega(3n);
+        @include media($mobile) {
             @include span-columns(4);
+        }
+
+        @include media($tablet-only) {
+            @include span-columns(4);
+            @include omega(2n);
+        }
+
+        @include media($desktop) {
+            @include span-columns(4);
+            @include omega(3n);
         }
 
         div.identity {
@@ -162,16 +172,26 @@ ol.forum-posts {
     padding: 0;
 
     li.forum-post {
-        @include omega(3n);
-        @include span-columns(4);
-        margin-bottom: $gutter;
+        @include clearfix;
+        margin-bottom: $base-line-height;
+
+        @include media($tablet-only) {
+            @include span-columns(4);
+            @include omega(2n);
+        }
+
+        @include media($desktop) {
+            @include span-columns(4);
+            @include omega(3n);
+        }
 
         .avatar {
-            @include span-columns(1 of 6);
+            @include span-columns(1 of 4);
         }
 
         hgroup {
-            @include span-columns(5 of 6);
+            @include span-columns(3 of 4);
+
             h5 {
                 white-space: nowrap;
                 overflow: hidden;
@@ -220,6 +240,10 @@ ol.forum-posts {
     .notes {
         @include span-columns(9);
 
+        @include media($mobile) {
+            @include span-columns(4);
+        }
+
         h2 {
             margin-top:0;
         }
@@ -227,6 +251,15 @@ ol.forum-posts {
 
     .meta {
         @include span-columns(3);
+
+        @include media($mobile) {
+            @include span-columns(4);
+
+            ol {
+                padding: 0;
+                margin-top: $base-line-height;
+            }
+        }
 
         li {
             padding: .5rem 0 .5rem .75rem;
@@ -271,6 +304,31 @@ ol.forum-posts {
 
         input[type="submit"] {
             float: right;
+        }
+    }
+}
+
+.user-info {
+    .avatar {
+        @include span-columns(1);
+    }
+}
+.thumb {
+    .comment {
+        @include span-columns(4 of 4);
+
+        span {
+            float: left;
+            width: 2em;
+            margin-right: $gutter * .5;
+            display: block;
+        }
+
+        .comment-body {
+            width: -webkit-calc(100% - 2em - #{$gutter * .5});
+            width: -moz-calc(100% - 2em - #{$gutter *  .5});
+            width: calc(100% - 2em - #{$gutter * .5});
+            float: left;
         }
     }
 }
