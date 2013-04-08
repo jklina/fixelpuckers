@@ -13,10 +13,16 @@ html {
 
 .wrapper {
     @include outer-container;
+    padding: 0 1em;
 
-    @include breakpoint(max-width $max-width) {
-        padding: 0 3rem;
+    @include media($max-width) {
+        padding: 0;
     }
+}
+
+img {
+    width: 100%;
+    max-width: 100%;
 }
 
 section {
@@ -24,30 +30,34 @@ section {
 }
 
 .featured {
-    background-image: image-url("feature-bg.png");
-    @include box-shadow(inset 0 1px  0 rgba(0,0,0,.3), inset 0 -1px 0 rgba(0,0,0,.3));
-    padding: $base-line-height 0;
-    border-top: 1px solid rgba(0, 0, 0, 0.6);
-    border-bottom: 1px solid rgba(0, 0, 0, 0.6);
+    @extend %dark;
 
     .thumb {
-        margin: $gutter 0;
-    }
-
-    img {
-        max-width: 100%;
+        margin: $base-line-height 0;
     }
 }
 
 ol.thumbs {
+    @include row;
     list-style: none;
     padding: 0;
 
     li.thumb {
-        @include omega(3n);
-        @include span-columns(4);
-        float: left;
-        margin-bottom: $gutter;
+        margin-bottom: $base-line-height;
+
+        @include media($mobile) {
+            @include span-columns(4);
+        }
+
+        @include media($tablet-only) {
+            @include span-columns(4);
+            @include omega(2n);
+        }
+
+        @include media($desktop) {
+            @include span-columns(4);
+            @include omega(3n);
+        }
 
         div.identity {
             @include span-columns(2 of 4);
@@ -77,20 +87,14 @@ ol.thumbs {
 }
 
 .img-wrap {
-    @include box-shadow(0 0 0 1px rgba(0,0,0,.04), 0 1px 5px rgba(0,0,0,0.1));
-    @include linear-gradient(#fdfdfd, #fff);
     @include transition;
-    background-color: #fff;
-    border: 1px solid rgba(255,255,255,0.15);
     position: relative;
 
     img {
         @include transition;
         max-width: 100%;
-        display: block;
-        margin: 0 auto;
-        padding: 5px;
         position: relative;
+        display: block;
     }
 
     .img-shadow {
@@ -106,41 +110,43 @@ ol.thumbs {
     }
 }
 
-.img-wrap:hover .img-shadow {
-    background-color: rgba(0,0,0,0);
+.thumb .img-wrap {
+    @include box-shadow(0 0 0 1px rgba(0,0,0,.04), 0 1px 5px rgba(0,0,0,0.1));
+    @include linear-gradient(#fdfdfd, #fff);
+    background-color: #fff;
+    border: 1px solid rgba(255,255,255,0.15);
+
+    img {
+        padding: 5px;
+    }
 }
 
-ol.forum-posts {
-    @include row;
+.row {
+    @include row();
+}
 
-    li.forum-post {
-        @include omega(3n);
-        @include span-columns(4);
-        float: left;
-        margin-bottom: $gutter;
+.submission .thumb .img-wrap {
+    background: none;
+    border: none;
 
-        .avatar {
-            @include span-columns(1 of 6);
-            float: left;
-        }
+    img {
+        padding: 0px;
+    }
 
-        hgroup {
-            @include span-columns(5 of 6);
-            float: left;
-        }
+    .img-shadow {
+        background: none;
+        border: 8px solid rgba(255,255,255,.1);
+        top: 0;
+        bottom: 0;
+        left: 0;
+        right: 0;
     }
 }
 
 .avatar {
-    .img-wrap {
-        background: none;
-        border: none;
-        box-shadow: none;
-    }
-
     img {
         border-radius: 3px;
-        padding: 0;
+        display: block;
     }
 
     .img-shadow {
@@ -154,6 +160,43 @@ ol.forum-posts {
 
         &:hover {
             @include box-shadow(inset 0 1px rgba(255,255,255,0.15));
+        }
+    }
+}
+
+.img-wrap:hover .img-shadow {
+    background-color: rgba(0,0,0,0);
+}
+
+ol.forum-posts {
+    padding: 0;
+
+    li.forum-post {
+        @include clearfix;
+        margin-bottom: $base-line-height;
+
+        @include media($tablet-only) {
+            @include span-columns(4);
+            @include omega(2n);
+        }
+
+        @include media($desktop) {
+            @include span-columns(4);
+            @include omega(3n);
+        }
+
+        .avatar {
+            @include span-columns(1 of 4);
+        }
+
+        hgroup {
+            @include span-columns(3 of 4);
+
+            h5 {
+                white-space: nowrap;
+                overflow: hidden;
+                text-overflow: ellipsis;
+            }
         }
     }
 }
@@ -173,6 +216,11 @@ ol.forum-posts {
     }
 
     .byline {
+        margin-top: .5em;
+
+        p {
+            font-size: 1.25em;
+        }
     }
 
     .thumb {
@@ -182,6 +230,47 @@ ol.forum-posts {
         img {
             width: 100%;
         }
+    }
+}
+
+.submission-details {
+    @include clearfix;
+    padding: $base-line-height $gutter;
+
+    .notes {
+        @include span-columns(9);
+
+        @include media($mobile) {
+            @include span-columns(4);
+        }
+
+        h2 {
+            margin-top:0;
+        }
+    }
+
+    .meta {
+        @include span-columns(3);
+
+        @include media($mobile) {
+            @include span-columns(4);
+
+            ol {
+                padding: 0;
+                margin-top: $base-line-height;
+            }
+        }
+
+        li {
+            padding: .5rem 0 .5rem .75rem;
+            border-bottom: 1px solid rgba(255,255,255,.1);
+        }
+
+
+        i {
+            margin-right: .5em;
+        }
+
     }
 }
 
@@ -215,6 +304,31 @@ ol.forum-posts {
 
         input[type="submit"] {
             float: right;
+        }
+    }
+}
+
+.user-info {
+    .avatar {
+        @include span-columns(1);
+    }
+}
+.thumb {
+    .comment {
+        @include span-columns(4 of 4);
+
+        span {
+            float: left;
+            width: 2em;
+            margin-right: $gutter * .5;
+            display: block;
+        }
+
+        .comment-body {
+            width: -webkit-calc(100% - 2em - #{$gutter * .5});
+            width: -moz-calc(100% - 2em - #{$gutter *  .5});
+            width: calc(100% - 2em - #{$gutter * .5});
+            float: left;
         }
     }
 }
