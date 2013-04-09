@@ -20,6 +20,9 @@ Pf::Application.configure do
   # Generate digests for assets URLs
   config.assets.digest = true
 
+  # Add the fonts path
+  config.assets.paths << Rails.root.join('app', 'assets', 'fonts')
+
   # Defaults to nil and saved in location specified by config.assets.prefix
   # config.assets.manifest = YOUR_PATH
 
