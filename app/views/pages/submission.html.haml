@@ -1,17 +1,20 @@
 %section.submission
   .wrapper
-    .vcard
-      .avatar
-        .img-wrap
-          = link_to '#' do
-            = image_tag('http://lorempixel.com/100/100/nature/1')
-            .img-shadow
-      .byline
-        %p.title
-          Spring by 
-          = link_to 'akka', '#'
-        %span.date
-          May 23, 2013
+    .submission-title-section
+      .vcard
+        .avatar
+          .img-wrap
+            = link_to '#' do
+              = image_tag('http://lorempixel.com/100/100/nature/1')
+              .img-shadow
+        .byline
+          %p.title
+            Spring by 
+            = link_to 'akka', '#'
+          %span.date
+            May 23, 2013
+      .action-menu
+        = link_to '&#9776;'.html_safe, '#'
     .thumb
       .img-wrap
         = link_to '#' do
@@ -43,39 +46,81 @@
             = link_to '#' do
               = image_tag('http://lorempixel.com/100/100/nature/1')
               .img-shadow
-        .comment-body
-          %h2= link_to 'akka', '#'
-          %p Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-          %span.meta March 21, 2013
+        .comment-chip
+          .comment-details
+            %h3=link_to 'akka', '#'
+            %span.meta posted yesterday
+          .comment-body
+            .arrows
+              %i.ss-icon.arrow up
+              %i.ss-icon.arrow down
+            %p Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor.
+        %h4.rating 94
       %li
         .avatar
           .img-wrap
             = link_to '#' do
-              = image_tag('http://lorempixel.com/100/100/nature/2')
+              = image_tag('http://lorempixel.com/100/100/nature/1')
               .img-shadow
-        .comment-body
-          %h2= link_to 'akka', '#'
-          %p Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-          %span.meta March 21, 2013
+        .comment-chip
+          .comment-details
+            %h3=link_to 'akka', '#'
+            %span.meta posted yesterday
+          .comment-body
+            .arrows
+              %i.ss-icon.arrow up
+              %i.ss-icon.arrow down
+            %p Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor.Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor.
+        %h4.rating 94
       %li
         .avatar
           .img-wrap
             = link_to '#' do
-              = image_tag('http://lorempixel.com/100/100/nature/3')
+              = image_tag('http://lorempixel.com/100/100/nature/1')
               .img-shadow
-        .comment-body
-          %h2= link_to 'akka', '#'
-          %p Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-          %span.meta March 21, 2013
+        .comment-chip
+          .comment-details
+            %h3=link_to 'akka', '#'
+            %span.meta posted yesterday
+          .comment-body
+            .arrows
+              %i.ss-icon.arrow up
+              %i.ss-icon.arrow down
+            %p Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor.
+        %h4.rating 94
       %li
         .avatar
           .img-wrap
             = link_to '#' do
-              = image_tag('http://lorempixel.com/100/100/nature/4')
+              = image_tag('http://lorempixel.com/100/100/nature/1')
               .img-shadow
-        .comment-body
-          %h2= link_to 'akka', '#'
-          %p Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+        .comment-chip
+          .comment-details
+            %h3=link_to 'akka', '#'
+            %span.meta posted yesterday
+          .comment-body
+            .arrows
+              %i.ss-icon.arrow up
+              %i.ss-icon.arrow down
+            %p Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod temporLorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum..
+        %h4.rating 94
+      %li
+        .avatar
+          .img-wrap
+            = link_to '#' do
+              = image_tag('http://lorempixel.com/100/100/nature/1')
+              .img-shadow
+        .comment-chip
+          .comment-details
+            %h3=link_to 'akka', '#'
+            %span.meta posted yesterday
+          .comment-body
+            .arrows
+              %i.ss-icon.arrow up
+              %i.ss-icon.arrow down
+            %p Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor. Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor.
+        %h4.rating 94
+
       %li 
         .avatar
           .img-wrap
@@ -83,11 +128,11 @@
               = image_tag('http://lorempixel.com/100/100/nature/5')
         %form
           %h2 Leave a Review
-          %input{:type => "range", :min => "0", :max => "100", :onchange => "showValue(this.value)"}
-          %span#range 50
+          %label Rating
+          %input{:type => "number"}
+          %label Comment*
           %textarea
-          %input{:type => "submit", :name => "comment", :value => "Comment"}
-
+          %input{:type => "submit", :value => "Post Review"}
 :javascript
     function showValue(newValue) {
         document.getElementById("range").innerHTML=newValue;

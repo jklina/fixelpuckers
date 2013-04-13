@@ -1,3 +1,9 @@
+@mixin calc-width($value) {
+    width: -moz-calc($value);
+    width: -webkit-calc($value);
+    width: calc($value);
+}
+
 @function pix($emval, $base: 16) {
   @return ($emval * $base) * 1px;
 }

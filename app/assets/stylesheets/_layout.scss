@@ -202,6 +202,22 @@ ol.forum-posts {
 }
 
 // Submission
+
+.submission-title-section {
+    @include row;
+
+    .vcard {
+        float: left;
+        @include span-columns(11);
+    }
+
+    .action-menu {
+        @include span-columns(1);
+        margin-top: 1em;
+        text-align: right;
+    }
+}
+
 .submission {
     @extend %dark;
 
@@ -270,26 +286,77 @@ ol.forum-posts {
         i {
             margin-right: .5em;
         }
-
     }
 }
 
+.arrow {
+    @include transition;
+    cursor: pointer;
+    opacity: .3;
+
+    &:hover {
+        opacity: 1;
+    }
+}
+
+
 .comments {
+    ol {
+        padding: 0;
+    }
+
     ol li {
         @include span-columns(12);
-        border-bottom: 1px solid $base-border-color;
         padding: $base-line-height 0;
 
-        .avatar {
-            width: 4.25rem;
-            margin-right: $gutter;
-            float: left;
+        &:last-child {
+            border-bottom: none;
         }
 
-        .comment-body, form {
-            width: -webkit-calc(100% - 4.25rem - #{$gutter});
-            width: -moz-calc(100% - 4.25rem - #{$gutter});
-            width: calc(100% - 4.25rem - #{$gutter});
+        .avatar {
+            float: left;
+            margin-right: $gutter;
+            width: 4.25rem;
+        }
+
+        .comment-details {
+            @include row;
+
+            ul {
+                @include clearfix;
+                float: right;
+                margin: 0;
+                padding: 0;
+
+                li {
+                    border-bottom: none;
+                    float: left;
+                    margin: 0;
+                    padding: 0 20px;
+                    width: auto;
+
+                    &:first-child {
+                        border-right: 1px solid $base-border-color;
+                    }
+
+                    &:last-child {
+                        padding-right: 0;
+                    }
+
+                    .arrow {
+                        display: inline-block;
+                        margin: .5em 0;
+                    }
+
+                }
+            }
+        }
+
+
+        form {
+            width: -webkit-calc(100% - 6.5rem - #{$gutter * 2});
+            width: -moz-calc(100% - 6.5rem - #{$gutter * 2});
+            width: calc(100% - 6.5rem - #{$gutter * 2});
             float: left;
 
             h2 {
@@ -313,6 +380,7 @@ ol.forum-posts {
         @include span-columns(1);
     }
 }
+
 .thumb {
     .comment {
         @include span-columns(4 of 4);
@@ -325,10 +393,89 @@ ol.forum-posts {
         }
 
         .comment-body {
-            width: -webkit-calc(100% - 2em - #{$gutter * .5});
-            width: -moz-calc(100% - 2em - #{$gutter *  .5});
-            width: calc(100% - 2em - #{$gutter * .5});
             float: left;
+            width: -moz-calc(100% - 2em - #{$gutter *  .5});
+            width: -webkit-calc(100% - 2em - #{$gutter * .5});
+            width: calc(100% - 2em - #{$gutter * .5});
         }
     }
+}
+
+.comment-chip {
+    @include clearfix;
+    @extend %chip;
+    float: left;
+    width: -moz-calc(100% - 6.5rem - #{$gutter * 2});
+    width: -webkit-calc(100% - 6.5rem - #{$gutter * 2});
+    width: calc(100% - 6.5rem - #{$gutter * 2});
+
+    h3 {
+        display: inline-block;
+        margin: 0;
+    }
+
+    .arrows {
+        width: 2rem;
+        float: left;
+        margin-bottom: 0.6875rem;
+    }
+
+    p {
+        width: -moz-calc(100% - 2rem);
+        width: -webkit-calc(100% - 2rem);
+        width: calc(100% - 2rem);
+        float: left;
+    }
+
+    .arrow {
+        display: block;
+        text-align: center;
+        font-size: .875em;
+    }
+}
+
+.comment-details{
+    @extend %chip-head;
+    @include ui-nub(8px, left-top, #f5f5f5, #c3c3c3);
+    border-radius: 3px 3px 0 0;
+    position: relative;
+
+    h3 {
+        font-size: 1rem;
+        margin-left: 1rem;
+    }
+
+    span {
+        margin-left: 1rem;
+        font-style: italic;
+    }
+}
+
+.comment-body {
+    @include clearfix;
+    padding: 0.6875em 0.6875em 0 0.6875em;
+
+    p {
+        padding-left: 0.6875em;
+    }
+}
+
+h4.rating {
+    @include box-shadow(0 0 0 1px #bbb);
+    border-radius: 50%;
+    font-family: 'Gill Sans', $base-font-family;
+    font-size: 1rem;
+    font-weight: 400;
+    line-height: 2.25;
+    margin: 0;
+    padding: 0;
+    text-align: center;
+    width: 2.25em;
+    float: left;
+    margin-left: $gutter;
+}
+
+.action-menu {
+    float: right;
+    padding: 5px 10px;
 }
