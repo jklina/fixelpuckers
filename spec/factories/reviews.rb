@@ -5,5 +5,11 @@ FactoryGirl.define do
     rating 1
     comment "MyText"
     user
+
+    factory :invalid_review do
+      rating 'hi'
+      comment nil
+      user nil
+    end
   end
 end

@@ -1,8 +1,9 @@
 class ReviewsController < ApplicationController
   def create
     @submission = Submission.find(params[:submission_id])
-    @review = @submission.reviews.build(params[:review])
+    @review = Review.new(params[:review])
     @review.user = current_user
+    @review.submission = @submission
 
     respond_to do |format|
       if @review.save
@@ -10,7 +11,7 @@ class ReviewsController < ApplicationController
         format.json { render json: @submission, status: :created, location: @submission }
       else
         flash[:error] = 'Review not saved.'
-        format.html { render template: 'submissions/show' }
+        format.html { render 'submissions/show' }
         format.json { render json: @review.errors, status: :unprocessable_entity }
       end
     end
@@ -27,7 +28,7 @@ class ReviewsController < ApplicationController
         format.html { redirect_to @submission, notice: 'Review was successfully updated.' }
         format.json { head :no_content }
       else
-        format.html { render template: "submissions/show" }
+        format.html { render "submissions/show" }
         format.json { render json: @review.errors, status: :unprocessable_entity }
       end
     end
