@@ -9,12 +9,30 @@
               .img-shadow
         .byline
           %p.title
-            Spring by 
+            Spring by
             = link_to 'akka', '#'
           %span.date
             May 23, 2013
-      .action-menu
-        = link_to '&#9776;'.html_safe, '#'
+      %ul.action-menu
+        %li
+          = link_to '&#9776;'.html_safe, '#'
+          %ul
+            %li
+              = link_to '#' do
+                Trash
+                %i.ss-icon trash
+            %li
+              = link_to '#' do
+                Edit
+                %i.ss-icon edit
+            %li
+              = link_to '#' do
+                Feature
+                %i.ss-icon bookmark
+            %li
+              = link_to '#' do
+                Moderate
+                %i.ss-icon delete
     .thumb
       .img-wrap
         = link_to '#' do
@@ -50,7 +68,10 @@
           .comment-details
             %h3=link_to 'akka', '#'
             %span.meta posted yesterday
+            .comment-details-action-menu
+              = link_to '<i class="ss-icon">delete</i>'.html_safe, 'javascript:void(0)'
           .comment-body
+
             .arrows
               %i.ss-icon.arrow up
               %i.ss-icon.arrow down

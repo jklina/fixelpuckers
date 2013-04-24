@@ -299,7 +299,6 @@ ol.forum-posts {
     }
 }
 
-
 .comments {
     ol {
         padding: 0;
@@ -347,7 +346,6 @@ ol.forum-posts {
                         display: inline-block;
                         margin: .5em 0;
                     }
-
                 }
             }
         }
@@ -453,10 +451,25 @@ ol.forum-posts {
 
 .comment-body {
     @include clearfix;
+    position: relative;
     padding: 0.6875em 0.6875em 0 0.6875em;
+
+    &:hover {
+        background-color: #fbfbfb;
+    }
 
     p {
         padding-left: 0.6875em;
+    }
+}
+
+.comment-details-action-menu {
+    display: inline-block;
+    float: right;
+
+    > a {
+        font-size: .75em;
+        color: $gray;
     }
 }
 
@@ -477,5 +490,20 @@ h4.rating {
 
 .action-menu {
     float: right;
-    padding: 5px 10px;
+    padding: em(5) em(10);
+    position: relative;
+
+    ul {
+        @extend %chip-menu;
+        position: absolute;
+        z-index: 5;
+        right: 0;
+        top: em(54);
+    }
+
+    &:hover {
+        > li ul  {
+          display: block;
+        }
+    }
 }
