@@ -5,505 +5,516 @@
 ///////////////////////////////////////////////////////////////////////////////
 
 html {
-    body {
-        background-color: $body-color;
-        background: $body-color image-url('bg-noise.png');
-    }
+  body {
+    background-color: $body-color;
+    background: $body-color image-url('bg-noise.png');
+  }
 }
 
 .wrapper {
-    @include outer-container;
-    padding: 0 1em;
+  @include outer-container;
+  padding: 0 1em;
 
-    @include media($max-width) {
-        padding: 0;
-    }
+  @include media($max-width) {
+    padding: 0;
+  }
 }
 
 img {
-    width: 100%;
-    max-width: 100%;
+  width: 100%;
+  max-width: 100%;
 }
 
 section {
-    padding: $base-line-height 0;
+  padding: $base-line-height 0;
 }
 
 .featured {
-    @extend %dark;
+  @extend %dark;
 
-    .thumb {
-        margin: $base-line-height 0;
-    }
+  .thumb {
+    margin: $base-line-height 0;
+  }
 }
 
 ol.thumbs {
-    @include row;
-    list-style: none;
-    padding: 0;
+  @include row;
+  list-style: none;
+  padding: 0;
 
-    li.thumb {
-        margin-bottom: $base-line-height;
+  li.thumb {
+    margin-bottom: $base-line-height;
 
-        @include media($mobile) {
-            @include span-columns(4);
-        }
-
-        @include media($tablet-only) {
-            @include span-columns(4);
-            @include omega(2n);
-        }
-
-        @include media($desktop) {
-            @include span-columns(4);
-            @include omega(3n);
-        }
-
-        div.identity {
-            @include span-columns(2 of 4);
-
-            p.title {
-                margin: .5em 0 0;
-            }
-
-            p.author {
-                font-size: .75em;
-            }
-        }
-
-        div.stats {
-            @include span-columns(2 of 4);
-            text-align: right;
-
-            canvas {
-                margin-top: .6875rem;
-            }
-
-            span.average-rating {
-                font: 400 1.75em $header-font-family;
-            }
-        }
+    @include media($mobile) {
+      @include span-columns(4);
     }
+
+    @include media($tablet-only) {
+      @include span-columns(4);
+      @include omega(2n);
+    }
+
+    @include media($desktop) {
+      @include span-columns(4);
+      @include omega(3n);
+    }
+
+    div.identity {
+      @include span-columns(2 of 4);
+
+      p.title {
+        margin: .5em 0 0;
+      }
+
+      p.author {
+        font-size: .75em;
+      }
+    }
+
+    div.stats {
+      @include span-columns(2 of 4);
+      text-align: right;
+
+      canvas {
+        margin-top: .6875rem;
+      }
+
+      span.average-rating {
+        font: 400 1.75em $header-font-family;
+      }
+    }
+  }
 }
 
 .img-wrap {
+  @include transition;
+  position: relative;
+
+  img {
     @include transition;
+    max-width: 100%;
     position: relative;
+    display: block;
+  }
 
-    img {
-        @include transition;
-        max-width: 100%;
-        position: relative;
-        display: block;
-    }
-
-    .img-shadow {
-        @include transition;
-        background-color: rgba(0,0,0,0.1);
-        border: 1px solid rgba(0,0,0,0.15);
-        bottom: 5px;
-        left: 5px;
-        position: absolute;
-        right: 5px;
-        top: 5px;
-        z-index: 1;
-    }
+  .img-shadow {
+    @include transition;
+    background-color: rgba(0,0,0,0.1);
+    border: 1px solid rgba(0,0,0,0.15);
+    bottom: 5px;
+    left: 5px;
+    position: absolute;
+    right: 5px;
+    top: 5px;
+    z-index: 1;
+  }
 }
 
 .thumb .img-wrap {
-    @include box-shadow(0 0 0 1px rgba(0,0,0,.04), 0 1px 5px rgba(0,0,0,0.1));
-    @include linear-gradient(#fdfdfd, #fff);
-    background-color: #fff;
-    border: 1px solid rgba(255,255,255,0.15);
+  @include box-shadow(0 0 0 1px rgba(0,0,0,.04), 0 1px 5px rgba(0,0,0,0.1));
+  @include linear-gradient(#fdfdfd, #fff);
+  background-color: #fff;
+  border: 1px solid rgba(255,255,255,0.15);
 
-    img {
-        padding: 5px;
-    }
+  img {
+    padding: 5px;
+  }
 }
 
 .row {
-    @include row();
+  @include row();
 }
 
 .submission .thumb .img-wrap {
+  background: none;
+  border: none;
+
+  img {
+    padding: 0px;
+  }
+
+  .img-shadow {
     background: none;
-    border: none;
-
-    img {
-        padding: 0px;
-    }
-
-    .img-shadow {
-        background: none;
-        border: 8px solid rgba(255,255,255,.1);
-        top: 0;
-        bottom: 0;
-        left: 0;
-        right: 0;
-    }
+    border: 8px solid rgba(255,255,255,.1);
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+  }
 }
 
 .avatar {
-    img {
-        border-radius: 3px;
-        display: block;
-    }
+  img {
+    border-radius: 3px;
+    display: block;
+  }
 
-    .img-shadow {
-        @include box-shadow(inset 0 1px rgba(0,0,0,.2));
-        border: 1px solid rgba(0,0,0,0.25);
-        border-radius: 3px;
-        bottom: 0px;
-        left: 0px;
-        right: 0px;
-        top: 0px;
+  .img-shadow {
+    @include box-shadow(inset 0 1px rgba(0,0,0,.2));
+    border: 1px solid rgba(0,0,0,0.25);
+    border-radius: 3px;
+    bottom: 0px;
+    left: 0px;
+    right: 0px;
+    top: 0px;
 
-        &:hover {
-            @include box-shadow(inset 0 1px rgba(255,255,255,0.15));
-        }
+    &:hover {
+      @include box-shadow(inset 0 1px rgba(255,255,255,0.15));
     }
+  }
 }
 
 .img-wrap:hover .img-shadow {
-    background-color: rgba(0,0,0,0);
+  background-color: rgba(0,0,0,0);
 }
 
 ol.forum-posts {
-    padding: 0;
+  padding: 0;
 
-    li.forum-post {
-        @include clearfix;
-        margin-bottom: $base-line-height;
+  li.forum-post {
+    @include clearfix;
+    margin-bottom: $base-line-height;
 
-        @include media($tablet-only) {
-            @include span-columns(4);
-            @include omega(2n);
-        }
-
-        @include media($desktop) {
-            @include span-columns(4);
-            @include omega(3n);
-        }
-
-        .avatar {
-            @include span-columns(1 of 4);
-        }
-
-        hgroup {
-            @include span-columns(3 of 4);
-
-            h5 {
-                white-space: nowrap;
-                overflow: hidden;
-                text-overflow: ellipsis;
-            }
-        }
+    @include media($tablet-only) {
+      @include span-columns(4);
+      @include omega(2n);
     }
+
+    @include media($desktop) {
+      @include span-columns(4);
+      @include omega(3n);
+    }
+
+    .avatar {
+      @include span-columns(1 of 4);
+    }
+
+    hgroup {
+      @include span-columns(3 of 4);
+
+      h5 {
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+    }
+  }
 }
 
 // Submission
 
 .submission-title-section {
-    @include row;
+  @include row;
 
-    .vcard {
-        float: left;
-        @include span-columns(11);
-    }
+  .vcard {
+    float: left;
+    @include span-columns(11);
+  }
 
-    .action-menu {
-        @include span-columns(1);
-        margin-top: 1em;
-        text-align: right;
-    }
+  .action-menu {
+    display: none;
+    @include span-columns(1);
+    margin-top: 1em;
+    text-align: right;
+  }
 }
 
 .submission {
-    @extend %dark;
+  @extend %dark;
 
-    .vcard {
-        @include clearfix;
+  .vcard {
+    @include clearfix;
+  }
+
+  .avatar {
+    width: 4.25rem;
+    margin-right: $gutter;
+    float: left;
+  }
+
+  .byline {
+    margin-top: .5em;
+
+    p {
+      font-size: 1.25em;
     }
+  }
 
-    .avatar {
-        width: 4.25rem;
-        margin-right: $gutter;
-        float: left;
+  .thumb {
+    margin: $gutter auto;
+    display: table;
+
+    img {
+      width: 100%;
     }
-
-    .byline {
-        margin-top: .5em;
-
-        p {
-            font-size: 1.25em;
-        }
-    }
-
-    .thumb {
-        margin: $gutter auto;
-        display: table;
-
-        img {
-            width: 100%;
-        }
-    }
+  }
 }
 
 .submission-details {
-    @include clearfix;
-    padding: $base-line-height $gutter;
+  @include clearfix;
+  padding: $base-line-height $gutter;
 
-    .notes {
-        @include span-columns(9);
+  .notes {
+    @include span-columns(9);
 
-        @include media($mobile) {
-            @include span-columns(4);
-        }
-
-        h2 {
-            margin-top:0;
-        }
+    @include media($mobile) {
+      @include span-columns(4);
     }
 
-    .meta {
-        @include span-columns(3);
-
-        @include media($mobile) {
-            @include span-columns(4);
-
-            ol {
-                padding: 0;
-                margin-top: $base-line-height;
-            }
-        }
-
-        li {
-            padding: .5rem 0 .5rem .75rem;
-            border-bottom: 1px solid rgba(255,255,255,.1);
-        }
-
-
-        i {
-            margin-right: .5em;
-        }
+    h2 {
+      margin-top:0;
     }
+  }
+
+  .meta {
+    @include span-columns(3);
+
+    @include media($mobile) {
+      @include span-columns(4);
+
+      ol {
+        padding: 0;
+        margin-top: $base-line-height;
+      }
+    }
+
+    li {
+      padding: .5rem 0 .5rem .75rem;
+      border-bottom: 1px solid rgba(255,255,255,.1);
+    }
+
+
+    i {
+      margin-right: .5em;
+    }
+  }
 }
 
 .arrow {
-    @include transition;
-    cursor: pointer;
-    opacity: .3;
+  @include transition;
+  cursor: pointer;
+  opacity: .3;
 
-    &:hover {
-        opacity: 1;
-    }
+  &:hover {
+    opacity: 1;
+  }
 }
 
 .comments {
-    ol {
+  ol {
+    padding: 0;
+  }
+
+  ol li {
+    @include span-columns(12);
+    padding: $base-line-height 0;
+
+    &:last-child {
+      border-bottom: none;
+    }
+
+    .avatar {
+      float: left;
+      margin-right: $gutter;
+      width: 4.25rem;
+    }
+
+    .comment-details {
+      @include row;
+
+      ul {
+        @include clearfix;
+        float: right;
+        margin: 0;
         padding: 0;
+
+        li {
+          border-bottom: none;
+          float: left;
+          margin: 0;
+          padding: 0 20px;
+          width: auto;
+
+          &:first-child {
+            border-right: 1px solid $base-border-color;
+          }
+
+          &:last-child {
+            padding-right: 0;
+          }
+
+          .arrow {
+            display: inline-block;
+            margin: .5em 0;
+          }
+        }
+      }
     }
 
-    ol li {
-        @include span-columns(12);
-        padding: $base-line-height 0;
+    form {
+      width: -webkit-calc(100% - 6.5rem - #{$gutter * 2});
+      width: -moz-calc(100% - 6.5rem - #{$gutter * 2});
+      width: calc(100% - 6.5rem - #{$gutter * 2});
+      float: left;
 
-        &:last-child {
-            border-bottom: none;
-        }
-
-        .avatar {
-            float: left;
-            margin-right: $gutter;
-            width: 4.25rem;
-        }
-
-        .comment-details {
-            @include row;
-
-            ul {
-                @include clearfix;
-                float: right;
-                margin: 0;
-                padding: 0;
-
-                li {
-                    border-bottom: none;
-                    float: left;
-                    margin: 0;
-                    padding: 0 20px;
-                    width: auto;
-
-                    &:first-child {
-                        border-right: 1px solid $base-border-color;
-                    }
-
-                    &:last-child {
-                        padding-right: 0;
-                    }
-
-                    .arrow {
-                        display: inline-block;
-                        margin: .5em 0;
-                    }
-                }
-            }
-        }
-
-
-        form {
-            width: -webkit-calc(100% - 6.5rem - #{$gutter * 2});
-            width: -moz-calc(100% - 6.5rem - #{$gutter * 2});
-            width: calc(100% - 6.5rem - #{$gutter * 2});
-            float: left;
-
-            h2 {
-                margin-top: 0;
-            }
-        }
-
-        textarea {
-            width: 100%;
-            height: $base-line-height * 8;
-        }
-
-        input[type="submit"] {
-            float: right;
-        }
+      h2 {
+        margin-top: 0;
+      }
     }
+
+    textarea {
+      width: 100%;
+      height: $base-line-height * 8;
+    }
+
+    input[type="submit"] {
+      float: right;
+    }
+  }
 }
 
 .user-info {
-    .avatar {
-        @include span-columns(1);
-    }
+  .avatar {
+    @include span-columns(1);
+  }
 }
 
 .thumb {
-    .comment {
-        @include span-columns(4 of 4);
+  .comment {
+    @include span-columns(4 of 4);
 
-        span {
-            float: left;
-            width: 2em;
-            margin-right: $gutter * .5;
-            display: block;
-        }
-
-        .comment-body {
-            float: left;
-            width: -moz-calc(100% - 2em - #{$gutter *  .5});
-            width: -webkit-calc(100% - 2em - #{$gutter * .5});
-            width: calc(100% - 2em - #{$gutter * .5});
-        }
+    span {
+      float: left;
+      width: 2em;
+      margin-right: $gutter * .5;
+      display: block;
     }
+
+    .comment-body {
+      float: left;
+      width: -moz-calc(100% - 2em - #{$gutter *  .5});
+      width: -webkit-calc(100% - 2em - #{$gutter * .5});
+      width: calc(100% - 2em - #{$gutter * .5});
+    }
+  }
 }
 
 .comment-chip {
-    @include clearfix;
-    @extend %chip;
+  @include clearfix;
+  @extend %chip;
+  float: left;
+  width: -moz-calc(100% - 6.5rem - #{$gutter * 2});
+  width: -webkit-calc(100% - 6.5rem - #{$gutter * 2});
+  width: calc(100% - 6.5rem - #{$gutter * 2});
+
+  h3 {
+    display: inline-block;
+    margin: 0;
+  }
+
+  .arrows {
+    width: 2rem;
     float: left;
-    width: -moz-calc(100% - 6.5rem - #{$gutter * 2});
-    width: -webkit-calc(100% - 6.5rem - #{$gutter * 2});
-    width: calc(100% - 6.5rem - #{$gutter * 2});
+    margin-bottom: 0.6875rem;
+  }
 
-    h3 {
-        display: inline-block;
-        margin: 0;
-    }
+  p {
+    width: -moz-calc(100% - 2rem);
+    width: -webkit-calc(100% - 2rem);
+    width: calc(100% - 2rem);
+    float: left;
+  }
 
-    .arrows {
-        width: 2rem;
-        float: left;
-        margin-bottom: 0.6875rem;
-    }
+  .arrow {
+    display: block;
+    text-align: center;
+    font-size: .875em;
+  }
 
-    p {
-        width: -moz-calc(100% - 2rem);
-        width: -webkit-calc(100% - 2rem);
-        width: calc(100% - 2rem);
-        float: left;
+  &:hover {
+    .comment-details-action-menu {
+      opacity: 1;
     }
-
-    .arrow {
-        display: block;
-        text-align: center;
-        font-size: .875em;
-    }
+  }
 }
 
 .comment-details{
-    @extend %chip-head;
-    @include ui-nub(8px, left-top, #f5f5f5, #c3c3c3);
-    border-radius: 3px 3px 0 0;
-    position: relative;
+  @extend %chip-head;
+  @include ui-nub(8px, left-top, #f5f5f5, #c3c3c3);
+  border-radius: 3px 3px 0 0;
+  position: relative;
 
-    h3 {
-        font-size: 1rem;
-        margin-left: 1rem;
-    }
+  h3 {
+    font-size: 1rem;
+    margin-left: 1rem;
+  }
 
-    span {
-        margin-left: 1rem;
-        font-style: italic;
-    }
+  span {
+    margin-left: 1rem;
+    font-style: italic;
+  }
 }
 
 .comment-body {
-    @include clearfix;
-    position: relative;
-    padding: 0.6875em 0.6875em 0 0.6875em;
+  @include clearfix;
+  position: relative;
+  padding: 0.6875em 0.6875em 0 0.6875em;
 
-    &:hover {
-        background-color: #fbfbfb;
-    }
+  &:hover {
+  }
 
-    p {
-        padding-left: 0.6875em;
-    }
+  p {
+    padding-left: 0.6875em;
+  }
 }
 
 .comment-details-action-menu {
-    display: inline-block;
-    float: right;
+  @include transition;
+  opacity: 0;
+  float: right;
+  margin-top: em(7);
+  margin-right: .5em;
 
-    > a {
-        font-size: .75em;
-        color: $gray;
-    }
+  > a {
+    font-size: .75em;
+    color: $gray;
+    text-shadow: 0 1px white;
+  }
 }
 
 h4.rating {
-    @include box-shadow(0 0 0 1px #bbb);
-    border-radius: 50%;
-    font-family: 'Gill Sans', $base-font-family;
-    font-size: 1rem;
-    font-weight: 400;
-    line-height: 2.25;
-    margin: 0;
-    padding: 0;
-    text-align: center;
-    width: 2.25em;
-    float: left;
-    margin-left: $gutter;
+  @include box-shadow(0 0 0 1px #bbb);
+  border-radius: 50%;
+  font-family: 'Gill Sans', $base-font-family;
+  font-size: 1rem;
+  font-weight: 400;
+  line-height: 2.25;
+  margin: 0;
+  padding: 0;
+  text-align: center;
+  width: 2.25em;
+  float: left;
+  margin-left: $gutter;
 }
 
 .action-menu {
-    float: right;
-    padding: em(5) em(10);
+  float: right;
+  padding: em(5) em(10);
+  position: relative;
+
+  ul {
+    @extend %chip-menu;
+    position: absolute;
     position: relative;
+    z-index: 5;
+    right: 0;
+    top: em(54);
+    display: none;
+  }
 
+  &:hover {
     ul {
-        @extend %chip-menu;
-        position: absolute;
-        z-index: 5;
-        right: 0;
-        top: em(54);
+      display: block;
     }
-
-    &:hover {
-        > li ul  {
-          display: block;
-        }
-    }
+  }
 }

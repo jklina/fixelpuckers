@@ -45,15 +45,20 @@
       .meta
         %ol
           %li
-            <i class="ss-icon">comment</i> 6 Reviews
+            %i.ss-icon comment
+            6 reviews
           %li
-            <i class="ss-icon">eye</i> 628 Views
+            %i.ss-icon eye
+            628 Views
           %li
-            <i class="ss-icon">download</i> 85 Downloads
+            %i.ss-icon download
+            85 Downloads
           %li
-            <i class="ss-icon">barchart</i> User Rating 41
+            %i.ss-icon barchart
+            User Rating 41
           %li
-            <i class="ss-icon">bookmark</i> Featured: 03/21/2013
+            %i.ss-icon bookmark
+            Featured: 03/21/2013
 
 %section.comments
   .wrapper
@@ -69,7 +74,7 @@
             %h3=link_to 'akka', '#'
             %span.meta posted yesterday
             .comment-details-action-menu
-              = link_to '<i class="ss-icon">delete</i>'.html_safe, 'javascript:void(0)'
+              = link_to '<i class="ss-icon">delete</i>'.html_safe, 'javascript:void(0)', :class => 'action-delete-comment'
           .comment-body
 
             .arrows
@@ -87,6 +92,8 @@
           .comment-details
             %h3=link_to 'akka', '#'
             %span.meta posted yesterday
+            .comment-details-action-menu
+              = link_to '<i class="ss-icon">delete</i>'.html_safe, 'javascript:void(0)', :class => 'action-delete-comment'
           .comment-body
             .arrows
               %i.ss-icon.arrow up
@@ -103,6 +110,8 @@
           .comment-details
             %h3=link_to 'akka', '#'
             %span.meta posted yesterday
+            .comment-details-action-menu
+              = link_to '<i class="ss-icon">delete</i>'.html_safe, 'javascript:void(0)', :class => 'action-delete-comment'
           .comment-body
             .arrows
               %i.ss-icon.arrow up
@@ -119,6 +128,8 @@
           .comment-details
             %h3=link_to 'akka', '#'
             %span.meta posted yesterday
+            .comment-details-action-menu
+              = link_to '<i class="ss-icon">delete</i>'.html_safe, 'javascript:void(0)', :class => 'action-delete-comment'
           .comment-body
             .arrows
               %i.ss-icon.arrow up
@@ -135,6 +146,8 @@
           .comment-details
             %h3=link_to 'akka', '#'
             %span.meta posted yesterday
+            .comment-details-action-menu
+              = link_to '<i class="ss-icon">delete</i>'.html_safe, 'javascript:void(0)', :class => 'action-delete-comment'
           .comment-body
             .arrows
               %i.ss-icon.arrow up
@@ -154,8 +167,8 @@
           %label Comment*
           %textarea
           %input{:type => "submit", :value => "Post Review"}
-:javascript
-    function showValue(newValue) {
-        document.getElementById("range").innerHTML=newValue;
-    }
 
+:javascript
+  $('.action-delete-comment').click( function() {
+    alert('Are you sure you want to moderate this comment?');
+  });
