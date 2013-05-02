@@ -1,49 +1,36 @@
 require 'spec_helper'
 
 describe SubmissionsController do
-
   let(:submission) { stub_model(Submission, id: '37') }
-  let(:review) { stub_model(Review) }
-  let(:user) { stub_model(User, id: 3, confirmed?: true) }
-  # This should return the minimal set of values that should be in the session
-  # in order to pass any filters (e.g. authentication) defined in
-  # SubmissionsController. Be sure to keep this updated too.
-  def valid_session
-    {}
+  before(:each) do
+    mock_all_abilities
   end
 
   describe "GET index" do
-    before(:each) do
-      submission.stub_chain(:reviews, :build).and_return(review)
-      Submission.stub(:accessible_by).and_return([submission])
-    end
-
-    it "assigns all submissions as @submissions" do
-      Submission.should_receive(:accessible_by)
-      get :index, {}, valid_session
-      assigns(:submissions).should eq([submission])
+    it "assigns all submissions as submissions" do
+      get :index
+      expect(assigns(:submissions)).to eq(Submission.all)
     end
   end
 
   describe "GET show" do
     before(:each) do
       Submission.stub(:find).and_return(submission)
-      submission.stub_chain(:reviews, :build).and_return(review)
-      submission.stub(:find_or_build_review_from).and_return(review)
     end
 
-    it "assigns the requested submission as @submission" do
-      Submission.should_receive(:find).with(submission.to_param)
-      get :show, {:id => submission.to_param}, valid_session
-      assigns(:submission).should eq(submission)
+    it "assigns the requested submission as submission" do
+      get :show, id: submission
+      expect(assigns(:submission)).to eq(submission)
     end
 
     context "if current_user is present" do
       it "finds or creates a review and assigns it to @review" do
+        review = double()
+        user = FactoryGirl.create(:user)
+        submission.stub(:find_or_build_review_from).and_return(review)
         controller.stub(:current_user).and_return(user)
-        submission.should_receive(:find_or_build_review_from).with(user)
-        get :show, {:id => submission.to_param}, valid_session
-        assigns(:review).should eq(review)
+        get :show, id: submission
+        expect(assigns(:review)).to eq(review)
       end
     end
 
@@ -51,137 +38,138 @@ describe SubmissionsController do
       it "does not find or creates a review and assign it to @review" do
         controller.stub(:current_user).and_return(nil)
         submission.should_not_receive(:find_or_build_review_from)
-        get :show, {:id => submission.to_param}, valid_session
+        get :show, id: submission
       end
     end
   end
 
   describe "GET new" do
-    it "assigns a new submission as @submission" do
-      get :new, {}, valid_session
-      assigns(:submission).should be_a_new(Submission)
+    it "assigns a new submission as submission" do
+      get :new
+      expect(assigns(:submission)).to be_a_new(Submission)
     end
   end
 
   describe "GET edit" do
-    it "assigns the requested submission as @submission" do
+    it "assigns the requested submission as submission" do
       Submission.stub(:find).and_return(submission)
       Submission.should_receive(:find).with(submission.to_param)
-      get :edit, {:id => submission.to_param}, valid_session
-      assigns(:submission).should eq(submission)
+      get :edit, id: submission
+      expect(assigns(:submission)).to eq(submission)
     end
   end
 
   describe "POST create" do
     describe "with valid params" do
       before(:each) do
-        # Need to stub user= to since its called in controller
+        @submission_attrs = FactoryGirl.attributes_for(:submission)
+        @user = FactoryGirl.create(:user)
+        controller.stub(:current_user).and_return(@user)
         submission.stub(:user=).and_return(true)
-        Submission.stub(:new).and_return(submission)
-        # Need to stub ability so we can get past authorization
-        @ability = Object.new
-        @ability.extend(CanCan::Ability)
-        controller.stub(:current_ability) { @ability }
-        @ability.can :create, Submission
       end
 
       it "creates a new Submission" do
-        Submission.should_receive(:new).with(submission.to_param)
-        post :create, {submission: submission.to_param}, valid_session
+        expect { 
+          post :create, submission: @submission_attrs
+        }.to change(Submission, :count).by(1)
       end
 
-      it "assigns a newly created submission as @submission" do
-        post :create, {submission: submission.to_param}, valid_session
-        assigns(:submission).should eq(submission)
+      it "assigns a newly created submission as submission" do
+        Submission.stub(:new).and_return(submission)
+        post :create, submission: submission 
+        expect(assigns(:submission)).to eq(submission)
       end
 
       it 'assigns the submission user to the current user' do
-        controller.stub(:current_user).and_return(user)
-        submission.should_receive(:user=).with(user)
-        post :create, {submission: submission.to_param}, valid_session
+        Submission.stub(:new).and_return(submission)
+        submission.should_receive(:user=).with(@user)
+        post :create, submission: submission
       end
 
       it "redirects to the created submission" do
+        Submission.stub(:new).and_return(submission)
         submission.stub(:save).and_return(true)
-        post :create, {submission: submission.to_param}, valid_session
-        response.should redirect_to(submission)
+        post :create, submission: submission 
+        expect(response).to redirect_to(submission)
       end
     end
 
     describe "with invalid params" do
       before(:each) do
+        @user = FactoryGirl.create(:user)
         # Trigger the behavior that occurs when invalid params are submitted
         submission.stub(:save).and_return(false)
         # Needed to pass CanCan check
-        controller.stub(:current_user).and_return(user)
-
-        post :create, {:submission => {  }}, valid_session
+        controller.stub(:current_user).and_return(@user)
+        post :create, submission: FactoryGirl.attributes_for(:invalid_submission)
       end
-      it "assigns a newly created but unsaved submission as @submission" do
-        assigns(:submission).should be_a_new(Submission)
+
+      it "assigns a newly created but unsaved submission as submission" do
+        expect(assigns(:submission)).to be_a_new(Submission)
       end
 
       it "re-renders the 'new' template" do
-        response.should render_template("new")
+        expect(response).to render_template("new")
       end
     end
   end
 
   describe "PUT update" do
+    before(:each) do 
+      @submission = FactoryGirl.create(:submission)
+    end
     describe "with valid params" do
-      before(:each) { Submission.stub(:find).and_return(submission) }
       it "updates the requested submission" do
-        submission.should_receive(:update_attributes).with({ "these" => "params" })
-        put :update, {:id => submission.to_param, :submission => { "these" => "params" }}, valid_session
+        put :update, 
+          {
+            id: @submission,
+            submission: FactoryGirl.attributes_for(:submission, title: 'hi')
+          }
+          @submission.reload
+          expect(@submission.title).to eq('hi')
       end
 
-      it "assigns the requested submission as @submission" do
-        submission.stub(:update_attributes).and_return(true)
-        put :update, {:id => submission.to_param}, valid_session
-        assigns(:submission).should eq(submission)
+      it "assigns the requested submission as submission" do
+        put :update, id: @submission, submisison: @submission
+        assigns(:submission).should eq(@submission)
       end
 
       it "redirects to the submission" do
-        submission.stub(:update_attributes).and_return(true)
-        put :update, {:id => submission.to_param}, valid_session
-        response.should redirect_to(submission)
+        put :update, id: @submission, submisison: @submission
+        response.should redirect_to(@submission)
       end
     end
 
     describe "with invalid params" do
       before(:each) do
-        # Trigger the behavior that occurs when invalid params are submitted
-        Submission.stub(:find).and_return(submission)
-        submission.stub(:update_attributes).and_return(false)
+        @invalid_sub = FactoryGirl.attributes_for(:invalid_submission)
       end
-
-      it "assigns the submission as @submission" do
-        put :update, {:id => submission.to_param, :submission => {  }}, valid_session
-        assigns(:submission).should eq(submission)
+      it "assigns the submission as submission" do
+        put :update, id: @submission, submission: @invalid_sub
+        expect(assigns(:submission)).to eq(@submission)
       end
 
       it "re-renders the 'edit' template" do
-        put :update, {:id => submission.to_param, :submission => {  }}, valid_session
+        put :update, id: @submission, submission: @invalid_sub
         response.should render_template("edit")
       end
     end
   end
 
   describe "DELETE destroy" do
-    before(:each) do
-      # Trigger the behavior that occurs when invalid params are submitted
-      Submission.stub(:find).and_return(submission)
+    before(:each) do 
+      @submission = FactoryGirl.create(:submission)
     end
 
     it "destroys the requested submission" do
-      submission.should_receive(:destroy)
-      delete :destroy, {:id => submission.to_param}, valid_session
+      expect {
+        delete :destroy, id: @submission
+      }.to change(Submission, :count).by(-1)
     end
 
     it "redirects to the submissions list" do
-      submission.stub(:destroy).and_return(true)
-      delete :destroy, {:id => submission.to_param}, valid_session
-      response.should redirect_to(submissions_url)
+      delete :destroy, id: @submission
+      expect(response).to redirect_to(submissions_url)
     end
   end
 end

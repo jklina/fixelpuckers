@@ -2,36 +2,34 @@ require 'spec_helper'
 
 describe ReviewsController do
   let(:submission) { FactoryGirl.create(:submission) }
+  before(:each) do
+    mock_all_abilities
+  end
 
   describe "POST create" do
     let(:review_attrs) { FactoryGirl.attributes_for(:review) }
-    before(:each) do
-      # Need to stub ability so we can get past authorization
-      @ability = Object.new
-      @ability.extend(CanCan::Ability)
-      controller.stub(:current_ability) { @ability }
-      @ability.can :create, Submission
-    end
-
+    
     describe "with valid params" do
       it "finds the submission that will build the review" do
-        put :create, submission_id: submission, review: review_attrs
+        post :create, submission_id: submission, review: review_attrs
         expect(assigns(:submission)).to eq(submission)
       end
 
       it "creates a new Review from the given submission" do
-        expect(assigns(:review)).to eq(submission.reviews.last)
+        expect {
+          post :create, submission_id: submission, review: review_attrs
+        }.to change(Review, :count).by(1)
       end
 
       it 'assigns the review user to the current user' do
         user = FactoryGirl.create(:user)
         controller.stub(:current_user).and_return(user)
-        put :create, submission_id: submission, review: review_attrs
+        post :create, submission_id: submission, review: review_attrs
         expect(assigns(:review).user).to eq(user)
       end
 
       it "redirects to the submission show page" do
-        put :create, submission_id: submission, review: review_attrs
+        post :create, submission_id: submission, review: review_attrs
         expect(response).to redirect_to(submission)
       end
     end
@@ -104,21 +102,37 @@ describe ReviewsController do
       it "re-renders the 'edit' template" do
         expect(response).to render_template("submissions/show")
       end
+    end
   end
 
-  # describe "DELETE destroy" do
-  #   it "destroys the requested review" do
-  #     review = Review.create! valid_attributes
-  #     expect {
-  #       delete :destroy, {:id => review.to_param}, valid_session
-  #     }.to change(Review, :count).by(-1)
-  #   end
+  describe "DELETE destroy" do
+    context "when the user owns the review they're trying to delete" do
+      before(:each) do
+        # let(:submission) { FactoryGirl.create(:submission) }
+        @review = FactoryGirl.create(:review)
+        submission.reviews << @review
+      end
 
-  #   it "redirects to the reviews list" do
-  #     review = Review.create! valid_attributes
-  #     delete :destroy, {:id => review.to_param}, valid_session
-  #     response.should redirect_to(reviews_url)
-  #   end
+      it "destroys the requested review" do
+        expect {
+          delete :destroy, {submission_id: submission, id: @review}
+        }.to change(Review, :count).by(-1)
+      end
+
+      it "redirects to the review's submission" do
+        delete :destroy, {submission_id: submission, id: @review}
+        expect(response).to redirect_to(submission)
+      end
+    end
+
+    # context "when the user doesn't own the review they're trying to delete" do
+    #   it "should not let them delete the review" do
+    #     user = FactoryGirl.create(:user)
+    #     review = FactoryGirl.create(:review)
+    #     submission.reviews << review
+    #     # controller.stub(:current_user).and_return(user)
+    #   end
+    # end
   end
 
 end

@@ -1,10 +1,11 @@
 class ReviewsController < ApplicationController
+  load_and_authorize_resource :submission
+  load_and_authorize_resource :review, through: :submission, except: :create
+
   def create
-    @submission = Submission.find(params[:submission_id])
     @review = Review.new(params[:review])
     @review.user = current_user
     @review.submission = @submission
-
     respond_to do |format|
       if @review.save
         format.html { redirect_to @submission, notice: 'Review was successfully created.' }
@@ -20,9 +21,6 @@ class ReviewsController < ApplicationController
   # PUT /reviews/1
   # PUT /reviews/1.json
   def update
-    @submission = Submission.find(params[:submission_id])
-    @review = @submission.reviews.find(params[:id])
-
     respond_to do |format|
       if @review.update_attributes(params[:review])
         format.html { redirect_to @submission, notice: 'Review was successfully updated.' }
@@ -37,11 +35,10 @@ class ReviewsController < ApplicationController
   # DELETE /reviews/1
   # DELETE /reviews/1.json
   def destroy
-    @review = Review.find(params[:id])
     @review.destroy
 
     respond_to do |format|
-      format.html { redirect_to reviews_url }
+      format.html { redirect_to @submission }
       format.json { head :no_content }
     end
   end

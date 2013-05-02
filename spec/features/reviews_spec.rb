@@ -1,5 +1,25 @@
 require 'spec_helper'
 
+describe "Deleting a review" do
+  before(:each) do
+    @user = create_logged_in_user
+    @submission = FactoryGirl.create(:submission)
+    @review = FactoryGirl.create(:review, user: @user)
+    @submission.reviews << @review
+    # save_and_open_page
+    visit submission_path(@submission)
+  end
+  context "when a user has a review on a given submission" do
+    it "enables the user to delete her review" do
+      visit submission_path(@submission)
+      click_link("Delete Review")
+      page.driver.browser.switch_to.alert.accept
+      expect(@submission.reviews.count).to eq(0)
+    end
+
+  end
+end
+
 describe "Submitting a review" do
   context "when the reviewer isn't a registered user" do
     before(:each) do
