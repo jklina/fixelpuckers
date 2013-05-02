@@ -7,19 +7,63 @@ describe "Submission page" do
   end
 
   it "uses friendly urls" do
-    @submission.to_param.should eq(@submission.slug)
+    expect(@submission.to_param).to eq(@submission.slug)
   end
 
   it "shows the submission's title" do
-    page.should have_content(@submission.title)
+    expect(page).to have_content(@submission.title)
   end
 
   it "shows the submission's user's username" do
-    page.should have_content(@submission.user.username)
+    expect(page).to have_content(@submission.user.username)
   end
 
   it "shows the submission's date" do
-    page.should have_content(@submission.created_at.strftime("%B %-d, %Y"))
+    expect(page).to have_content(@submission.created_at.strftime("%B %-d, %Y"))
+  end
+
+  it "shows the submisson's description" do
+    expect(page).to have_content(@submission.description)
+  end
+
+  it "shows the submission's number of reviews" do
+    expect(page).to have_content("#{@submission.reviews.count} Reviews")
+  end
+
+  it "shows the submission's number of views" do
+    expect(page).to have_content("#{@submission.views} Views")
+  end
+
+  it "shows the submission's number of downloads" do
+    expect(page).to have_content("#{@submission.downloads} Downloads")
+  end
+
+  context "when the submission has ratings" do
+    it "shows the average user rating" do
+      @submission.stub(:has_ratings?).and_return(true)
+      expect(page).to have_content("#{@submission.average_rating}")
+    end
+  end
+
+  context "when the submission has no ratings" do
+    it "shows the average user rating" do
+      @submission.stub(:has_ratings?).and_return(false)
+      expect(page).to have_content("User Rating None")
+    end
+  end
+
+  context "when the submission is featured" do
+    it "does show the submission's featured date" do
+      @submission.stub(:featured?).and_return(true)
+      expect(page).to have_content("#{@submission.featured_at}")
+    end
+  end
+
+  context "when the submission isn't featured" do
+    it "does not show the submission's featured date" do
+      @submission.stub(:featured?).and_return(false)
+      expect(page).to_not have_content("Featured: #{@submission.featured_at}")
+    end
   end
 
   context "when there are reviews" do 
@@ -31,8 +75,8 @@ describe "Submission page" do
       review = FactoryGirl.create(:review)
       @submission.reviews << review
       visit submission_path(@submission)
-      page.should have_content(review.comment)
-      page.should have_content(review.rating)
+      expect(page).to have_content(review.comment)
+      expect(page).to have_content(review.rating)
     end
   end
 
@@ -47,11 +91,11 @@ describe "Submission page" do
     end
 
     it "asks the user to sign up to leave a review" do
-      page.should have_content("Please sign up to leave a review.")
+      expect(page).to have_content("Please sign up to leave a review.")
     end
 
     it "doesn't show a review form" do
-      page.should_not have_selector('form')
+      expect(page).to_not have_selector('form')
     end
   end
 end

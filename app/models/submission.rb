@@ -16,4 +16,22 @@ class Submission < ActiveRecord::Base
   def find_or_build_review_from(user)
     reviews.where(user_id: user.id).first_or_initialize
   end
+
+  def average_rating
+  end
+
+  def downloads
+  end
+  
+  def views
+  end
+
+  def has_ratings?
+  end
+
+  def featured_at
+  end
+
+  def featured?
+  end
 end

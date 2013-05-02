@@ -12,11 +12,56 @@
           = link_to @submission.user.username, user_path(@submission.user)
         %span.date
           = @submission.created_at.to_formatted_s(:pf_long)
+      %ul.action-menu
+        %li
+          = link_to '&#9776;'.html_safe, '#'
+          %ul
+            %li
+              = link_to '#' do
+                Trash
+                %i.ss-icon trash
+            %li
+              = link_to '#' do
+                Edit
+                %i.ss-icon edit
+            %li
+              = link_to '#' do
+                Feature
+                %i.ss-icon bookmark
+            %li
+              = link_to '#' do
+                Moderate
+                %i.ss-icon delete
     .thumb
       .img-wrap
         = link_to '#' do
           = image_tag('http://placekitten.com/1280/768')
           .img-shadow
+    .submission-details
+      .notes
+        %h2 Artist Notes
+        %p= @submission.description
+      .meta
+        %ol
+          %li
+            %i.ss-icon comment
+            = "#{@submission.reviews.count} Reviews"
+          %li
+            %i.ss-icon eye
+            628 Views
+          %li
+            %i.ss-icon download
+            = "#{@submission.downloads} Downloads"
+          %li
+            %i.ss-icon barchart
+            - if @submission.has_ratings?
+              = "User Rating #{@submission.average_rating}"
+            - else
+              = "User Rating None"
+          - if @submission.featured?
+            %li
+              %i.ss-icon bookmark
+              = "Featured: #{@submission.featured_at}"
 
 %section.comments
   .wrapper
