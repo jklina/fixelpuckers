@@ -212,10 +212,32 @@ ol.forum-posts {
   }
 
   .action-menu {
-    display: none;
     @include span-columns(1);
+    position: relative;
+  }
+
+  #dropdown {
+    display: inline-block;
+    float: right;
     margin-top: 1em;
+    padding: em(5) em(10);
+    position: relative;
     text-align: right;
+  }
+
+  .dropdown-menu {
+    @extend %chip-menu;
+    display: none;
+    position: absolute;
+    right: 0;
+    top: $base-line-height * 3;
+    z-index: 5;
+
+    ul {
+      display: block;
+      margin: 0;
+      padding: 0;
+    }
   }
 }
 
@@ -469,7 +491,6 @@ ol.forum-posts {
 }
 
 .comment-details-action-menu {
-  @include transition;
   opacity: 0;
   float: right;
   margin-top: em(7);
@@ -497,24 +518,3 @@ h4.rating {
   margin-left: $gutter;
 }
 
-.action-menu {
-  float: right;
-  padding: em(5) em(10);
-  position: relative;
-
-  ul {
-    @extend %chip-menu;
-    position: absolute;
-    position: relative;
-    z-index: 5;
-    right: 0;
-    top: em(54);
-    display: none;
-  }
-
-  &:hover {
-    ul {
-      display: block;
-    }
-  }
-}

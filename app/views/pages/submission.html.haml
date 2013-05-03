@@ -13,9 +13,9 @@
             = link_to 'akka', '#'
           %span.date
             May 23, 2013
-      %ul.action-menu
-        %li
-          = link_to '&#9776;'.html_safe, '#'
+      .action-menu
+        = link_to '&#9776;'.html_safe, 'javascript:void(0);', :class => 'dropdown', :id => 'dropdown'
+        .dropdown-menu
           %ul
             %li
               = link_to '#' do
@@ -169,6 +169,18 @@
           %input{:type => "submit", :value => "Post Review"}
 
 :javascript
-  $('.action-delete-comment').click( function() {
-    alert('Are you sure you want to moderate this comment?');
+  $("#dropdown").click(function (e) { // binding onclick
+  if ($(this).hasClass('selected')) {
+    $('.dropdown-menu').css('display', 'none'); // hiding popups
+      $(this).removeClass("selected");
+    } else {
+      $(this).addClass("selected"); // display popup
+      $('.dropdown-menu').css('display', 'block');
+    }
+    e.stopPropagation();
+  });
+
+  $("html").click(function () { // binding onclick to body
+    $('.dropdown-menu').css('display', 'none'); // hiding popups
+      $('#dropdown').removeClass("selected");
   });
