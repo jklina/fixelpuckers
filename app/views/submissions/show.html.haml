@@ -1,83 +1,77 @@
-%section.submission
-  .wrapper
-    .vcard
-      .avatar
+- present @submission do |submission_presenter|
+  %section.submission
+    .wrapper
+      .vcard
+        .avatar
+          .img-wrap
+            = link_to '#' do
+              = image_tag('http://lorempixel.com/100/100/nature/1')
+              .img-shadow
+        .byline
+          %p.title
+            = "#{submission_presenter.title} by "
+            = link_to submission_presenter.user.username, user_path(submission_presenter.user)
+          %span.date
+            = submission_presenter.created_at.to_formatted_s(:pf_long)
+        %ul.action-menu
+          %li
+            = link_to '&#9776;'.html_safe, '#'
+            %ul
+              %li
+                = link_to '#' do
+                  Trash
+                  %i.ss-icon trash
+              %li
+                = link_to '#' do
+                  Edit
+                  %i.ss-icon edit
+              %li
+                = link_to '#' do
+                  Feature
+                  %i.ss-icon bookmark
+              %li
+                = link_to '#' do
+                  Moderate
+                  %i.ss-icon delete
+      .thumb
         .img-wrap
           = link_to '#' do
-            = image_tag('http://lorempixel.com/100/100/nature/1')
+            = image_tag('http://placekitten.com/1280/768')
             .img-shadow
-      .byline
-        %p.title
-          = "#{@submission.title} by "
-          = link_to @submission.user.username, user_path(@submission.user)
-        %span.date
-          = @submission.created_at.to_formatted_s(:pf_long)
-      %ul.action-menu
-        %li
-          = link_to '&#9776;'.html_safe, '#'
-          %ul
+      .submission-details
+        .notes
+          %h2 Artist Notes
+          %p= submission_presenter.description
+        .meta
+          %ol
             %li
-              = link_to '#' do
-                Trash
-                %i.ss-icon trash
+              %i.ss-icon comment
+              = submission_presenter.number_of_reviews
             %li
-              = link_to '#' do
-                Edit
-                %i.ss-icon edit
+              %i.ss-icon eye
+              = submission_presenter.views
             %li
-              = link_to '#' do
-                Feature
-                %i.ss-icon bookmark
+              %i.ss-icon download
+              = submission_presenter.downloads
             %li
-              = link_to '#' do
-                Moderate
-                %i.ss-icon delete
-    .thumb
-      .img-wrap
-        = link_to '#' do
-          = image_tag('http://placekitten.com/1280/768')
-          .img-shadow
-    .submission-details
-      .notes
-        %h2 Artist Notes
-        %p= @submission.description
-      .meta
-        %ol
-          %li
-            %i.ss-icon comment
-            = "#{@submission.reviews.count} Reviews"
-          %li
-            %i.ss-icon eye
-            628 Views
-          %li
-            %i.ss-icon download
-            = "#{@submission.downloads} Downloads"
-          %li
-            %i.ss-icon barchart
-            - if @submission.has_ratings?
-              = "User Rating #{@submission.average_rating}"
-            - else
-              = "User Rating None"
-          - if @submission.featured?
-            %li
-              %i.ss-icon bookmark
-              = "Featured: #{@submission.featured_at}"
+              %i.ss-icon barchart
+              = submission_presenter.average_rating
+            = submission_presenter.featured_at
+  %section.comments
+    .wrapper
+      %ol
+        = render partial: 'submissions/review', collection: submission_presenter.reviews
+        %li 
+          - if current_user.present?
+            .avatar
+              .img-wrap
+                = link_to '#' do
+                  = image_tag('http://lorempixel.com/100/100/nature/5')
 
-%section.comments
-  .wrapper
-    %ol
-      = render partial: 'submissions/review', collection: @submission.reviews
-      %li 
-        - if current_user.present?
-          .avatar
-            .img-wrap
-              = link_to '#' do
-                = image_tag('http://lorempixel.com/100/100/nature/5')
-
-          = simple_form_for [@submission, @review] do |f|
-            %h2 Leave a Review
-            = f.input :rating
-            = f.input :comment
-            = f.button :submit
-        - else
-          %p Please sign up to leave a review.
+            = simple_form_for [submission_presenter, @review] do |f|
+              %h2 Leave a Review
+              = f.input :rating
+              = f.input :comment
+              = f.button :submit
+          - else
+            %p Please sign up to leave a review.

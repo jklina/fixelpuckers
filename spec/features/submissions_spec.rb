@@ -40,28 +40,37 @@ describe "Submission page" do
 
   context "when the submission has ratings" do
     it "shows the average user rating" do
-      @submission.stub(:has_ratings?).and_return(true)
+      average_rating = rand(0..100)
+      @submission.average_rating = average_rating
+      @submission.save!
+      visit submission_path(@submission)
       expect(page).to have_content("#{@submission.average_rating}")
     end
   end
 
   context "when the submission has no ratings" do
-    it "shows the average user rating" do
-      @submission.stub(:has_ratings?).and_return(false)
-      expect(page).to have_content("User Rating None")
+    it "does not show the average user rating" do
+      @submission.average_rating = nil
+      @submission.save!
+      visit submission_path(@submission)
+      expect(page).to have_content("User Rating: None")
     end
   end
 
   context "when the submission is featured" do
     it "does show the submission's featured date" do
-      @submission.stub(:featured?).and_return(true)
-      expect(page).to have_content("#{@submission.featured_at}")
+      @submission.featured_at = Date.today
+      @submission.save!
+      visit submission_path(@submission)
+      expect(page).to have_content("Featured: #{@submission.featured_at}")
     end
   end
 
   context "when the submission isn't featured" do
     it "does not show the submission's featured date" do
-      @submission.stub(:featured?).and_return(false)
+      @submission.featured_at = nil
+      @submission.save!
+      visit submission_path(@submission)
       expect(page).to_not have_content("Featured: #{@submission.featured_at}")
     end
   end
