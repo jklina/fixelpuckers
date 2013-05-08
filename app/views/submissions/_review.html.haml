@@ -4,8 +4,16 @@
       = link_to '#' do
         = image_tag('http://lorempixel.com/100/100/nature/1')
         .img-shadow
-  .comment-body
-    %h2= link_to review.user.username, user_path(review.user)
-    %p= review.comment
-    %span.meta= review.created_at.to_formatted_s(:pf_long)
-    %span.delete= link_to("Delete Review", submission_review_path(submission_id: review.submission, id: review), method: :delete)
+  .comment-chip
+    .comment-details
+      %h3= link_to review.user.username, user_path(review.user)
+      %span.meta= review.created_at.to_formatted_s(:pf_long)
+      .comment-details-action-menu
+        = link_to '<i class="ss-icon">delete</i>'.html_safe, 'javascript:void(0)', :class => 'action-delete-comment'
+    .comment-body
+
+      .arrows
+        %i.ss-icon.arrow up
+        %i.ss-icon.arrow down
+      %p= review.comment
+  %h4.rating= review.rating
