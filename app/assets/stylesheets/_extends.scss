@@ -7,47 +7,53 @@
   padding: $base-line-height 0;
 
   a:link, a:visited {
-      color: white;
+    color: white;
   }
 
-    h2 {
-        color: white;
-        border-color: rgba(255,255,255,.2);
-    }
+  h2 {
+    color: white;
+    border-color: rgba(255,255,255,.2);
+  }
 }
 
 %chip {
-    @include box-shadow(0 1px 1px rgba(0,0,0,.15));
-    background-color: white;
-    border-radius: 3px;
-    border: 1px solid #c3c3c3;
+  @include box-shadow(0 1px 1px rgba(0,0,0,.15));
+  background-color: white;
+  border-radius: 3px;
+  border: 1px solid #c3c3c3;
 }
 
 %chip-head {
-    @include box-shadow(0 1px 0px #dedede);
-    background-color: #f5f5f5;
+  @include box-shadow(0 1px 0px #dedede);
+  background-color: #f5f5f5;
 }
 
 %chip-menu {
-    @extend %chip;
-    @include box-shadow(2px 2px 1px rgba(0,0,0,.3));
-    @include clearfix;
-    @include transition;
-    // @include ui-nub(8px, top-left);
-    @include ui-nub;
-    color: $dark-gray;
-    font-size: .75em;
-    padding: 0;
+  @extend %chip;
+  @include box-shadow(2px 2px 1px rgba(0,0,0,.3));
+  @include clearfix;
+  @include transition;
+  @include ui-nub(8px, top-right, white, #c3c3c3);
+  color: $dark-gray;
+  font-size: .75em;
+  padding: 0;
+
+  &:before, &:after {
+    margin-right: 9px;
+  }
+
+  ul {
+    width: 100%;
+  }
 
   li {
     display: block;
     float: none;
     width: 16em;
-    padding: 1em;
 
     &:hover {
-        background-color: #f1f1f1;
-        color: #999;
+      background-color: #f1f1f1;
+      color: #999;
     }
   }
 
@@ -58,6 +64,7 @@
     text-transform: uppercase;
     font-weight: 600;
     text-align: left;
+    padding: 1em;
 
     i {
       color: $icon-color;
@@ -69,8 +76,8 @@
       color: #999 !important;
 
       i {
-          color: #999;
-          text-align: right;
+        color: #999;
+        text-align: right;
       }
     }
   }
