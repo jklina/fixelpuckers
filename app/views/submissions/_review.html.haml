@@ -7,9 +7,9 @@
   .comment-chip
     .comment-details
       %h3= link_to review.user.username, user_path(review.user)
-      %span.meta= review.created_at.to_formatted_s(:pf_long)
+      %span.meta= time_ago_in_words(review.created_at)
       .comment-details-action-menu
-        = link_to '<i class="ss-icon">delete</i>'.html_safe, 'javascript:void(0)', :class => 'action-delete-comment'
+        = link_to '<i class="ss-icon">delete</i>'.html_safe, 'javascript:void(0)', id: 'action-delete-comment'
     .comment-body
 
       .arrows

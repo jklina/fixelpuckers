@@ -12,8 +12,8 @@ describe "Deleting a review" do
   context "when a user has a review on a given submission" do
     it "enables the user to delete her review" do
       visit submission_path(@submission)
-      click_link("Delete Review")
-      page.driver.browser.switch_to.alert.accept
+      click_link("action-delete-comment")
+      # page.driver.browser.switch_to.alert.accept
       expect(@submission.reviews.count).to eq(0)
     end
 
