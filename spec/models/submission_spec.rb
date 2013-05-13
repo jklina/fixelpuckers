@@ -43,4 +43,37 @@ describe Submission do
       @submission.find_or_build_review_from(@user)
     end
   end
+
+  context "when a review is added" do
+    it "updates its average rating" do
+      submission = submission_with_rated_reviews(2)
+      num_of_reviews = submission.reviews.count
+      average_rating = submission.reviews.inject(0) do |sum, review|
+        sum + review.rating
+      end.to_f / num_of_reviews
+      expect(submission.average_rating).to eq(average_rating)
+    end
+  end
+
+  context "when a review is removed" do
+    it "updates its average rating" do
+      submission = submission_with_rated_reviews(3)
+      submission.reviews.delete(submission.reviews.last)
+      num_of_reviews = submission.reviews.count
+      average_rating = submission.reviews.inject(0) do |sum, review|
+        sum + review.rating
+      end.to_f / num_of_reviews
+      expect(submission.average_rating).to eq(average_rating)
+    end
+  end
+
+  def submission_with_rated_reviews(number_of_reviews)
+    submission = FactoryGirl.create(:submission)
+    number_of_reviews.times.each do |n|
+      rating = rand(1..100)
+      review = FactoryGirl.create(:review, rating: rating)
+      submission.reviews << review
+    end
+    return submission
+  end
 end

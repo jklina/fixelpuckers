@@ -106,8 +106,9 @@ describe "Submitting a review" do
         find(:xpath, "//*[(@id = 'review_rating')]").set '44'
         find(:xpath, "//*[(@id = 'review_comment')]").set "hello"
         click_button('Update Review')
-        @submission.reviews.last.comment.should eq('hello')
-        @submission.reviews.last.rating.should eq(44)
+        @review.reload
+        expect(@review.comment).to eq('hello')
+        expect(@review.rating).to eq(44)
       end
 
       it "should display a message saying the review has been updated" do
