@@ -1,8 +1,10 @@
+require 'reviews'
+
 class Submission < ActiveRecord::Base
   extend FriendlyId
 
   belongs_to :user
-  has_many :reviews, after_add: :update_average_rating, after_remove: :update_average_rating
+  has_many :reviews
 
   attr_accessible :description, :title
 
@@ -20,15 +22,8 @@ class Submission < ActiveRecord::Base
     reviews.where(user_id: user.id).first_or_initialize
   end
 
-  private
-
-  def update_average_rating(review)
-    self.average_rating = calculate_average_rating
+  def update_average_rating
+    self.average_rating = Pf::Reviews.calc_average_rating(reviews)
     self.save!
-  end
-
-  def calculate_average_rating
-    num_of_reviews = reviews.count
-    reviews.inject(0) {|sum, review| sum + review.rating}.to_f / num_of_reviews
   end
 end

@@ -9,6 +9,7 @@ class ReviewsController < ApplicationController
     @review.user = current_user
     @review.submission = @submission
     if @review.save
+      @submission.update_average_rating
       redirect_to @submission, notice: 'Review was successfully created.'
     else
       flash[:error] = 'Review not saved.'
@@ -18,8 +19,8 @@ class ReviewsController < ApplicationController
 
   def update
     @review = Review.find(params[:id])
-    # @submission = Pf::Submissions.present(submission)
     if @review.update_attributes(params[:review])
+      @submission.update_average_rating
       redirect_to @submission, notice: 'Review was successfully updated.'
     else
       render "submissions/show"
@@ -28,6 +29,7 @@ class ReviewsController < ApplicationController
 
   def destroy
     @review.destroy
+    @submission.update_average_rating
     redirect_to @submission
   end
 end

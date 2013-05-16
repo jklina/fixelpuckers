@@ -28,6 +28,12 @@ describe ReviewsController do
         expect(assigns(:review).user).to eq(user)
       end
 
+      it "updates the submission's average rating" do
+        Submission.stub(:find).and_return(submission)
+        submission.should_receive(:update_average_rating)
+        post :create, submission_id: submission, review: review_attrs
+      end
+
       it "redirects to the submission show page" do
         post :create, submission_id: submission, review: review_attrs
         expect(response).to redirect_to(submission)
@@ -79,6 +85,15 @@ describe ReviewsController do
         expect(assigns(:review)).to eq(@review)
       end
 
+      it "updates the submission's average rating" do
+        rating = rand(2..99)
+        Submission.stub(:find).and_return(submission)
+        submission.should_receive(:update_average_rating)
+        put :update, { submission_id: submission, id: @review,
+                       review: FactoryGirl.attributes_for(:review, 
+                                                          rating: rating) }
+      end
+
       it "redirects to the review" do
         put :update, { submission_id: submission,
                        id: @review,
@@ -117,6 +132,12 @@ describe ReviewsController do
         expect {
           delete :destroy, {submission_id: submission, id: @review}
         }.to change(Review, :count).by(-1)
+      end
+
+      it "updates the submission's average rating" do
+        submission.should_receive(:update_average_rating)
+        Submission.stub(:find).and_return(submission)
+        delete :destroy, {submission_id: submission, id: @review}
       end
 
       it "redirects to the review's submission" do
