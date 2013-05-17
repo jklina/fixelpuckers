@@ -34,7 +34,7 @@ describe Pf::Submissions::Presenters::Instance do
         average_rating = rand(0..100)
         submission = stub(average_rating: average_rating)
         presenter = Pf::Submissions::Presenters::Instance.for(submission)
-        expect(presenter.average_rating).to eq("User Rating: #{average_rating}")
+        expect(presenter.average_rating).to eq(average_rating)
       end
     end
 
@@ -42,7 +42,7 @@ describe Pf::Submissions::Presenters::Instance do
       it "displays a message that there are no ratings" do
         submission = stub(average_rating: nil)
         presenter = Pf::Submissions::Presenters::Instance.for(submission)
-        expect(presenter.average_rating).to eq("User Rating: None")
+        expect(presenter.average_rating).to eq("None")
       end
     end
   end
@@ -72,6 +72,16 @@ describe Pf::Submissions::Presenters::Instance do
       submission.stub_chain(:reviews, :count).and_return(reviews_count)
       presenter = Pf::Submissions::Presenters::Instance.for(submission)
       expect(presenter.number_of_reviews).to eq("#{reviews_count} Reviews")
+    end
+  end
+
+  describe "#boxplot_ratings" do
+    it "displays the ratings in a comma delimited list for the boxplot plugin" do
+      reviews = [stub(rating: rand(1..100)), stub(rating: rand(1..100))]
+      submission = stub(reviews: reviews)
+      presenter = Pf::Submissions::Presenters::Instance.for(submission)
+      ratings = reviews.map { |review| review.rating }
+      expect(presenter.boxplot_ratings).to eq("#{ratings.join(',')}")
     end
   end
 

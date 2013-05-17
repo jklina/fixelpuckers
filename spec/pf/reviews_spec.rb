@@ -17,10 +17,19 @@ describe Pf::Reviews do
     end
 
     context "when there are no ratings" do
-      it "should return nil" do
+      it "returns nil" do
         reviews = [stub(rating: nil), stub(rating: nil)]
         expect(Pf::Reviews.calc_average_rating(reviews)).to eq(nil)
       end
+    end
+  end
+
+  describe ".ratings" do
+    it "returns an array of all the ratings in a collection of reviews" do
+      reviews = []
+      reviews << stub(rating: 10)
+      reviews << stub(rating: 20)
+      expect(Pf::Reviews.ratings(reviews)).to eq([10, 20])
     end
   end
 end

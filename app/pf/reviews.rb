@@ -14,6 +14,10 @@ module Pf
       end
     end
 
+    def self.ratings(reviews)
+      with_ratings(reviews).map { |review| review.rating }
+    end
+
     private
 
     def self.with_ratings(reviews)

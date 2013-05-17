@@ -1,4 +1,5 @@
 require 'action_view/helpers/tag_helper'
+require 'reviews'
 require 'delegate'
 
 module Pf
@@ -32,9 +33,9 @@ module Pf
 
         def average_rating
           if submission.average_rating.present?
-            "User Rating: #{submission.average_rating}"
+            submission.average_rating
           else
-            "User Rating: None"
+            "None"
           end
         end
 
@@ -48,6 +49,10 @@ module Pf
 
         def number_of_reviews
           "#{submission.reviews.count} Reviews"
+        end
+
+        def boxplot_ratings
+          "#{Pf::Reviews.ratings(submission.reviews).join(',')}"
         end
       end
     end
