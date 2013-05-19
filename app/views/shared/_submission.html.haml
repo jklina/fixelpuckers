@@ -10,7 +10,5 @@
         by
         = link_to(submission_presenter.user.username, user_path(submission_presenter.user))
     .stats
-      -# Might use jquery sparklines instead
-      - values = 10.times.map { rand(1..100) }
       %span.boxplot= submission_presenter.boxplot_ratings
       %span.average-rating= submission_presenter.average_rating
