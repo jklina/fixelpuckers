@@ -9,26 +9,14 @@
 %section.submissions
   .wrapper
     %h2 Recent Submissions
+    -# TODO: Possible move this into a helper or presenter
     - if @submissions.present?
       %ol.thumbs
         = render partial: 'shared/submission', collection: @submissions
     - else
       %p There are no submissions yet!
 
-    %nav.pagination
-      %ul
-        %li.page-prev
-          %span.inactive &larr;
-        %li
-          %span.current 1
-        %li
-          = link_to "2", "#"
-        %li
-          = link_to "3", "#"
-        %li
-          = link_to "4", "#"
-        %li.page-next
-          = link_to "&rarr;".html_safe, "#"
+    = paginate @submissions
 
 %section.forums
   .wrapper

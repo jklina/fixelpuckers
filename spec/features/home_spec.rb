@@ -30,4 +30,24 @@ describe "Home Page" do
       end
     end
   end
+
+  describe "pagination" do
+    context "when there are enough submissions to have multiple pages" do
+      it "shows the pagination menu" do
+        user = FactoryGirl.create(:user)
+        FactoryGirl.create_list(:submission, 7, user: user)
+        visit root_url
+        page.should have_selector("nav.pagination")
+      end
+    end
+
+    context "when there are not enough submissions to have multiple pages" do
+      it "does not show the pagination menu" do
+        user = FactoryGirl.create(:user)
+        FactoryGirl.create_list(:submission, 6, user: user)
+        visit root_url
+        page.should_not have_selector("nav.pagination")
+      end
+    end
+  end
 end

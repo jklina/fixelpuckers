@@ -35,14 +35,11 @@ puts 'New user created: ' << user2.name
 user.add_role :admin
 user2.add_role :VIP
 
-submission = Submission.new :title => 'Sub1',
-                            :description => 'This is a submission'
-submission.user = user
-submission.save!
-puts 'New submission created: ' << submission.title
+12.times.each do |n|
+  submission = Submission.new :title => "Sub#{n}",
+                              :description => 'This is a submission'
+  submission.user = user
+  submission.save!
+  puts 'New submission created: ' << submission.title
+end
 
-submission2 = Submission.new :title => 'Sub2',
-                             :description => 'This is another submission2'
-submission2.user = user2
-submission2.save!
-puts 'New submission2 created: ' << submission2.title
