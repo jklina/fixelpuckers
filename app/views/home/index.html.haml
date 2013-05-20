@@ -22,65 +22,16 @@
   .wrapper
     %h2 In the Forums
     %ol.forum-posts
-      %li.forum-post
-        .avatar
-          .img-wrap
-            = link_to '#' do
-              = image_tag('http://lorempixel.com/100/100/people/1')
-              .img-shadow
-        %hgroup
-          %h5 
-            = link_to "Building myself a website", "#"
-          %p Loving the colors, icons, and logo. A few thoughts: ...
-      %li.forum-post
-        .avatar
-          .img-wrap
-            = link_to '#' do
-              = image_tag('http://lorempixel.com/100/100/people/4')
-              .img-shadow
-        %hgroup
-          %h5 
-            = link_to "Skype Chat Style", "#"
-          %p Loving the colors, icons, and logo. A few thoughts: ...
-      %li.forum-post
-        .avatar
-          .img-wrap
-            = link_to '#' do
-              = image_tag('http://lorempixel.com/100/100/people/3')
-              .img-shadow
-        %hgroup
-          %h5 
-            = link_to "Inspiration", "#"
-          %p Loving the colors, icons, and logo. A few thoughts: ...
-      %li.forum-post
-        .avatar
-          .img-wrap
-            = link_to '#' do
-              = image_tag('http://lorempixel.com/100/100/people/4')
-              .img-shadow
-        %hgroup
-          %h5
-            = link_to "How do you rate?", "#"
-          %p Loving the colors, icons, and logo. A few thoughts: ...
-      %li.forum-post
-        .avatar
-          .img-wrap
-            = link_to '#' do
-              = image_tag('http://lorempixel.com/100/100/people/5')
-              .img-shadow
-        %hgroup
-          %h5 
-            = link_to "Building myself a website", "#"
-          %p Loving the colors, icons, and logo. A few thoughts: ...
-      %li.forum-post
-        .avatar
-          .img-wrap
-            = link_to '#' do
-              = image_tag('http://lorempixel.com/100/100/people/9')
-              .img-shadow
-        %hgroup
-          %h5 
-            = link_to "Skype Chat Style", "#"
-          %p Loving the colors, icons, and logo. A few thoughts: ...
+      - 6.times.each do |n|
+        %li.forum-post
+          .avatar
+            .img-wrap
+              = link_to '#' do
+                = image_tag("http://lorempixel.com/100/100/people/#{n}")
+                .img-shadow
+          %hgroup
+            %h5 
+              = link_to "Building myself a website", "#"
+            %p Loving the colors, icons, and logo. A few thoughts: ...
 
 = link_to 'New Submission', new_submission_path
