@@ -111,10 +111,10 @@ ol.thumbs {
 }
 
 .thumb .img-wrap {
-  @include box-shadow(0 0 0 1px rgba(0,0,0,.04), 0 1px 5px rgba(0,0,0,0.1));
   @include linear-gradient(#fdfdfd, #fff);
   background-color: #fff;
   border: 1px solid rgba(255,255,255,0.15);
+  box-shadow: 0 0 0 1px rgba(0,0,0,.04), 0 1px 5px rgba(0,0,0,0.1);
 
   img {
     padding: 5px;
@@ -150,7 +150,7 @@ ol.thumbs {
   }
 
   .img-shadow {
-    @include box-shadow(inset 0 1px rgba(0,0,0,.2));
+    box-shadow: inset 0 1px rgba(0,0,0,.2);
     border: 1px solid rgba(0,0,0,0.25);
     border-radius: 3px;
     bottom: 0px;
@@ -159,7 +159,7 @@ ol.thumbs {
     top: 0px;
 
     &:hover {
-      @include box-shadow(inset 0 1px rgba(255,255,255,0.15));
+      box-shadow: inset 0 1px rgba(255,255,255,0.15);
     }
   }
 }
@@ -504,7 +504,7 @@ ol.forum-posts {
 }
 
 h4.rating {
-  @include box-shadow(0 0 0 1px #bbb);
+  box-shadow: 0 0 0 1px #bbb;
   border-radius: 50%;
   font-family: 'Gill Sans', $base-font-family;
   font-size: 1rem;

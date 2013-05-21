@@ -22,24 +22,28 @@
         %ul
           %li
             = link_to edit_user_registration_path do
-              <i class="ss-icon">user</i>
+              %i.ss-icon user
               Profile
           %li
+            = link_to new_submission_path do
+              %i.ss-icon upload
+              Submit
+          %li
             = link_to '#' do
-              <i class="ss-icon">inbox</i>
+              %i.ss-icon inbox
               Activity
           - if current_user.has_role? :admin
             %li
               = link_to users_path do
-                <i class="ss-icon">star</i>
+                %i.ss-icon star
                 Admin
           %li
             = link_to '#' do
-              <i class="ss-icon">settings</i>
+              %i.ss-icon settings
               Settings
           %li
             = link_to destroy_user_session_path, :method=>'delete' do
-              <i class="ss-icon">logout</i>
+              %i.ss-icon logout
               Sign Out
     - else
       %li

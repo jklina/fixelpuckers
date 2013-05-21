@@ -83,7 +83,7 @@ ul.dropdown-list {
 }
 
 ul.dropdown-list li ul {
-  @include box-shadow(2px 2px 1px rgba(0,0,0,.3));
+  box-shadow: 2px 2px 1px rgba(0,0,0,.3);
   @include transition;
   background-color: white;
   border: 1px solid $base-border-color;
