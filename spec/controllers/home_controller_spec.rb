@@ -1,14 +1,19 @@
 require 'spec_helper'
 
 describe HomeController do
-  let(:submission) { mock_model(Submission, save: true, :user= => true) }
 
   describe "GET 'index'" do
     it "assigns all submissions as @submissions" do
-      Submission.stub(:accessible_by).and_return([submission])
+      FactoryGirl.create(:submission)
+      submissions = Submission.all
+      get :index
+      expect(assigns(:submissions)).to eq(submissions)
+    end
+
+    it "returns submissions through the accessible_by method" do
+      Submission.stub_chain(:accessible_by, :page, :per)
       Submission.should_receive(:accessible_by)
       get :index
-      assigns(:submissions).should eq([submission])
     end
 
     it "paginates the submissions 6 per page" do
