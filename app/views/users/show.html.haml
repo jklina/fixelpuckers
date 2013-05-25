@@ -1,5 +1,74 @@
-%h3 User
-%p
-  User: #{@user.name}
-%p
-  Email: #{@user.email if @user.email}
+%section.user-info
+  .wrapper
+    .avatar
+      .img-wrap
+        = link_to '#' do
+          = image_tag('http://lorempixel.com/100/100/people/1')
+          .img-shadow
+    .user-meta
+      .username #{@user.username}
+      %span
+        %i.ss-icon world
+        =link_to 'http://nuance.io', 'http://nuance.io'
+      %span
+        %i.ss-icon send
+        =link_to 'christian@nuance.io', 'mailto:christian@nuance.io'
+      %span
+        %i.ss-icon location
+        Charlotte, NC
+
+%section.featured
+  .wrapper
+    .thumb
+      .img-wrap
+        = link_to '#' do
+          = image_tag('http://lorempixel.com/1200/400/abstract/3')
+          .img-shadow
+
+%section.submissions
+  .wrapper
+    %h2 Recent Submissions
+    %ol.thumbs
+      - 3.times.each do
+        %li.thumb
+          .img-wrap
+            = link_to page_path("submission") do
+              = image_tag("http://lorempixel.com/360/225/nature/#{rand(8)}")
+              .img-shadow
+          .identity
+            %p.title
+              <a href="#">Ants go marching</a> 
+            %p.author
+              by <a href="#">akka</a>
+          .stats
+            -# Might use jquery sparklines instead
+            - values = 10.times.map { rand(1..100) }
+            %span.boxplot= "#{values.join(',')}"
+            %span.average-rating= rand(10000)/100.00
+
+%section.comments
+  .wrapper
+    %h2 Recent Comments
+    %ol.thumbs
+      - 3.times.each do
+        %li.thumb
+          .img-wrap
+            = link_to page_path("submission") do
+              = image_tag("http://lorempixel.com/360/225/nature/#{rand(8)}")
+              .img-shadow
+          .comment
+            %span 98
+            .comment-body
+              %p This is one of the hottest tiler shots I’ve ever seen.
+              %p You aren’t really leaving us, though, are you? I hope not. At least stick around in ...
+
+:javascript
+  $("span.boxplot").sparkline('html', {
+      type: 'box', 
+      height: '1.0em',
+      lineColor: '#888',
+      whiskerColor: '#333333',
+      boxLineColor: '#333333',
+      boxFillColor: '#F8F8F5',
+      medianColor: '#e20000'
+    });
