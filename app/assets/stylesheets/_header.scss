@@ -50,7 +50,6 @@ nav.main-nav ul {
   }
 }
 
-// Account Dropdown
 nav ul.dropdown-list {
   float: left;
   margin: 0;
@@ -75,60 +74,66 @@ nav.account {
 }
 
 ul.dropdown-list {
-  @include transition;
-  border-left: 1px solid $base-border-color;
-  border-right: 1px solid $base-border-color;
-  float: left;
-  position: relative;
-}
+    @include transition;
+    border-left: 1px solid $base-border-color;
+    border-right: 1px solid $base-border-color;
+    float: left;
+    position: relative;
 
-ul.dropdown-list li ul {
-  box-shadow: 2px 2px 1px rgba(0,0,0,.3);
-  @include transition;
-  background-color: white;
-  border: 1px solid $base-border-color;
-  display: none;
-  padding: 0 .875em;
-  position: absolute;
-  right: 0;
-  top: 4em;
-  z-index: 1000;
-
-  &:before {
-    background-color: white; 
-    content: '';
-    display: block;
-    height: 1px;
-    position: absolute;
-    right: 0;
-    top: -1px;
-    width: pix(4) - 1px;
-  }
-
-  li {
-    display: block;
-    float: none;
-    width: 9em;
-
-    &:not(:last-child) {
-      border-bottom: 1px dotted $base-border-color;
-    }
-  }
-
-  a {
-    display: block;
-    padding: 1em 0 1em .5em;
-    width: 100%;
-
-    &:hover i {
-      color: $hover-link-color;
+    .avatar {
+      float: none;
+      width: auto;
+      margin: 0;
     }
 
-    i {
-      color: $icon-color;
-      margin-right: .75em;
+    li ul {
+        box-shadow: 2px 2px 1px rgba(0,0,0,.3);
+        @include transition;
+        background-color: white;
+        border: 1px solid $base-border-color;
+        display: none;
+        padding: 0 .875em;
+        position: absolute;
+        right: 0;
+        top: 4em;
+        z-index: 1000;
+
+        &:before {
+            background-color: white; 
+            content: '';
+            display: block;
+            height: 1px;
+            position: absolute;
+            right: 0;
+            top: -1px;
+            width: pix(4) - 1px;
+        }
+
+        li {
+            display: block;
+            float: none;
+            width: 9em;
+
+            &:not(:last-child) {
+                border-bottom: 1px dotted $base-border-color;
+            }
+        }
+
+        a {
+            display: block;
+            padding: 1em 0 1em .5em;
+            width: 100%;
+
+            &:hover i {
+                color: $hover-link-color;
+            }
+
+            i {
+                color: $icon-color;
+                margin-right: .75em;
+            }
+        }
     }
-  }
 }
 
 ul.dropdown-list:hover > li ul {

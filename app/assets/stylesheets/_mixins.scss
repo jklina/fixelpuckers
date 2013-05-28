@@ -1,7 +1,8 @@
-@mixin calc-width($value) {
-    width: -moz-calc($value);
-    width: -webkit-calc($value);
-    width: calc($value);
+@mixin calc($property, $expression) { 
+  #{$property}: -moz-calc(#{$expression}); 
+  #{$property}: -o-calc(#{$expression}); 
+  #{$property}: -webkit-calc(#{$expression}); 
+  #{$property}: calc(#{$expression}); 
 }
 
 @function pix($emval, $base: 16) {

@@ -21,7 +21,6 @@ html {
 }
 
 img {
-  width: 100%;
   max-width: 100%;
 }
 
@@ -37,136 +36,11 @@ section {
   }
 }
 
-ol.thumbs {
-  @include row;
-  list-style: none;
-  padding: 0;
-
-  li.thumb {
-    margin-bottom: $base-line-height;
-
-    @include media($mobile) {
-      @include span-columns(4);
-    }
-
-    @include media($tablet-only) {
-      @include span-columns(4);
-      @include omega(2n);
-    }
-
-    @include media($desktop) {
-      @include span-columns(4);
-      @include omega(3n);
-    }
-
-    div.identity {
-      @include span-columns(2 of 4);
-
-      p.title {
-        margin: .5em 0 0;
-      }
-
-      p.author {
-        font-size: .75em;
-      }
-    }
-
-    div.stats {
-      @include span-columns(2 of 4);
-      text-align: right;
-
-      canvas {
-        margin-top: .6875rem;
-      }
-
-      span.average-rating {
-        font: 400 1.75em $header-font-family;
-      }
-    }
-  }
-}
-
-.img-wrap {
-  @include transition;
-  position: relative;
-
-  img {
-    @include transition;
-    max-width: 100%;
-    position: relative;
-    display: block;
-  }
-
-  .img-shadow {
-    @include transition;
-    background-color: rgba(0,0,0,0.1);
-    border: 1px solid rgba(0,0,0,0.15);
-    bottom: 5px;
-    left: 5px;
-    position: absolute;
-    right: 5px;
-    top: 5px;
-    z-index: 1;
-  }
-}
-
-.thumb .img-wrap {
-  @include linear-gradient(#fdfdfd, #fff);
-  background-color: #fff;
-  border: 1px solid rgba(255,255,255,0.15);
-  box-shadow: 0 0 0 1px rgba(0,0,0,.04), 0 1px 5px rgba(0,0,0,0.1);
-
-  img {
-    padding: 5px;
-  }
-}
-
-.row {
-  @include row();
-}
-
-.submission .thumb .img-wrap {
-  background: none;
-  border: none;
-
-  img {
-    padding: 0px;
-  }
-
-  .img-shadow {
-    background: none;
-    border: 8px solid rgba(255,255,255,.1);
-    top: 0;
-    bottom: 0;
-    left: 0;
-    right: 0;
-  }
-}
-
-.avatar {
-  img {
-    border-radius: 3px;
-    display: block;
-  }
-
-  .img-shadow {
-    box-shadow: inset 0 1px rgba(0,0,0,.2);
-    border: 1px solid rgba(0,0,0,0.25);
-    border-radius: 3px;
-    bottom: 0px;
-    left: 0px;
-    right: 0px;
-    top: 0px;
-
-    &:hover {
-      box-shadow: inset 0 1px rgba(255,255,255,0.15);
-    }
-  }
-}
-
-.img-wrap:hover .img-shadow {
-  background-color: rgba(0,0,0,0);
-}
+///////////////////////////////////////////////////////////////////////////////
+//
+//  Forum Posts
+//
+///////////////////////////////////////////////////////////////////////////////
 
 ol.forum-posts {
   padding: 0;
@@ -201,7 +75,11 @@ ol.forum-posts {
   }
 }
 
-// Submission
+///////////////////////////////////////////////////////////////////////////////
+//
+//  Submission
+//
+///////////////////////////////////////////////////////////////////////////////
 
 .submission-title-section {
   @include row;
@@ -229,7 +107,7 @@ ol.forum-posts {
     @extend %chip-menu;
     display: none;
     position: absolute;
-    right: 0;
+    right: -1.5em;
     top: $base-line-height * 3;
     z-index: 5;
 
@@ -246,12 +124,6 @@ ol.forum-posts {
 
   .vcard {
     @include clearfix;
-  }
-
-  .avatar {
-    width: 4.25rem;
-    margin-right: $gutter;
-    float: left;
   }
 
   .byline {
@@ -305,158 +177,91 @@ ol.forum-posts {
       border-bottom: 1px solid rgba(255,255,255,.1);
     }
 
-
     i {
       margin-right: .5em;
     }
   }
 }
 
-.arrow {
-  @include transition;
-  cursor: pointer;
-  opacity: .3;
-
-  &:hover {
-    opacity: 1;
-  }
-}
-
 .comments {
   ol {
+    @include clearfix;
     padding: 0;
   }
 
   ol li {
     @include span-columns(12);
+    margin-right: 0;
     padding: $base-line-height 0;
 
     &:last-child {
       border-bottom: none;
     }
+  }
 
-    .avatar {
-      float: left;
-      margin-right: $gutter;
-      width: 4.25rem;
-    }
+  .comment-details {
+    @include row;
+  }
 
-    .comment-details {
-      @include row;
+  form {
+    @include calc(width, "100% - 6.5rem - #{$gutter * 2}");
+    float: left;
 
-      ul {
-        @include clearfix;
-        float: right;
-        margin: 0;
-        padding: 0;
-
-        li {
-          border-bottom: none;
-          float: left;
-          margin: 0;
-          padding: 0 20px;
-          width: auto;
-
-          &:first-child {
-            border-right: 1px solid $base-border-color;
-          }
-
-          &:last-child {
-            padding-right: 0;
-          }
-
-          .arrow {
-            display: inline-block;
-            margin: .5em 0;
-          }
-        }
-      }
-    }
-
-    form {
-      width: -webkit-calc(100% - 6.5rem - #{$gutter * 2});
-      width: -moz-calc(100% - 6.5rem - #{$gutter * 2});
-      width: calc(100% - 6.5rem - #{$gutter * 2});
-      float: left;
-
-      h2 {
-        margin-top: 0;
-      }
-    }
-
-    textarea {
-      width: 100%;
-      height: $base-line-height * 8;
-    }
-
-    input[type="submit"] {
-      float: right;
+    h2 {
+      margin-top: 0;
     }
   }
-}
 
-.user-info {
-  .avatar {
-    @include span-columns(1);
+  textarea {
+    width: 100%;
+    height: $base-line-height * 8;
   }
-}
 
-.thumb {
-  .comment {
-    @include span-columns(4 of 4);
-
-    span {
-      float: left;
-      width: 2em;
-      margin-right: $gutter * .5;
-      display: block;
-    }
-
-    .comment-body {
-      float: left;
-      width: -moz-calc(100% - 2em - #{$gutter *  .5});
-      width: -webkit-calc(100% - 2em - #{$gutter * .5});
-      width: calc(100% - 2em - #{$gutter * .5});
-    }
+  input[type="submit"] {
+    float: right;
   }
 }
 
 .comment-chip {
-  @include clearfix;
   @extend %chip;
+  @include calc(width, "100% - 6.5rem - #{$gutter * 2}");
+  @include clearfix;
   float: left;
-  width: -moz-calc(100% - 6.5rem - #{$gutter * 2});
-  width: -webkit-calc(100% - 6.5rem - #{$gutter * 2});
-  width: calc(100% - 6.5rem - #{$gutter * 2});
 
   h3 {
     display: inline-block;
     margin: 0;
   }
 
-  .arrows {
-    width: 2rem;
-    float: left;
-    margin-bottom: 0.6875rem;
-  }
 
   p {
-    width: -moz-calc(100% - 2rem);
-    width: -webkit-calc(100% - 2rem);
-    width: calc(100% - 2rem);
+    @include calc(width, "100% - 2rem");
     float: left;
-  }
-
-  .arrow {
-    display: block;
-    text-align: center;
-    font-size: .875em;
   }
 
   &:hover {
     .comment-details-action-menu {
       opacity: 1;
     }
+  }
+}
+
+.arrows {
+  width: 2rem;
+  float: left;
+  margin-bottom: 0.6875rem;
+}
+
+.arrow {
+  @include transition;
+  cursor: pointer;
+  opacity: .3;
+  display: block;
+  font-size: .875em;
+  text-align: center;
+
+  &:hover {
+    opacity: 1;
   }
 }
 
@@ -482,9 +287,6 @@ ol.forum-posts {
   position: relative;
   padding: 0.6875em 0.6875em 0 0.6875em;
 
-  &:hover {
-  }
-
   p {
     padding-left: 0.6875em;
   }
@@ -504,17 +306,101 @@ ol.forum-posts {
 }
 
 h4.rating {
-  box-shadow: 0 0 0 1px #bbb;
   border-radius: 50%;
+  box-shadow: 0 0 0 1px #bbb;
+  float: left;
   font-family: 'Gill Sans', $base-font-family;
   font-size: 1rem;
   font-weight: 400;
   line-height: 2.25;
   margin: 0;
+  margin-left: $gutter;
   padding: 0;
   text-align: center;
   width: 2.25em;
+}
+
+
+///////////////////////////////////////////////////////////////////////////////
+//
+//  Userpage
+//
+///////////////////////////////////////////////////////////////////////////////
+
+.full-feature {
+  height: $base-line-height * 14;
+  background: image-url('ssc13.jpg') 50% 50%;
+  border-bottom: 1px solid #ccc;
+}
+
+.user-info {
+  @extend %dark;
+}
+
+.user-meta {
+  @include calc(width, "100% - #{$avatar-width} - #{$gutter * 3} - 14rem");
   float: left;
-  margin-left: $gutter;
+  margin-right: $gutter;
+
+  h3 {
+    margin-top: 0;
+  }
+
+  span {
+    display: inline-block;
+  }
+
+  span + span {
+    margin-left: 1em;
+  }
+
+  .ss-icon {
+    margin-right: .25em;
+    position: relative;
+    top: .125em;
+  }
+}
+
+.stat {
+  width: 7em;
+  float: left;
+  line-height: 1;
+  padding: .5em 0;
+  margin-right: $gutter;
+
+  .sign {
+    line-height: 2em;
+    position: relative;
+    top: -.375em;
+  }
+
+  .value {
+    font-size: 2em;
+  }
+
+  .measure {
+    display: block;
+    font-size: .825em;
+  }
+}
+
+.trophies {
+  width: 7rem;
+  float: left;
+  padding: 1.125rem 0;
+
+  img {
+    float: right;
+  }
+}
+
+.user-meta h3 {
+  margin-top: 0;
+}
+
+li.comment {
+  .comment-chip, form {
+    @include calc(width, "100% - 4.25rem - #{$gutter}");
+  }
 }
 

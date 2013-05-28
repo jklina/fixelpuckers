@@ -38,7 +38,6 @@
         .img-wrap
           = link_to '#' do
             = image_tag('http://placekitten.com/1280/768')
-            .img-shadow
       .submission-details
         .notes
           %h2 Artist Notes
@@ -62,16 +61,15 @@
     .wrapper
       %ol
         = render partial: 'submissions/review', collection: submission_presenter.reviews
-        %li 
+        %li.review
           - if current_user.present?
             .avatar
               .img-wrap
                 = link_to '#' do
                   = image_tag('http://lorempixel.com/100/100/nature/5')
-
             = simple_form_for [submission_presenter, @review] do |f|
               %h2 Leave a Review
-              = f.input :rating
+              = f.input :rating, :placeholder => '0 - 100'
               = f.input :comment
               = f.button :submit
           - else

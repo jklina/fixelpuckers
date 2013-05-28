@@ -100,3 +100,7 @@ input[type="submit"] {
   font-size: $form-font-size;
   padding: 0.7em 1.9em;
 }
+
+input[type="number"] {
+  width: 6.5em;
+}

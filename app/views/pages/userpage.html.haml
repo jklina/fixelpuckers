@@ -6,7 +6,7 @@
           = image_tag('http://lorempixel.com/100/100/people/1')
           .img-shadow
     .user-meta
-      .username akka
+      %h3 akka
       %span
         %i.ss-icon world
         =link_to 'http://nuance.io', 'http://nuance.io'
@@ -16,20 +16,21 @@
       %span
         %i.ss-icon location
         Charlotte, NC
+    .stat
+      %span +
+      %span.value 2.85%
+      %span.measure rates vs avg
+    .trophies
+      =image_tag('ribbon.png')
 
-%section.featured
-  .wrapper
-    .thumb
-      .img-wrap
-        = link_to '#' do
-          = image_tag('http://lorempixel.com/1200/400/abstract/3')
-          .img-shadow
+
+%section.full-feature
 
 %section.submissions
   .wrapper
     %h2 Recent Submissions
     %ol.thumbs
-      - 3.times.each do
+      - 6.times.each do
         %li.thumb
           .img-wrap
             = link_to page_path("submission") do
@@ -37,7 +38,7 @@
               .img-shadow
           .identity
             %p.title
-              <a href="#">Ants go marching</a> 
+              =link_to 'Ants go marching', '#'
             %p.author
               by <a href="#">akka</a>
           .stats
@@ -48,19 +49,33 @@
 
 %section.comments
   .wrapper
-    %h2 Recent Comments
-    %ol.thumbs
-      - 3.times.each do
-        %li.thumb
-          .img-wrap
-            = link_to page_path("submission") do
-              = image_tag("http://lorempixel.com/360/225/nature/#{rand(8)}")
-              .img-shadow
-          .comment
-            %span 98
+    %h2 User Comments
+    %ol
+      - 4.times.each do
+        %li.comment
+          .avatar
+            .img-wrap
+              = link_to '#' do
+                = image_tag("http://lorempixel.com/100/100/nature/#{rand(8)}")
+                .img-shadow
+          .comment-chip
+            .comment-details
+              %h3= link_to 'fate0000', '#'
+              %span.meta= '20 minutes ago'
+              .comment-details-action-menu
+                = link_to '<i class="ss-icon">delete</i>'.html_safe, 'javascript:void(0)', id: 'action-delete-comment'
             .comment-body
-              %p This is one of the hottest tiler shots I’ve ever seen.
-              %p You aren’t really leaving us, though, are you? I hope not. At least stick around in ...
+              %p Oh hey thurr.
+      %li.comment
+        .avatar
+          .img-wrap
+            = link_to '#' do
+              = image_tag("http://lorempixel.com/100/100/nature/#{rand(8)}")
+              .img-shadow
+        %form
+          %h2 Leave a Comment
+          %textarea
+          %input{:type => 'submit', :value => 'Comment'}
 
 :javascript
   $("span.boxplot").sparkline('html', {
@@ -72,7 +87,3 @@
       boxFillColor: '#F8F8F5',
       medianColor: '#e20000'
     });
-
-
-
-
