@@ -16,7 +16,6 @@ describe "Deleting a review" do
       # page.driver.browser.switch_to.alert.accept
       expect(@submission.reviews.count).to eq(0)
     end
-
   end
 end
 

@@ -18,4 +18,8 @@ class User < ActiveRecord::Base
                        presence: true,
                        uniqueness: true
   validates :slug, presence: true
+
+  def recent_submissions(number_of_submissions)
+    submissions.order("created_at DESC").limit(number_of_submissions)
+  end
 end
