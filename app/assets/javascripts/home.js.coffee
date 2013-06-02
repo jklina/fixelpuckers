@@ -14,3 +14,4 @@ jQuery ->
 
   $('#browseToggle').click ->
       $('#browseList').slideToggle(100)
+  
