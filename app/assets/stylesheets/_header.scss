@@ -74,66 +74,66 @@ nav.account {
 }
 
 ul.dropdown-list {
+  @include transition;
+  border-left: 1px solid $base-border-color;
+  border-right: 1px solid $base-border-color;
+  float: left;
+  position: relative;
+
+  .avatar {
+    float: none;
+    width: auto;
+    margin: 0;
+  }
+
+  li ul {
+    box-shadow: 2px 2px 1px rgba(0,0,0,.3);
     @include transition;
-    border-left: 1px solid $base-border-color;
-    border-right: 1px solid $base-border-color;
-    float: left;
-    position: relative;
+    background-color: white;
+    border: 1px solid $base-border-color;
+    display: none;
+    padding: 0 .875em;
+    position: absolute;
+    right: 0;
+    top: 4em;
+    z-index: 1000;
 
-    .avatar {
+    &:before {
+      background-color: white; 
+      content: '';
+      display: block;
+      height: 1px;
+      position: absolute;
+      right: 0;
+      top: -1px;
+      width: pix(4) - 1px;
+    }
+
+    li {
+      display: block;
       float: none;
-      width: auto;
-      margin: 0;
+      width: 9em;
+
+      &:not(:last-child) {
+        border-bottom: 1px dotted $base-border-color;
+      }
     }
 
-    li ul {
-        box-shadow: 2px 2px 1px rgba(0,0,0,.3);
-        @include transition;
-        background-color: white;
-        border: 1px solid $base-border-color;
-        display: none;
-        padding: 0 .875em;
-        position: absolute;
-        right: 0;
-        top: 4em;
-        z-index: 1000;
+    a {
+      display: block;
+      padding: 1em 0 1em .5em;
+      width: 100%;
 
-        &:before {
-            background-color: white; 
-            content: '';
-            display: block;
-            height: 1px;
-            position: absolute;
-            right: 0;
-            top: -1px;
-            width: pix(4) - 1px;
-        }
+      &:hover i {
+        color: $hover-link-color;
+      }
 
-        li {
-            display: block;
-            float: none;
-            width: 9em;
-
-            &:not(:last-child) {
-                border-bottom: 1px dotted $base-border-color;
-            }
-        }
-
-        a {
-            display: block;
-            padding: 1em 0 1em .5em;
-            width: 100%;
-
-            &:hover i {
-                color: $hover-link-color;
-            }
-
-            i {
-                color: $icon-color;
-                margin-right: .75em;
-            }
-        }
+      i {
+        color: $icon-color;
+        margin-right: .75em;
+      }
     }
+  }
 }
 
 ul.dropdown-list:hover > li ul {
@@ -148,5 +148,33 @@ ul.search {
     color: $icon-color;
     font-size: 1.5rem;
     padding: 1.2rem;
+  }
+}
+
+.browse-categories {
+  @extend %dark;
+  @include row;
+  background: #353230;
+  display: none;
+
+  ul {
+    @include outer-container;
+  }
+
+  li {
+    display: inline-block;
+    margin: em(3);
+  }
+
+  a {
+    padding: .25em 1.5em;
+    background-color: #1e1e1e;
+    border-radius: 1em;
+    font-size: .875em;
+    display: inline-block;
+
+    &:hover {
+      border-radius: em(3);
+    }
   }
 }
