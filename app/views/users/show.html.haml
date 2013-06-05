@@ -50,13 +50,16 @@
                 = link_to '<i class="ss-icon">delete</i>'.html_safe, 'javascript:void(0)', id: 'action-delete-comment'
             .comment-body
               %p Oh hey thurr.
-      %li.comment
-        .avatar
-          .img-wrap
-            = link_to '#' do
-              = image_tag("http://lorempixel.com/100/100/nature/#{rand(8)}")
-              .img-shadow
-        %form
-          %h2 Leave a Comment
-          %textarea
-          %input{:type => 'submit', :value => 'Comment'}
+      - if user_signed_in?
+        %li.comment#author-comment
+          .avatar
+            .img-wrap
+              = link_to '#' do
+                = image_tag("http://lorempixel.com/100/100/nature/#{rand(8)}")
+                .img-shadow
+          = simple_form_for [@user, @comment] do |f|
+            %h2 Leave a Comment
+            = f.input :body
+            = f.button :submit
+      - else
+        %p Signup to leave a comment

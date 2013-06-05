@@ -3,7 +3,9 @@ Pf::Application.routes.draw do
   # end
   root :to => "home#index"
   devise_for :users
-  resources :users
+  resources :users do
+    resources :comments
+  end
 
   resources :submissions do
     resources :reviews

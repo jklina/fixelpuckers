@@ -28,7 +28,7 @@ group :development do
   gem "hpricot", ">= 0.8.6"
   gem "ruby_parser", ">= 3.1.0"
   gem "quiet_assets", ">= 1.0.1"
-  gem "rspec-rails", "~> 2.0"
+  gem "rspec-rails", "2.14.0.rc1"
   gem "factory_girl_rails", ">= 4.1.0"
   gem "faker"
 end
@@ -38,7 +38,7 @@ group :test do
   gem "capybara", ">= 2.0.1"
   gem "database_cleaner", ">= 0.9.1"
   gem "email_spec", ">= 1.4.0"
-  gem "rspec-rails", "~> 2.0"
+  gem "rspec-rails", "2.14.0.rc1"
   gem 'shoulda-matchers'
   gem "factory_girl_rails", ">= 4.1.0"
 end
