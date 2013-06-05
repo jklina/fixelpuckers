@@ -11,3 +11,7 @@ jQuery ->
       boxFillColor: '#F8F8F5'
       medianColor: '#e20000'
   )
+
+  $('#browseToggle').click ->
+      $('#browseList').slideToggle(100)
+  
