@@ -22,8 +22,8 @@ describe Submission do
 
   describe '#find_or_build_review_from' do
     before(:each) do
-      @user = stub(id: 3)
-      @review = stub()
+      @user = double(id: 3)
+      @review = double
       @submission = Submission.new
       @submission.stub_chain(:reviews, :where, :first_or_initialize).and_return(@review)
     end

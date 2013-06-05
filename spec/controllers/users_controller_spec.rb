@@ -20,9 +20,9 @@ describe UsersController do
     context "if current_user is present" do
       it "finds or creates a comment and assigns it to @comment" do
         user = double(find_or_build_comment_from: true, id: 22)
-        author = double()
-        User.stub(:find).and_return(user)
-        controller.stub(:current_user).and_return(author)
+        author = double
+        allow(User).to receive(:find).and_return(user)
+        allow(controller).to receive(:current_user).and_return(author)
         expect(user).to receive(:find_or_build_comment_from).with(author)
         get :show, id: user
       end

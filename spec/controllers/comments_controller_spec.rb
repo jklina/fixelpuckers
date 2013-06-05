@@ -19,7 +19,7 @@ describe CommentsController do
       end
 
       it "creates a new Comment from the given user" do
-        controller.stub(:current_user).and_return(author)
+        allow(controller).to receive(:current_user).and_return(author)
         expect {
           post :create, user_id: user, comment: comment_attrs
         }.to change(Comment, :count).by(1)
@@ -27,13 +27,13 @@ describe CommentsController do
 
       it 'assigns the comment user to the current user' do
         author = FactoryGirl.create(:user)
-        controller.stub(:current_user).and_return(author)
+        allow(controller).to receive(:current_user).and_return(author)
         post :create, user_id: user, comment: comment_attrs
         expect(assigns(:comment).author).to eq(author)
       end
 
       it "redirects to the user show page" do
-        controller.stub(:current_user).and_return(author)
+        allow(controller).to receive(:current_user).and_return(author)
         post :create, user_id: user, comment: comment_attrs
         expect(response).to redirect_to(user)
       end

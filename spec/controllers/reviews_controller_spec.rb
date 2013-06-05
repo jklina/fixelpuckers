@@ -23,13 +23,13 @@ describe ReviewsController do
 
       it 'assigns the review user to the current user' do
         user = FactoryGirl.create(:user)
-        controller.stub(:current_user).and_return(user)
+        allow(controller).to receive(:current_user).and_return(user)
         post :create, submission_id: submission, review: review_attrs
         expect(assigns(:review).user).to eq(user)
       end
 
       it "updates the submission's average rating" do
-        Submission.stub(:find).and_return(submission)
+        allow(Submission).to receive(:find).and_return(submission)
         submission.should_receive(:update_average_rating)
         post :create, submission_id: submission, review: review_attrs
       end
@@ -87,7 +87,7 @@ describe ReviewsController do
 
       it "updates the submission's average rating" do
         rating = rand(2..99)
-        Submission.stub(:find).and_return(submission)
+        allow(Submission).to receive(:find).and_return(submission)
         submission.should_receive(:update_average_rating)
         put :update, { submission_id: submission, id: @review,
                        review: FactoryGirl.attributes_for(:review, 
@@ -136,7 +136,7 @@ describe ReviewsController do
 
       it "updates the submission's average rating" do
         submission.should_receive(:update_average_rating)
-        Submission.stub(:find).and_return(submission)
+        allow(Submission).to receive(:find).and_return(submission)
         delete :destroy, {submission_id: submission, id: @review}
       end
 

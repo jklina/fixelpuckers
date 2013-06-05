@@ -15,7 +15,7 @@ describe SubmissionsController do
 
   describe "GET show" do
     before(:each) do
-      Submission.stub(:find).and_return(submission)
+      allow(Submission).to receive(:find).and_return(submission)
     end
 
     it "assigns the requested submission as submission" do
@@ -25,10 +25,11 @@ describe SubmissionsController do
 
     context "if current_user is present" do
       it "finds or creates a review and assigns it to @review" do
-        review = stub()
+        review = double
         user = FactoryGirl.create(:user)
-        submission.stub(:find_or_build_review_from).and_return(review)
-        controller.stub(:current_user).and_return(user)
+        allow(submission).to receive(:find_or_build_review_from).
+          and_return(review)
+        allow(controller).to receive(:current_user).and_return(user)
         get :show, id: submission
         expect(assigns(:review)).to eq(review)
       end
@@ -36,8 +37,8 @@ describe SubmissionsController do
 
     context "if current_user is not present" do
       it "does not find or creates a review and assign it to @review" do
-        Submission.stub(:find).and_return(submission)
-        controller.stub(:current_user).and_return(nil)
+        allow(Submission).to receive(:find).and_return(submission)
+        allow(controller).to receive(:current_user).and_return(nil)
         submission.should_not_receive(:find_or_build_review_from)
         get :show, id: submission
       end
@@ -53,7 +54,7 @@ describe SubmissionsController do
 
   describe "GET edit" do
     it "assigns the requested submission as submission" do
-      Submission.stub(:find).and_return(submission)
+      allow(Submission).to receive(:find).and_return(submission)
       Submission.should_receive(:find).with(submission.to_param)
       get :edit, id: submission
       expect(assigns(:submission)).to eq(submission)
@@ -65,8 +66,8 @@ describe SubmissionsController do
       before(:each) do
         @submission_attrs = FactoryGirl.attributes_for(:submission)
         @user = FactoryGirl.create(:user)
-        controller.stub(:current_user).and_return(@user)
-        submission.stub(:user=).and_return(true)
+        allow(controller).to receive(:current_user).and_return(@user)
+        allow(submission).to receive(:user=).and_return(true)
       end
 
       it "creates a new Submission" do
@@ -76,20 +77,20 @@ describe SubmissionsController do
       end
 
       it "assigns a newly created submission as submission" do
-        Submission.stub(:new).and_return(submission)
+        allow(Submission).to receive(:new).and_return(submission)
         post :create, submission: submission 
         expect(assigns(:submission)).to eq(submission)
       end
 
       it 'assigns the submission user to the current user' do
-        Submission.stub(:new).and_return(submission)
+        allow(Submission).to receive(:new).and_return(submission)
         submission.should_receive(:user=).with(@user)
         post :create, submission: submission
       end
 
       it "redirects to the created submission" do
-        Submission.stub(:new).and_return(submission)
-        submission.stub(:save).and_return(true)
+        allow(Submission).to receive(:new).and_return(submission)
+        allow(submission).to receive(:save).and_return(true)
         post :create, submission: submission 
         expect(response).to redirect_to(submission)
       end
@@ -99,9 +100,9 @@ describe SubmissionsController do
       before(:each) do
         @user = FactoryGirl.create(:user)
         # Trigger the behavior that occurs when invalid params are submitted
-        submission.stub(:save).and_return(false)
+        allow(submission).to receive(:save).and_return(false)
         # Needed to pass CanCan check
-        controller.stub(:current_user).and_return(@user)
+        allow(controller).to receive(:current_user).and_return(@user)
         post :create, submission: FactoryGirl.attributes_for(:invalid_submission)
       end
 
