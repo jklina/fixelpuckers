@@ -58,39 +58,6 @@ describe User do
     end
   end
 
-  describe 'abilities' do
-    subject { ability }
-    let(:ability) { Ability.new(user) }
-    let(:user) { nil }
-
-    context 'when is a normal user' do
-      let(:user) { FactoryGirl.create(:user) }
-      let(:a_submission) { Submission.new }
-      let(:her_submission) do
-        s = Submission.new
-        s.user = user
-        s
-      end
-      let(:a_review) { Review.new }
-      let(:her_review) do
-        r = Review.new
-        r.user = user
-        r
-      end
-      it { should be_able_to(:update, her_submission) }
-      it { should be_able_to(:destroy, her_submission) }
-      it { should be_able_to(:read, a_submission) }
-      it { should be_able_to(:create, her_submission) }
-      it { should_not be_able_to(:create, a_submission) }
-      it { should_not be_able_to(:manage, a_submission) }
-
-      it { should be_able_to(:update, her_review) }
-      it { should be_able_to(:destroy, her_review) }
-      it { should be_able_to(:create, her_review) }
-      it { should_not be_able_to(:create, a_review) }
-    end
-  end
-
   describe "#recent_submissions" do
     it "returns the x most recent submissions" do
       user = FactoryGirl.create(:user)
