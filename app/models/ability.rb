@@ -6,9 +6,11 @@ class Ability
     #
     user ||= User.new # guest user (not logged in)
     can [:update, :destroy], [Submission, Review], user_id: user.id
+    can [:update, :destroy], [Comment], author_id: user.id
     can :read, :all
     if user.confirmed?
       can :create, Submission, user_id: user.id
+      can :create, Comment, author_id: user.id
       can :create, Review, user_id: user.id
     end
     # if user.admin?

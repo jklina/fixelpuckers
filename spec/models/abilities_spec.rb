@@ -38,5 +38,19 @@ describe Ability do
       it { should be_able_to(:create, her_review) }
       it { should_not be_able_to(:create, a_review) }
     end
+
+    describe "comments" do
+      let(:a_comment) { Comment.new }
+      let(:her_comment) do
+        c = Comment.new
+        c.author = user
+        c
+      end
+
+      it { should be_able_to(:update, her_comment) }
+      it { should be_able_to(:destroy, her_comment) }
+      it { should be_able_to(:create, her_comment) }
+      it { should_not be_able_to(:create, a_comment) }
+    end
   end
 end
