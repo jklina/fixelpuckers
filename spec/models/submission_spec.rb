@@ -29,23 +29,23 @@ describe Submission do
     end
 
     it 'attempts to find a review' do
-      @submission.should_receive(:reviews)
+      expect(@submission).to receive(:reviews)
       @submission.find_or_build_review_from(@user)
     end
 
     it 'attempts to find a review by a given user' do
-      @submission.reviews.should_receive(:where).with(user_id: @user.id)
+      expect(@submission.reviews).to receive(:where).with(user_id: @user.id)
       @submission.find_or_build_review_from(@user)
     end
 
     it 'returns either the first review found or initialize a new review' do
-      @submission.reviews.where.should_receive(:first_or_initialize)
+      expect(@submission.reviews.where).to receive(:first_or_initialize)
       @submission.find_or_build_review_from(@user)
     end
   end
 
   describe "#update_average_rating" do
-    it "should update the submission's average rating in the db" do
+    it "updates the submission's average rating in the db" do
       submission = FactoryGirl.create(:submission)
       review1 = FactoryGirl.create(:review, rating: 20)
       review2 = FactoryGirl.create(:review, rating: 10)

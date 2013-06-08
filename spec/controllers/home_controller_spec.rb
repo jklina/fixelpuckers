@@ -12,7 +12,7 @@ describe HomeController do
 
     it "returns submissions through the accessible_by method" do
       Submission.stub_chain(:accessible_by, :page, :per)
-      Submission.should_receive(:accessible_by)
+      expect(Submission).to receive(:accessible_by)
       get :index
     end
 

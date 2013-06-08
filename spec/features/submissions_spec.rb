@@ -96,7 +96,7 @@ describe "Submission page" do
     end
 
     it "allows the guest to access the submission" do
-      current_path.should == submission_path(@submission)
+      expect(current_path).to eq(submission_path(@submission))
     end
 
     it "asks the user to sign up to leave a review" do

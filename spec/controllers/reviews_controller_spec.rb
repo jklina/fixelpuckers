@@ -30,7 +30,7 @@ describe ReviewsController do
 
       it "updates the submission's average rating" do
         allow(Submission).to receive(:find).and_return(submission)
-        submission.should_receive(:update_average_rating)
+        expect(submission).to receive(:update_average_rating)
         post :create, submission_id: submission, review: review_attrs
       end
 
@@ -63,7 +63,7 @@ describe ReviewsController do
       submission.reviews << @review
     end
 
-    it "should find the submission with the given id" do
+    it "finds the submission with the given id" do
       put :update, { submission_id: submission, id: @review}
       expect(assigns(:submission)).to eq(submission)
     end
@@ -88,7 +88,7 @@ describe ReviewsController do
       it "updates the submission's average rating" do
         rating = rand(2..99)
         allow(Submission).to receive(:find).and_return(submission)
-        submission.should_receive(:update_average_rating)
+        expect(submission).to receive(:update_average_rating)
         put :update, { submission_id: submission, id: @review,
                        review: FactoryGirl.attributes_for(:review, 
                                                           rating: rating) }
@@ -135,7 +135,7 @@ describe ReviewsController do
       end
 
       it "updates the submission's average rating" do
-        submission.should_receive(:update_average_rating)
+        expect(submission).to receive(:update_average_rating)
         allow(Submission).to receive(:find).and_return(submission)
         delete :destroy, {submission_id: submission, id: @review}
       end

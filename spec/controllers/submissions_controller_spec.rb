@@ -39,7 +39,7 @@ describe SubmissionsController do
       it "does not find or creates a review and assign it to @review" do
         allow(Submission).to receive(:find).and_return(submission)
         allow(controller).to receive(:current_user).and_return(nil)
-        submission.should_not_receive(:find_or_build_review_from)
+        expect(submission).to_not receive(:find_or_build_review_from)
         get :show, id: submission
       end
     end
@@ -55,7 +55,7 @@ describe SubmissionsController do
   describe "GET edit" do
     it "assigns the requested submission as submission" do
       allow(Submission).to receive(:find).and_return(submission)
-      Submission.should_receive(:find).with(submission.to_param)
+      expect(Submission).to receive(:find).with(submission.to_param)
       get :edit, id: submission
       expect(assigns(:submission)).to eq(submission)
     end
@@ -84,7 +84,7 @@ describe SubmissionsController do
 
       it 'assigns the submission user to the current user' do
         allow(Submission).to receive(:new).and_return(submission)
-        submission.should_receive(:user=).with(@user)
+        expect(submission).to receive(:user=).with(@user)
         post :create, submission: submission
       end
 
@@ -133,12 +133,12 @@ describe SubmissionsController do
 
       it "assigns the requested submission as submission" do
         put :update, id: @submission, submisison: @submission
-        assigns(:submission).should eq(@submission)
+        expect(assigns(:submission)).to eq(@submission)
       end
 
       it "redirects to the submission" do
         put :update, id: @submission, submisison: @submission
-        response.should redirect_to(@submission)
+        expect(response).to redirect_to(@submission)
       end
     end
 
@@ -153,7 +153,7 @@ describe SubmissionsController do
 
       it "re-renders the 'edit' template" do
         put :update, id: @submission, submission: @invalid_sub
-        response.should render_template("edit")
+        expect(response).to render_template("edit")
       end
     end
   end

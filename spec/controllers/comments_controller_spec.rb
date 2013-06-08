@@ -56,7 +56,7 @@ describe CommentsController do
       @comment = FactoryGirl.create(:comment)
     end
 
-    it "should find the user with the given id" do
+    it "finds the user with the given id" do
       put :update, { user_id: @comment.user, id: @comment}
       expect(assigns(:user)).to eq(@comment.user)
     end

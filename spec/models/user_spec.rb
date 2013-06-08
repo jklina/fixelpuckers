@@ -44,17 +44,17 @@ describe User do
   it { should_not allow_value('example.user@foo.').for(:email) }
 
 
-  it "should create a new instance given a valid attribute" do
+  it "creates a new instance given a valid attribute" do
     user
   end
 
   describe "password encryption" do
-    it "should have an encrypted password attribute" do
-      user.should respond_to(:encrypted_password)
+    it "has an encrypted password attribute" do
+      expect(user).to respond_to(:encrypted_password)
     end
 
-    it "should set the encrypted password attribute" do
-      user.encrypted_password.should_not be_blank
+    it "set the encrypted password attribute" do
+      expect(user.encrypted_password).not_to be_blank
     end
   end
 

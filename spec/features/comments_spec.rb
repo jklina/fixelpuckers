@@ -27,10 +27,10 @@ describe "GET 'users/show'" do
     end
 
     context "and a comment doesn't pass validation" do
-      it "should flash an error message" do
+      it "flashs an error message" do
         click_button('Comment')
         within(:css, "#flash_error") do
-          page.should have_content('Comment not saved.')
+          expect(page).to have_content('Comment not saved.')
         end
       end
     end
