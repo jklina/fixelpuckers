@@ -1,6 +1,13 @@
 require 'spec_helper'
 
 describe "GET 'users/show'" do
+
+  it "shows author's comments on the user page" do
+    comment = FactoryGirl.create(:comment)
+    visit user_path(comment.user)
+    expect(page).to have_content(comment.body)
+  end
+
   context "when the user isn't signed in" do
     it "doesn't show the user comment form" do
       user = FactoryGirl.create(:user)

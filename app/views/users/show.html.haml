@@ -36,19 +36,6 @@
   .wrapper
     %h2 User Comments
     %ol
-      - 3.times.each do
-        %li.comment
-          .avatar
-            .img-wrap
-              = link_to '#' do
-                = image_tag("http://lorempixel.com/100/100/nature/#{rand(8)}")
-                .img-shadow
-          .comment-chip
-            .comment-details
-              %h3= link_to 'fate0000', '#'
-              %span.meta= '20 minutes ago'
-              .comment-details-action-menu
-                = link_to '<i class="ss-icon">delete</i>'.html_safe, 'javascript:void(0)', id: 'action-delete-comment'
-            .comment-body
-              %p Oh hey thurr.
+      = render :partial => 'comment',
+        collection: @user.comments
       = render partial: 'users/comment_form'

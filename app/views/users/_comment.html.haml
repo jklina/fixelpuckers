@@ -1,0 +1,14 @@
+%li.comment
+  .avatar
+    .img-wrap
+      = link_to comment.author.username do
+        = image_tag("http://lorempixel.com/100/100/nature/#{rand(8)}")
+        .img-shadow
+  .comment-chip
+    .comment-details
+      %h3= link_to comment.author.username, user_path(comment.author)
+      %span.meta= time_ago_in_words(comment.created_at)
+      .comment-details-action-menu
+        = link_to '<i class="ss-icon">delete</i>'.html_safe, 'javascript:void(0)', id: 'action-delete-comment'
+    .comment-body
+      %p= comment.body
