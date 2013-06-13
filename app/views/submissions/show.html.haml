@@ -62,7 +62,8 @@
   %section.comments
     .wrapper
       %ol
-        = render partial: 'submissions/review', collection: submission_presenter.reviews
+        = render partial: 'submissions/review', 
+                 collection: submission_presenter.reviews
         %li.review
           = render :partial => 'submissions/review_form'
 

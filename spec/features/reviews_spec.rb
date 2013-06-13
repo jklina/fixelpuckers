@@ -19,6 +19,15 @@ describe "Deleting a review" do
   end
 end
 
+describe "Viewing reviews" do
+  it "shows reviews on the submission page" do
+    submission = FactoryGirl.create(:submission)
+    review = FactoryGirl.create(:review, submission: submission)
+    visit submission_path(submission)
+    expect(page).to have_content(review.comment)
+  end
+end
+
 describe "Submitting a review" do
   context "when the reviewer isn't a registered user" do
     before(:each) do
