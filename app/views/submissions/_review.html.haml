@@ -16,4 +16,8 @@
         %i.ss-icon.arrow up
         %i.ss-icon.arrow down
       %p= review.comment
-  %h4.rating= review.rating
+  #draw
+    %h4.rating= review.rating
+:javascript
+  var rating = #{review.rating};
+

@@ -1,8 +1,6 @@
 - present @submission do |submission_presenter|
   %section.submission
     .wrapper
-      #draw
-        %h1 50
       .submission-title-section
         .vcard
           .avatar
@@ -84,9 +82,7 @@
   });
 
 
-  //var amount = prompt("How much of the circle to draw? (0-100)", "50");
-  var amount = 50;
-  var paper = Raphael("draw", 120, 120);
+  var paper = Raphael("draw", 36, 36);
 
   paper.customAttributes.arc = function (xloc, yloc, value, total, R) {
       var alpha = 360 / total * value,
@@ -110,20 +106,20 @@
       };
   };
 
-  //make an arc at 50,50 with a radius of 30 that grows from 0 to 40 of 100 with a bounce
+  //make an arc at 18,18 with a radius of 17 that grows from 0 to rating of 100 with a bounce
   var full_arc = paper.path().attr({
-      "stroke": "#000",
+      "stroke": "#aaa",
       "stroke-width": 1,
-      arc: [60, 60, 100, 100, 59]
+      arc: [18, 18, 100, 100, 17]
   })
   var my_arc = paper.path().attr({
-      "stroke": "#fcc302",
+      "stroke": "#333",
       "stroke-width": 2,
-      arc: [60, 60, 0, 100, 59]
+      arc: [18, 18, 0, 100, 17]
   });
 
   my_arc.animate({
-      arc: [60, 60, amount, 100, 59]
-  }, 1500, "bounce");
+      arc: [18, 18, rating, 100, 17]
+  }, 2500, "bounce");
 
 
