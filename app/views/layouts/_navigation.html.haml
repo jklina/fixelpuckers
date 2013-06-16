@@ -10,46 +10,47 @@
       = link_to 'News', '#'
     %li
       = link_to 'Chat', '#'
+
+.search
+  %i.ss-icon search
+
 %nav.account
-  %ul.dropdown-list
+  .account-dropdown
     - if user_signed_in?
-      %li.dropdown
-        .avatar
-          .img-wrap
-            = link_to '#' do
-              = image_tag('http://lorempixel.com/100/100/nature/1')
-              .img-shadow
-        %ul
-          %li
-            = link_to edit_user_registration_path do
-              %i.ss-icon user
-              Profile
-          %li
-            = link_to new_submission_path do
-              %i.ss-icon upload
-              Submit
-          %li
-            = link_to '#' do
-              %i.ss-icon inbox
-              Activity
-          - if current_user.has_role? :admin
-            %li
-              = link_to users_path do
-                %i.ss-icon star
-                Admin
-          %li
-            = link_to '#' do
-              %i.ss-icon settings
-              Settings
-          %li
-            = link_to destroy_user_session_path, :method=>'delete' do
-              %i.ss-icon logout
-              Sign Out
+      .avatar
+        .img-wrap
+          = link_to '#' do
+            = image_tag('http://lorempixel.com/100/100/nature/1')
+            .img-shadow
+      %ul.account-dropdown-list
+        %li.account-dropdown-item
+          = link_to edit_user_registration_path do
+            %i.ss-icon settings
+            Settings
+        %li.account-dropdown-item
+          = link_to new_submission_path do
+            %i.ss-icon upload
+            Submit
+        %li.account-dropdown-item
+          = link_to '#' do
+            %i.ss-icon inbox
+            Activity
+        - if current_user.has_role? :admin
+          %li.account-dropdown-item
+            = link_to users_path do
+              %i.ss-icon star
+              Admin
+        %li.account-dropdown-item
+          = link_to destroy_user_session_path, :method=>'delete' do
+            %i.ss-icon logout
+            Sign Out
     - else
-      %li
-        = link_to 'Login', new_user_session_path, :class=> 'login'
-      %li
-        = link_to 'Register', new_user_registration_path, :class => 'register'
-  %ul.search
-    %li
-      %i.ss-icon search
+      .avatar.placeholder
+        .img-wrap
+          %i.ss-icon user
+          .img-shadow
+      %ul.account-dropdown-list
+        %li.account-dropdown-item
+          = link_to 'Login', new_user_session_path, :class=> 'login'
+        %li.account-dropdown-item
+          = link_to 'Register', new_user_registration_path, :class => 'register'

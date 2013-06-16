@@ -83,3 +83,17 @@
     }
   }
 }
+
+%header-addon {
+  color: $icon-color;
+  height: 4rem;
+  line-height: 1;
+  padding: 1rem;
+  width: 4rem;
+
+  i {
+    font-size: 1.25em;
+    position: relative;
+    top: .375em;
+  }
+}

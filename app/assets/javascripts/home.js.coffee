@@ -12,6 +12,7 @@ jQuery ->
       medianColor: '#e20000'
   )
 
+  #navigation = responsiveNav("#nav");
+
   $('#browseToggle').click ->
       $('#browseList').slideToggle(100)
-  

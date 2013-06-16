@@ -50,105 +50,86 @@ nav.main-nav ul {
   }
 }
 
-nav ul.dropdown-list {
-  float: left;
-  margin: 0;
-  padding: 1em;
-
-  > ul li {
-    padding: 1.5em 0;
-  }
-
-  .login {
-    margin-right: 1em;
-  }
-
-  img {
-    width: 2em;
-  }
-}
-
-
 nav.account {
-  float: right;
-}
-
-ul.dropdown-list {
   @include transition;
   border-left: 1px solid $base-border-color;
   border-right: 1px solid $base-border-color;
-  float: left;
+  float: right;
   position: relative;
 
-  .avatar {
-    float: none;
-    width: auto;
-    margin: 0;
+  &:hover ul {
+    display: block;
   }
+}
 
-  li ul {
-    box-shadow: 2px 2px 1px rgba(0,0,0,.3);
-    @include transition;
-    background-color: white;
-    border: 1px solid $base-border-color;
-    display: none;
-    padding: 0 .875em;
+.account-dropdown {
+  @extend %header-addon;
+
+  .avatar {
+    height: 2rem;
+    text-align: center;
+    width: 2rem;
+
+    &.placeholder .img-shadow {
+      opacity: 0;
+    }
+  }
+}
+
+.account-dropdown-list {
+  @include transition;
+  background-color: white;
+  border: 1px solid $base-border-color;
+  box-shadow: 2px 2px 1px rgba(0,0,0,.3);
+  display: none;
+  padding: 0 .875em;
+  position: absolute;
+  right: 0;
+  top: 4em;
+  z-index: 1000;
+
+  &:before {
+    background-color: white; 
+    content: '';
+    display: block;
+    height: 1px;
     position: absolute;
     right: 0;
-    top: 4em;
-    z-index: 1000;
+    top: -1px;
+    width: pix(4) - 1px;
+  }
+}
 
-    &:before {
-      background-color: white; 
-      content: '';
-      display: block;
-      height: 1px;
-      position: absolute;
-      right: 0;
-      top: -1px;
-      width: pix(4) - 1px;
+.account-dropdown-item {
+  display: block;
+  float: none;
+  width: 9em;
+
+  &:not(:last-child) {
+    border-bottom: 1px dotted $base-border-color;
+  }
+
+  a {
+    display: block;
+    padding: 1em 0 1em .5em;
+    width: 100%;
+
+    &:hover i {
+      color: $hover-link-color;
     }
 
-    li {
-      display: block;
-      float: none;
-      width: 9em;
-
-      &:not(:last-child) {
-        border-bottom: 1px dotted $base-border-color;
-      }
-    }
-
-    a {
-      display: block;
-      padding: 1em 0 1em .5em;
-      width: 100%;
-
-      &:hover i {
-        color: $hover-link-color;
-      }
-
-      i {
-        color: $icon-color;
-        margin-right: .75em;
-      }
+    i {
+      color: $icon-color;
+      margin-right: .75em;
     }
   }
 }
 
-ul.dropdown-list:hover > li ul {
-  display: block;
-}
-
-ul.search {
+.search {
+  @extend %header-addon;
   border-right: 1px solid $base-border-color;
   float: right;
-
-  > li {
-    color: $icon-color;
-    font-size: 1.5rem;
-    padding: 1.2rem;
-  }
+  text-align: center;
 }
 
 .browse-categories {

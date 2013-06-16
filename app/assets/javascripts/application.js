@@ -15,4 +15,5 @@
 //= require jquery.sparkline.js
 //= require raphael-min.js
 //= require jquery.dropdown.js
+//= require responsive-nav.js
 //= require_tree .
