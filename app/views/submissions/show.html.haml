@@ -15,25 +15,27 @@
             %span.date
               = submission_presenter.created_at.to_formatted_s(:pf_long)
         .action-menu
-          = link_to '&#9776;'.html_safe, 'javascript:void(0);', :class => 'dropdown', :id => 'dropdown'
-          .dropdown-menu
-            %ul
-              %li
-                = link_to '#' do
-                  Trash
-                  %i.ss-icon trash
-              %li
-                = link_to '#' do
-                  Edit
-                  %i.ss-icon edit
-              %li
-                = link_to '#' do
-                  Feature
-                  %i.ss-icon bookmark
-              %li
-                = link_to '#' do
-                  Moderate
-                  %i.ss-icon delete
+          = link_to '&#9776;'.html_safe, '#', "data-dropdown" => '#dropdown-1'
+        #dropdown-1.dropdown.dropdown-tip.dropdown-anchor-right
+          %ul.dropdown-menu
+            %li
+              = link_to '#' do
+                Trash
+                -#%i.ss-icon trash
+            %li
+              = link_to '#' do
+                Edit
+                -#%i.ss-icon edit
+            %li.dropdown-divider
+            %li
+              = link_to '#' do
+                Feature
+                -#%i.ss-icon bookmark
+            %li
+              = link_to '#' do
+                Moderate
+                -#%i.ss-icon delete
+
       .thumb
         .img-wrap
           = link_to '#' do
@@ -65,22 +67,6 @@
           = render :partial => 'submissions/review_form'
 
 :javascript
-  $("#dropdown").click(function (e) { // binding onclick
-  if ($(this).hasClass('selected')) {
-    $('.dropdown-menu').css('display', 'none'); // hiding popups
-      $(this).removeClass("selected");
-    } else {
-      $(this).addClass("selected"); // display popup
-      $('.dropdown-menu').css('display', 'block');
-    }
-    e.stopPropagation();
-  });
-
-  $("html").click(function () { // binding onclick to body
-    $('.dropdown-menu').css('display', 'none'); // hiding popups
-      $('#dropdown').removeClass("selected");
-  });
-
 
   var paper = Raphael("draw", 36, 36);
 

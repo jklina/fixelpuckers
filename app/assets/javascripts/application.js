@@ -14,4 +14,5 @@
 //= require jquery_ujs
 //= require jquery.sparkline.js
 //= require raphael-min.js
+//= require jquery.dropdown.js
 //= require_tree .

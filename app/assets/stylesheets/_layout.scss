@@ -85,37 +85,12 @@ ol.forum-posts {
   @include row;
 
   .vcard {
-    float: left;
     @include span-columns(11);
   }
 
   .action-menu {
     @include span-columns(1);
-    position: relative;
-  }
-
-  #dropdown {
-    display: inline-block;
-    float: right;
-    margin-top: 1em;
-    padding: em(5) em(10);
-    position: relative;
-    text-align: right;
-  }
-
-  .dropdown-menu {
-    @extend %chip-menu;
-    display: none;
-    position: absolute;
-    right: -1.5em;
-    top: $base-line-height * 3;
-    z-index: 5;
-
-    ul {
-      display: block;
-      margin: 0;
-      padding: 0;
-    }
+    @include omega;
   }
 }
 
