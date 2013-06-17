@@ -395,3 +395,55 @@ tspan {
   float: left;
   margin-left: $gutter;
 }
+
+
+///////////////////////////////////////////////////////////////////////////////
+//
+//  Sessions
+//
+///////////////////////////////////////////////////////////////////////////////
+
+
+.sessions, .registrations, .passwords {
+  /*@extend %dark;*/
+
+  header {
+    display: none;
+  }
+
+  .wrapper {
+    width: $max-width * .5;
+    max-width: 100%;
+    margin: 0 auto;
+    float: none;
+    padding-top: $base-line-height * 6;
+  }
+
+  .brand {
+    float: none;
+    clear: both;
+    text-align: center;
+    margin-bottom: .75em;
+    font-size: 2.5em;
+  }
+
+  #{$all-text-inputs} {
+    width: 100%;
+  }
+
+  .user_remember_me {
+    float: left;
+    width: 50%;
+  }
+
+  .form-addon {
+    font-style: italic;
+    float: left;
+    width: 50%;
+  }
+
+  .btn {
+    float: right;
+    @extend %flat-btn;
+  }
+}
