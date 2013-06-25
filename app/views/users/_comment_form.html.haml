@@ -5,8 +5,9 @@
         = link_to '#' do
           = image_tag("http://lorempixel.com/100/100/nature/#{rand(8)}")
           .img-shadow
-    = simple_form_for [@user, @comment] do |f|
+    = simple_form_for [commentable, @comment] do |f|
       %h2 Leave a Comment
+      = hidden_field_tag :commentable_type, commentable.class.to_s
       = f.input :body
       = f.button :submit
 - else

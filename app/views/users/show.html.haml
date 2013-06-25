@@ -38,4 +38,5 @@
     %ol
       = render :partial => 'users/comment',
         collection: @user.comments
-      = render partial: 'users/comment_form'
+      = render partial: 'users/comment_form',
+                        :locals => { :commentable => @user }

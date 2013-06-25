@@ -8,23 +8,21 @@ describe UsersController do
 
   describe "GET 'show'" do
     it "is successful" do
-      get :show, :id => user.id
+      get :show, :id => user
       expect(response).to be_success
     end
 
     it "finds the right user" do
-      get :show, :id => user.id
+      get :show, :id => user
       expect(assigns(:user)).to eq(user)
     end
 
     context "if current_user is present" do
       it "finds or creates a comment and assigns it to @comment" do
-        user = double(find_or_build_comment_from: true, id: 22)
-        author = double
-        allow(User).to receive(:find).and_return(user)
+        author = FactoryGirl.create(:user)
         allow(controller).to receive(:current_user).and_return(author)
-        expect(user).to receive(:find_or_build_comment_from).with(author)
         get :show, id: user
+        expect(assigns(:comment).class).to eq(Comment)
       end
     end
 

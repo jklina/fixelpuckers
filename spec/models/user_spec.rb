@@ -1,5 +1,5 @@
 require 'spec_helper'
-require "cancan/matchers"
+require 'cancan/matchers'
 
 describe User do
 
@@ -43,6 +43,9 @@ describe User do
   it { should_not allow_value('user_at_foo.org').for(:email) }
   it { should_not allow_value('example.user@foo.').for(:email) }
 
+  it_behaves_like "a commentable" do
+    let(:commentable) { user }
+  end
 
   it "creates a new instance given a valid attribute" do
     user
@@ -67,15 +70,4 @@ describe User do
     end
   end
 
-  describe '#find_or_build_comment_from' do
-    it "finds the author's comment when the author has a comment" do
-      @comment = FactoryGirl.create(:comment)
-      expect(@comment.user.find_or_build_comment_from(@comment.author)).to eq(@comment)
-    end
-
-    it "instantiates a new comment when a comment doesn't exist from the author" do
-      author = FactoryGirl.create(:user)
-      expect(user.find_or_build_comment_from(author)).to be_a_new(Comment)
-    end
-  end
 end

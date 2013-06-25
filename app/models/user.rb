@@ -1,3 +1,5 @@
+require 'commentable'
+
 class User < ActiveRecord::Base
   extend FriendlyId
 
@@ -12,7 +14,7 @@ class User < ActiveRecord::Base
   friendly_id :username, use: :slugged
 
   has_many :submissions
-  has_many :comments
+  has_many :comments, as: :commentable, :extend => Commentable
 
   # Setup accessible (or protected) attributes for your model
   attr_accessible :name, :email, :password, :password_confirmation, :remember_me
@@ -26,7 +28,4 @@ class User < ActiveRecord::Base
     submissions.order("created_at DESC").limit(number_of_submissions)
   end
 
-  def find_or_build_comment_from(author)
-    comments.where(author_id: author.id).first_or_initialize
-  end
 end

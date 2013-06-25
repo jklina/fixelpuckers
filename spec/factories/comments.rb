@@ -4,6 +4,5 @@ FactoryGirl.define do
   factory :comment do
     body "MyText"
     association :author, factory: :user
-    user
   end
 end
