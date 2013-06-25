@@ -1,6 +1,8 @@
 require 'spec_helper'
 
 describe Submission do
+  let(:submission) { FactoryGirl.create(:submission) }
+
   it { should validate_presence_of (:title) }
   it { should validate_presence_of (:description) }
   it { should validate_presence_of (:user_id) }
@@ -11,6 +13,7 @@ describe Submission do
 
   it { should belong_to(:user) }
   it { should have_many(:reviews) }
+  it { should have_many(:comments) }
 
   it { should allow_mass_assignment_of(:title) }
   it { should allow_mass_assignment_of(:description) }
@@ -19,6 +22,10 @@ describe Submission do
   it { should_not allow_mass_assignment_of(:downloads) }
   it { should_not allow_mass_assignment_of(:average_rating) }
   it { should_not allow_mass_assignment_of(:featured_at) }
+
+  it_behaves_like "a commentable" do
+    let(:commentable) { submission }
+  end
 
   describe '#find_or_build_review_from' do
     before(:each) do
@@ -46,7 +53,6 @@ describe Submission do
 
   describe "#update_average_rating" do
     it "updates the submission's average rating in the db" do
-      submission = FactoryGirl.create(:submission)
       review1 = FactoryGirl.create(:review, rating: 20)
       review2 = FactoryGirl.create(:review, rating: 10)
       submission.reviews << review1
