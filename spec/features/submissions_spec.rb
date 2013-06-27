@@ -84,7 +84,7 @@ describe "Submission page" do
       review = FactoryGirl.create(:review)
       @submission.reviews << review
       visit submission_path(@submission)
-      expect(page).to have_content(review.comment)
+      expect(page).to have_content(review.body)
       expect(page).to have_content(review.rating)
     end
   end

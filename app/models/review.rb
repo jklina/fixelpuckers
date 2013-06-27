@@ -1,8 +1,8 @@
 class Review < ActiveRecord::Base
-  attr_accessible :comment, :rating
+  attr_accessible :body, :rating
 
   belongs_to :submission
   belongs_to :user
 
-  validates :comment, presence: true
+  validates :body, presence: true
 end

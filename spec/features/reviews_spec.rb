@@ -12,7 +12,7 @@ describe "Deleting a review" do
   context "when a user has a review on a given submission" do
     # it "enables the user to delete her review" do
     #   visit submission_path(@submission)
-    #   click_link("action-delete-comment")
+    #   click_link("action-delete-body")
     #   # page.driver.browser.switch_to.alert.accept
     #   expect(@submission.reviews.count).to eq(0)
     # end
@@ -24,7 +24,7 @@ describe "Viewing reviews" do
     submission = FactoryGirl.create(:submission)
     review = FactoryGirl.create(:review, submission: submission)
     visit submission_path(submission)
-    expect(page).to have_content(review.comment)
+    expect(page).to have_content(review.body)
   end
 end
 
@@ -84,7 +84,7 @@ describe "Submitting a review" do
       it "creates a new review when one is filled out correctly" do
         review = Review.last
         expect(review.rating).to eq(5)
-        expect(review.comment).to eq(@paragraph)
+        expect(review.body).to eq(@paragraph)
       end
 
       it "flashs a notice letting the user know the review was created" do
@@ -107,15 +107,15 @@ describe "Submitting a review" do
 
       it "has the review form filled out with the existing review" do
         expect(find_field('Rating').value).to eq(@review.rating.to_s)
-        expect(find_field('Comment').value).to eq(@review.comment.to_s)
+        expect(find_field('Comment').value).to eq(@review.body.to_s)
       end
 
       it "change the existing review when the review is updated"  do
         find(:xpath, "//*[(@id = 'review_rating')]").set '44'
-        find(:xpath, "//*[(@id = 'review_comment')]").set "hello"
+        find(:xpath, "//*[(@id = 'review_body')]").set "hello"
         click_button('Update Review')
         @review.reload
-        expect(@review.comment).to eq('hello')
+        expect(@review.body).to eq('hello')
         expect(@review.rating).to eq(44)
       end
 

@@ -3,12 +3,12 @@
 FactoryGirl.define do
   factory :review do
     rating 1
-    comment "MyText"
+    body "MyText"
     user
 
     factory :invalid_review do
       rating 'hi'
-      comment nil
+      body nil
       user nil
     end
   end

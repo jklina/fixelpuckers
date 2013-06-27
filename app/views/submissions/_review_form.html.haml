@@ -6,7 +6,7 @@
   = simple_form_for [@submission, @review] do |f|
     %h2 Leave a Review
     = f.input :rating, :placeholder => '0 - 100'
-    = f.input :comment
+    = f.input :body, label: "Comment"
     = f.button :submit
 - else
   %p Please sign up to leave a review.
