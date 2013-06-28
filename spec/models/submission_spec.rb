@@ -13,7 +13,6 @@ describe Submission do
 
   it { should belong_to(:user) }
   it { should have_many(:reviews) }
-  it { should have_many(:comments) }
 
   it { should allow_mass_assignment_of(:title) }
   it { should allow_mass_assignment_of(:description) }
@@ -22,10 +21,6 @@ describe Submission do
   it { should_not allow_mass_assignment_of(:downloads) }
   it { should_not allow_mass_assignment_of(:average_rating) }
   it { should_not allow_mass_assignment_of(:featured_at) }
-
-  it_behaves_like "a commentable" do
-    let(:commentable) { submission }
-  end
 
   describe '#find_or_build_review_from' do
     before(:each) do

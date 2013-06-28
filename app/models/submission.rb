@@ -5,7 +5,6 @@ class Submission < ActiveRecord::Base
 
   belongs_to :user
   has_many :reviews
-  has_many :comments, as: :commentable, :extend => Commentable
 
   attr_accessible :description, :title
 

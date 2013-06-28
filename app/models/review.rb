@@ -5,4 +5,6 @@ class Review < ActiveRecord::Base
   belongs_to :user
 
   validates :body, presence: true
+
+  has_reputation :votes, aggregrated_by: :sum, source: :user
 end

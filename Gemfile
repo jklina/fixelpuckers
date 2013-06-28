@@ -16,6 +16,7 @@ gem "bourbon"
 gem "neat"
 gem "high_voltage"
 gem "friendly_id", "~> 4.0.9"
+gem 'activerecord-reputation-system'
 
 group :assets do
   gem 'sass-rails',   '~> 3.2.3'
