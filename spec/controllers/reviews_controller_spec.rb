@@ -2,6 +2,8 @@ require 'spec_helper'
 
 describe ReviewsController do
   let(:submission) { FactoryGirl.create(:submission) }
+  let(:review) { FactoryGirl.create(:review) }
+
   before(:each) do
     mock_all_abilities
   end
@@ -59,44 +61,43 @@ describe ReviewsController do
 
   describe "PUT update" do
     before(:each) do
-      @review = FactoryGirl.create(:review)
-      submission.reviews << @review
+      submission.reviews << review
     end
 
     it "finds the submission with the given id" do
-      put :update, { submission_id: submission, id: @review}
+      put :update, { submission_id: submission, id: review}
       expect(assigns(:submission)).to eq(submission)
     end
 
     describe "with valid params" do
       it "updates the requested review" do
         rating = rand(2..99)
-        put :update, { submission_id: submission, id: @review,
+        put :update, { submission_id: submission, id: review,
                        review: FactoryGirl.attributes_for(:review, 
                                                           rating: rating) }
-        @review.reload
-        expect(@review.rating).to eq(rating)
+        review.reload
+        expect(review.rating).to eq(rating)
       end
 
       it "assigns the requested review as @review" do
         put :update, { submission_id: submission,
-                       id: @review,
+                       id: review,
                        review: FactoryGirl.attributes_for(:review) }
-        expect(assigns(:review)).to eq(@review)
+        expect(assigns(:review)).to eq(review)
       end
 
       it "updates the submission's average rating" do
         rating = rand(2..99)
         allow(Submission).to receive(:find).and_return(submission)
         expect(submission).to receive(:update_average_rating)
-        put :update, { submission_id: submission, id: @review,
+        put :update, { submission_id: submission, id: review,
                        review: FactoryGirl.attributes_for(:review, 
                                                           rating: rating) }
       end
 
       it "redirects to the review" do
         put :update, { submission_id: submission,
-                       id: @review,
+                       id: review,
                        review: FactoryGirl.attributes_for(:review) }
         expect(response).to redirect_to(submission)
       end
@@ -106,12 +107,12 @@ describe ReviewsController do
       before(:each) do
         @invalid_review_attrs = FactoryGirl.attributes_for(:invalid_review)
         put :update, { submission_id: submission,
-                       id: @review,
+                       id: review,
                        review: @invalid_review_attrs }
       end
 
       it "assigns the review as @review" do
-        expect(assigns(:review)).to eq(@review)
+        expect(assigns(:review)).to eq(review)
       end
 
       it "re-renders the 'edit' template" do
@@ -124,24 +125,23 @@ describe ReviewsController do
     context "when the user owns the review they're trying to delete" do
       before(:each) do
         # let(:submission) { FactoryGirl.create(:submission) }
-        @review = FactoryGirl.create(:review)
-        submission.reviews << @review
+        submission.reviews << review
       end
 
       it "destroys the requested review" do
         expect {
-          delete :destroy, {submission_id: submission, id: @review}
+          delete :destroy, {submission_id: submission, id: review}
         }.to change(Review, :count).by(-1)
       end
 
       it "updates the submission's average rating" do
         expect(submission).to receive(:update_average_rating)
         allow(Submission).to receive(:find).and_return(submission)
-        delete :destroy, {submission_id: submission, id: @review}
+        delete :destroy, {submission_id: submission, id: review}
       end
 
       it "redirects to the review's submission" do
-        delete :destroy, {submission_id: submission, id: @review}
+        delete :destroy, {submission_id: submission, id: review}
         expect(response).to redirect_to(submission)
       end
     end
@@ -155,5 +155,4 @@ describe ReviewsController do
     #   end
     # end
   end
-
 end
