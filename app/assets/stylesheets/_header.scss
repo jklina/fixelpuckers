@@ -51,14 +51,15 @@ nav.main-nav ul {
 }
 
 nav.account {
-  @include transition;
-  border-left: 1px solid $base-border-color;
-  border-right: 1px solid $base-border-color;
   float: right;
   position: relative;
 
-  &:hover ul {
-    display: block;
+  &:hover {
+    box-shadow: 1px 0 $base-border-color, -1px 0 $base-border-color;
+
+    ul {
+      display: block;
+    }
   }
 }
 
@@ -125,18 +126,30 @@ nav.account {
   }
 }
 
+
 .search {
   @extend %header-addon;
-  border-right: 1px solid $base-border-color;
   float: right;
   text-align: center;
 }
 
+#search {
+  @extend %header-expand;
+
+  input {
+    width: 100%;
+    background: none;
+    color: #ddd;
+    padding-bottom: 1em;
+    border: none;
+    border-bottom: 1px solid #888;
+    border-radius: 0;
+    box-shadow: none;
+  }
+}
+
 .browse-categories {
-  @extend %dark;
-  @include row;
-  background: #353230;
-  display: none;
+  @extend %header-expand;
 
   ul {
     @include outer-container;
