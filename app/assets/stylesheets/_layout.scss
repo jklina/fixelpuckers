@@ -91,6 +91,8 @@ ol.forum-posts {
   .action-menu {
     @include span-columns(1);
     @include omega;
+    margin-top: 1.25em;
+    text-align: right;
   }
 }
 
@@ -236,6 +238,10 @@ ol.forum-posts {
   text-align: center;
 
   &:hover {
+    opacity: .5;
+  }
+
+  &.active {
     opacity: 1;
   }
 }

@@ -22,3 +22,6 @@ jQuery ->
       $('#browseList').slideToggle(100) if $("#browseList").is(":visible")
       $('#search').slideToggle(100)
 
+  $('.arrow').click ->
+    $(this).toggleClass('active')
+    $(this).siblings().toggleClass('active') if $(this).siblings().hasClass('active')
