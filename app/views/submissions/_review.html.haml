@@ -1,4 +1,4 @@
-%li.review
+%li.review{ "ng-controller" => "VotesCtrl" }
   .avatar
     .img-wrap
       = link_to '#' do
@@ -13,7 +13,7 @@
     .comment-body
 
       .arrows
-        %i.ss-icon.arrow up
+        %i.ss-icon.arrow{ "ng-click" => "vote_up()" } up
         %i.ss-icon.arrow down
       %p= review.body
   #draw

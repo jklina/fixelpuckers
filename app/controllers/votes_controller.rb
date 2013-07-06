@@ -1,19 +1,19 @@
 class VotesController < ApplicationController
   respond_to :json
 
-  before_filter :votable
+  # before_filter :votable
 
-  def vote_up
+  def up
     respond_with(votable.add_or_update_evaluation(:votes, 1, current_user),
                  location: nil)
   end
 
-  def vote_down
+  def down
     respond_with(votable.add_or_update_evaluation(:votes, -1, current_user),
                  location: nil)
   end
 
-  def remove_vote
+  def destroy
     respond_with votable.delete_evaluation(:votes, current_user)
   end
 
@@ -21,7 +21,7 @@ class VotesController < ApplicationController
 
   def votable
     klass = params[:votable_type].constantize
-    klass.find(params[:id])
+    klass.find(params[:votable_id])
     # authorize! :read, @votable
   end
 end

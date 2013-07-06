@@ -16,4 +16,6 @@
 //= require raphael-min.js
 //= require jquery.dropdown.js
 //= require responsive-nav.js
+//= require angular
+//= require angular-resource
 //= require_tree .
