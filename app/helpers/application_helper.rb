@@ -14,7 +14,8 @@ module ApplicationHelper
   end
   
   def present(object)
-    presenter = Pf::Submissions.present(object)
+    presenter_path = "Pf::#{object.class.to_s}s"
+    presenter = presenter_path.constantize.present(object)
     yield presenter if block_given?
     presenter
   end
