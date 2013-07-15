@@ -1,6 +1,8 @@
 require 'reviews'
 
 describe Pf::Reviews do
+  it_behaves_like "a presentable"
+
   describe ".average_rating" do
     context "when there are ratings" do
       it "returns an average rounded to two sig figs" do

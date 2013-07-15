@@ -1,5 +1,9 @@
 module Pf
   module Reviews
+    def self.present(submission)
+      Pf::Reviews::Presenters::Instance.for(submission)
+    end
+
     def self.calc_average_rating(reviews)
       reviews_with_ratings = with_ratings(reviews)
       ratings_count = reviews_with_ratings.count
