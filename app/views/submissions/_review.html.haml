@@ -1,5 +1,5 @@
 - present review do |review_presenter|
-  %li.review{ "ng-controller" => "VotesCtrl" }
+  %li.review{ "ng-controller" => "VotesCtrl", "ng-init" => review_presenter.commentable_info}
     .avatar
       .img-wrap
         = link_to '#' do
