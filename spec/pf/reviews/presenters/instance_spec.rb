@@ -5,6 +5,8 @@ include ActionView::Helpers::TagHelper
 include ActionView::Context
 
 describe Pf::Reviews::Presenters::Instance do
+  it_behaves_like "a presentable instance"
+
   describe "#commentable_info" do
     it "returns a string that angular can parse with the type and id" do
       review = double(id: 4)

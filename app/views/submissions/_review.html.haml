@@ -1,23 +1,24 @@
-%li.review{ "ng-controller" => "VotesCtrl" }
-  .avatar
-    .img-wrap
-      = link_to '#' do
-        = image_tag('http://lorempixel.com/100/100/nature/1')
-        .img-shadow
-  .comment-chip
-    .comment-details
-      %h3= link_to review.user.username, user_path(review.user)
-      %span.meta= time_ago_in_words(review.created_at)
-      .comment-details-action-menu
-        = link_to '<i class="ss-icon">delete</i>'.html_safe, 'javascript:void(0)', id: 'action-delete-comment'
-    .comment-body
+- present review do |review_presenter|
+  %li.review{ "ng-controller" => "VotesCtrl" }
+    .avatar
+      .img-wrap
+        = link_to '#' do
+          = image_tag('http://lorempixel.com/100/100/nature/1')
+          .img-shadow
+    .comment-chip
+      .comment-details
+        %h3= link_to review_presenter.user.username, user_path(review_presenter.user)
+        %span.meta= time_ago_in_words(review_presenter.created_at)
+        .comment-details-action-menu
+          = link_to '<i class="ss-icon">delete</i>'.html_safe, 'javascript:void(0)', id: 'action-delete-comment'
+      .comment-body
 
-      .arrows
-        %i.ss-icon.arrow{ "ng-click" => "vote_up()" } up
-        %i.ss-icon.arrow down
-      %p= review.body
-  #draw
-    %h4.rating= review.rating
-:javascript
-  var rating = #{review.rating};
+        .arrows
+          %i.ss-icon.arrow{ "ng-click" => "vote_up()" } up
+          %i.ss-icon.arrow down
+        %p= review_presenter.body
+    #draw
+      %h4.rating= review_presenter.rating
+  :javascript
+    var rating = #{review_presenter.rating};
 

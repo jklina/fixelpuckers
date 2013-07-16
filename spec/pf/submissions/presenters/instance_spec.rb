@@ -5,6 +5,8 @@ include ActionView::Helpers::TagHelper
 include ActionView::Context
 
 describe Pf::Submissions::Presenters::Instance do
+  it_behaves_like "a presentable instance"
+  
   describe "#featured_at" do
     context "when a featured_at date is present" do
       it "displays the date in the correct html" do
@@ -85,11 +87,11 @@ describe Pf::Submissions::Presenters::Instance do
     end
   end
 
-  describe "presenter's inheritance" do
-    it "forwards undefined methods in the presenter to the source object" do
-      submission = double(ohhai: "oh hai")
-      presenter = Pf::Submissions::Presenters::Instance.for(submission)
-      expect(presenter.ohhai).to eq(submission.ohhai)
-    end
-  end
+  # describe "presenter's inheritance" do
+  #   it "forwards undefined methods in the presenter to the source object" do
+  #     submission = double(ohhai: "oh hai")
+  #     presenter = Pf::Submissions::Presenters::Instance.for(submission)
+  #     expect(presenter.ohhai).to eq(submission.ohhai)
+  #   end
+  # end
 end
