@@ -9,8 +9,8 @@ module Pf
         include ActionView::Helpers::TagHelper
         include ActionView::Context
 
-        def self.for(submission)
-          new(submission)
+        def self.for(review)
+          new(review)
         end
 
         attr_reader :review

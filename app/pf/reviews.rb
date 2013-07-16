@@ -1,7 +1,9 @@
+require 'reviews/presenters/instance'
+
 module Pf
   module Reviews
-    def self.present(submission)
-      Pf::Reviews::Presenters::Instance.for(submission)
+    def self.present(review)
+      Pf::Reviews::Presenters::Instance.for(review)
     end
 
     def self.calc_average_rating(reviews)

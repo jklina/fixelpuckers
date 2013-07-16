@@ -1,5 +1,4 @@
 require 'action_view/helpers/tag_helper'
-require 'reviews'
 require 'delegate'
 
 module Pf
