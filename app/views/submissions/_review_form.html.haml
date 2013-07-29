@@ -1,8 +1,7 @@
 - if current_user.present?
   .avatar
-    .img-wrap
-      = link_to '#' do
-        = image_tag('http://lorempixel.com/100/100/nature/5')
+    = link_to '#' do
+      = image_tag('http://lorempixel.com/100/100/nature/5', :class => 'avatar--img')
   = simple_form_for [@submission, @review] do |f|
     %h2 Leave a Review
     = f.input :rating, :placeholder => '0 - 100'

@@ -1,10 +1,8 @@
 - if user_signed_in?
   %li.comment#author-comment
     .avatar
-      .img-wrap
-        = link_to '#' do
-          = image_tag("http://lorempixel.com/100/100/nature/#{rand(8)}")
-          .img-shadow
+      = link_to '#' do
+        = image_tag("http://lorempixel.com/100/100/nature/#{rand(8)}", :class => 'avatar--img')
     = simple_form_for [@user, @comment] do |f|
       %h2 Leave a Comment
       = f.input :body

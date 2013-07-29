@@ -5,10 +5,11 @@
 ///////////////////////////////////////////////////////////////////////////////
 
 html {
-  body {
-    background-color: $body-color;
-    background: $body-color image-url('bg-noise.png');
-  }
+}
+
+body {
+  background-color: $body-color;
+  background: $body-color image-url('bg-noise.png');
 }
 
 .wrapper {
@@ -246,7 +247,7 @@ ol.forum-posts {
   }
 }
 
-.comment-details{
+.comment-details {
   @extend %chip-head;
   @include ui-nub(8px, left-top, #f5f5f5, #c3c3c3);
   border-radius: 3px 3px 0 0;

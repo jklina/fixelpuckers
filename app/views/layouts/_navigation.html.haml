@@ -18,10 +18,8 @@
   .account-dropdown
     - if user_signed_in?
       .avatar
-        .img-wrap
-          = link_to '#' do
-            = image_tag('http://lorempixel.com/100/100/nature/1')
-            .img-shadow
+        = link_to '#' do
+          = image_tag('http://lorempixel.com/100/100/nature/1', :class => 'avatar--img')
       %ul.account-dropdown-list
         %li.account-dropdown-item
           = link_to edit_user_registration_path do
@@ -46,9 +44,7 @@
             Sign Out
     - else
       .avatar.placeholder
-        .img-wrap
-          %i.ss-icon user
-          .img-shadow
+        %i.ss-icon user
       %ul.account-dropdown-list
         %li.account-dropdown-item
           = link_to 'Login', new_user_session_path, :class=> 'login'

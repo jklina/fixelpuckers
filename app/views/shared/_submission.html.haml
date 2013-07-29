@@ -1,14 +1,14 @@
 - present submission do |submission_presenter|
-  %li.thumb.submission-preview
-    .img-wrap
+  %li.thumb{:data => {:role => 'submission-preview'}}
+    .thumb--img-wrap
       = link_to submission_path(submission_presenter) do
-        = image_tag("http://lorempixel.com/360/225/nature/#{rand(8)}")
-        .img-shadow
-    .identity
-      %p.title= link_to(submission_presenter.title, submission_path(submission))
-      %p.author
+        = image_tag("http://lorempixel.com/360/225/nature/#{rand(8)}", :class => 'thumb--img')
+        .thumb--img-shadow
+    .thumb--identity
+      %p.thumb--title= link_to(submission_presenter.title, submission_path(submission))
+      %p.thumb--author
         by
         = link_to(submission_presenter.user.username, user_path(submission_presenter.user))
-    .stats
-      %span.boxplot= submission_presenter.boxplot_ratings
-      %span.average-rating= submission_presenter.average_rating
+    .thumb--stats
+      %span.thumb--boxplot= submission_presenter.boxplot_ratings
+      %span.thumb--average-rating= submission_presenter.average_rating

@@ -1,9 +1,7 @@
 %li.comment
   .avatar
-    .img-wrap
-      = link_to comment.author.username do
-        = image_tag("http://lorempixel.com/100/100/nature/#{rand(8)}")
-        .img-shadow
+    = link_to comment.author.username do
+      = image_tag("http://lorempixel.com/100/100/nature/#{rand(8)}", :class => 'avatar--img')
   .comment-chip
     .comment-details
       %h3= link_to comment.author.username, user_path(comment.author)

@@ -22,7 +22,7 @@ describe "Home Page" do
     it "displays the submission attributes" do
       submission = FactoryGirl.create(:submission)
       visit root_url
-      within(".submission-preview") do
+      within("[data-role='submission-preview']") do
         expect(page).to have_link("#{submission.title}", 
                               href: submission_path(submission))
         expect(page).to have_link("#{submission.user.username}", 
