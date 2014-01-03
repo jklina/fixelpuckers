@@ -15,4 +15,13 @@ jQuery ->
   #navigation = responsiveNav("#nav");
 
   $('#browseToggle').click ->
+      $('#search').slideToggle(100) if $("#search").is(":visible")
       $('#browseList').slideToggle(100)
+
+  $('#searchToggle').click ->
+      $('#browseList').slideToggle(100) if $("#browseList").is(":visible")
+      $('#search').slideToggle(100)
+
+  $('.arrow').click ->
+    $(this).toggleClass('active')
+    $(this).siblings().toggleClass('active') if $(this).siblings().hasClass('active')

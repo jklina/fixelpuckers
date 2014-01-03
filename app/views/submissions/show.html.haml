@@ -4,10 +4,8 @@
       .submission-title-section
         .vcard
           .avatar
-            .img-wrap
-              = link_to '#' do
-                = image_tag('http://lorempixel.com/100/100/nature/1')
-                .img-shadow
+            = link_to '#' do
+              = image_tag('http://lorempixel.com/100/100/nature/1', :class => 'avatar--img')
           .byline
             %p.title
               = "#{submission_presenter.title} by "
@@ -36,8 +34,8 @@
                 Moderate
                 -#%i.ss-icon delete
 
-      .thumb
-        .img-wrap
+      .thumb_submission
+        .thumb--img-wrap
           = link_to '#' do
             = image_tag('http://placekitten.com/1280/768')
       .submission-details

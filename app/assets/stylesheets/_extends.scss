@@ -97,3 +97,11 @@
     top: .375em;
   }
 }
+
+%header-expand {
+  @extend %dark;
+  @include row;
+  background: #353230;
+  display: none;
+}
+

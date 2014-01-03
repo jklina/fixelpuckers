@@ -1,9 +1,7 @@
 %li.review
   .avatar
-    .img-wrap
-      = link_to '#' do
-        = image_tag('http://lorempixel.com/100/100/nature/1')
-        .img-shadow
+    = link_to '#' do
+      = image_tag('http://lorempixel.com/100/100/nature/1', :class => 'avatar--img')
   .comment-chip
     .comment-details
       %h3= link_to review.user.username, user_path(review.user)
@@ -13,8 +11,8 @@
     .comment-body
 
       .arrows
-        %i.ss-icon.arrow up
-        %i.ss-icon.arrow down
+        %i.ss-icon.arrow.up up
+        %i.ss-icon.arrow.down down
       %p= review.comment
   #draw
     %h4.rating= review.rating

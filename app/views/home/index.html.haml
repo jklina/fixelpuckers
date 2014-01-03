@@ -1,17 +1,17 @@
 %section.featured
   .wrapper
-    .thumb
-      .img-wrap
+    .thumb_featured
+      .thumb--img-wrap
         = link_to '#' do
-          = image_tag('http://lorempixel.com/1200/400/abstract/3')
-          .img-shadow
+          =image_tag('http://lorempixel.com/1200/400/abstract/3', :class => 'thumb--img')
+          .thumb--img-shadow
 
 %section.submissions
   .wrapper
     %h2 Recent Submissions
     -# TODO: Possible move this into a helper or presenter
     - if @submissions.present?
-      %ol.thumbs
+      %ol.thumbs-list
         = render partial: 'shared/submission', collection: @submissions
     - else
       %p There are no submissions yet!
@@ -25,10 +25,8 @@
       - 6.times.each do |n|
         %li.forum-post
           .avatar
-            .img-wrap
-              = link_to '#' do
-                = image_tag("http://lorempixel.com/100/100/people/#{n}")
-                .img-shadow
+            = link_to '#' do
+              = image_tag("http://lorempixel.com/100/100/people/#{n}", :class => 'avatar--img')
           %hgroup
             %h5 
               = link_to "Building myself a website", "#"
