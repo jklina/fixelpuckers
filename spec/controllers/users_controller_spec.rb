@@ -2,9 +2,6 @@ require 'spec_helper'
 
 describe UsersController do
   let(:user) { FactoryGirl.create(:user) }
-  before (:each) do
-    mock_all_abilities
-  end
 
   describe "GET 'show'" do
     it "is successful" do
@@ -21,7 +18,7 @@ describe UsersController do
       it "finds or creates a comment and assigns it to @comment" do
         user = double(find_or_build_comment_from: true, id: 22)
         author = double
-        allow(User).to receive(:find).and_return(user)
+        User.stub_chain(:friendly, :find).and_return(user)
         allow(controller).to receive(:current_user).and_return(author)
         expect(user).to receive(:find_or_build_comment_from).with(author)
         get :show, id: user

@@ -1,8 +1,10 @@
 require 'submissions'
 
 class ReviewsController < ApplicationController
-  load_and_authorize_resource :submission
-  load_and_authorize_resource :review, through: :submission, except: :create
+  before_filter :find_submission
+  before_filter :find_review, except: [:create]
+  # load_and_authorize_resource :submission
+  # load_and_authorize_resource :review, through: :submission, except: :create
 
   def create
     @review = Review.new(params[:review])
@@ -18,7 +20,6 @@ class ReviewsController < ApplicationController
   end
 
   def update
-    @review = Review.find(params[:id])
     if @review.update_attributes(params[:review])
       @submission.update_average_rating
       redirect_to @submission, notice: 'Review was successfully updated.'
@@ -31,5 +32,15 @@ class ReviewsController < ApplicationController
     @review.destroy
     @submission.update_average_rating
     redirect_to @submission
+  end
+
+  private
+
+  def find_submission
+    @submission = Submission.friendly.find(params[:submission_id])
+  end
+
+  def find_review
+    @review = Review.find(params[:id])
   end
 end

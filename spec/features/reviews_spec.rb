@@ -8,15 +8,6 @@ describe "Deleting a review" do
     @submission.reviews << @review
     visit submission_path(@submission)
   end
-
-  context "when a user has a review on a given submission" do
-    # it "enables the user to delete her review" do
-    #   visit submission_path(@submission)
-    #   click_link("action-delete-comment")
-    #   # page.driver.browser.switch_to.alert.accept
-    #   expect(@submission.reviews.count).to eq(0)
-    # end
-  end
 end
 
 describe "Viewing reviews" do

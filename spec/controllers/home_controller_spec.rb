@@ -5,15 +5,9 @@ describe HomeController do
   describe "GET 'index'" do
     it "assigns all submissions as @submissions" do
       FactoryGirl.create(:submission)
-      submissions = Submission.all
+      submissions = Submission.page(1).per(6)
       get :index
       expect(assigns(:submissions)).to eq(submissions)
-    end
-
-    it "returns submissions through the accessible_by method" do
-      Submission.stub_chain(:accessible_by, :page, :per)
-      expect(Submission).to receive(:accessible_by)
-      get :index
     end
 
     it "paginates the submissions 6 per page" do

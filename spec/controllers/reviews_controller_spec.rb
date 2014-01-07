@@ -2,9 +2,6 @@ require 'spec_helper'
 
 describe ReviewsController do
   let(:submission) { FactoryGirl.create(:submission) }
-  before(:each) do
-    mock_all_abilities
-  end
 
   describe "POST create" do
     let(:review_attrs) { FactoryGirl.attributes_for(:review) }
@@ -29,7 +26,8 @@ describe ReviewsController do
       end
 
       it "updates the submission's average rating" do
-        allow(Submission).to receive(:find).and_return(submission)
+        submission
+        Submission.stub_chain(:friendly, :find).and_return(submission)
         expect(submission).to receive(:update_average_rating)
         post :create, submission_id: submission, review: review_attrs
       end
@@ -87,7 +85,7 @@ describe ReviewsController do
 
       it "updates the submission's average rating" do
         rating = rand(2..99)
-        allow(Submission).to receive(:find).and_return(submission)
+        Submission.stub_chain(:friendly, :find).and_return(submission)
         expect(submission).to receive(:update_average_rating)
         put :update, { submission_id: submission, id: @review,
                        review: FactoryGirl.attributes_for(:review, 
@@ -123,7 +121,6 @@ describe ReviewsController do
   describe "DELETE destroy" do
     context "when the user owns the review they're trying to delete" do
       before(:each) do
-        # let(:submission) { FactoryGirl.create(:submission) }
         @review = FactoryGirl.create(:review)
         submission.reviews << @review
       end
@@ -136,7 +133,7 @@ describe ReviewsController do
 
       it "updates the submission's average rating" do
         expect(submission).to receive(:update_average_rating)
-        allow(Submission).to receive(:find).and_return(submission)
+        Submission.stub_chain(:friendly, :find).and_return(submission)
         delete :destroy, {submission_id: submission, id: @review}
       end
 
@@ -146,14 +143,5 @@ describe ReviewsController do
       end
     end
 
-    # context "when the user doesn't own the review they're trying to delete" do
-    #   it "should not let them delete the review" do
-    #     user = FactoryGirl.create(:user)
-    #     review = FactoryGirl.create(:review)
-    #     submission.reviews << review
-    #     # controller.stub(:current_user).and_return(user)
-    #   end
-    # end
   end
-
 end

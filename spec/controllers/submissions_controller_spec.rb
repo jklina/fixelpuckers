@@ -1,10 +1,7 @@
 require 'spec_helper'
 
 describe SubmissionsController do
-  let(:submission) { stub_model(Submission, id: '37') }
-  before(:each) do
-    mock_all_abilities
-  end
+  let(:submission) { stub_model(Submission, id: 'slugged-title') }
 
   describe "GET index" do
     it "assigns all submissions as submissions" do
@@ -15,7 +12,7 @@ describe SubmissionsController do
 
   describe "GET show" do
     before(:each) do
-      allow(Submission).to receive(:find).and_return(submission)
+      Submission.stub_chain(:friendly, :find).and_return(submission)
     end
 
     it "assigns the requested submission as submission" do
@@ -54,8 +51,7 @@ describe SubmissionsController do
 
   describe "GET edit" do
     it "assigns the requested submission as submission" do
-      allow(Submission).to receive(:find).and_return(submission)
-      expect(Submission).to receive(:find).with(submission.to_param)
+      Submission.stub_chain(:friendly, :find).and_return(submission)
       get :edit, id: submission
       expect(assigns(:submission)).to eq(submission)
     end

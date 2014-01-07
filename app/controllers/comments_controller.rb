@@ -1,6 +1,6 @@
 class CommentsController < ApplicationController
-  load_and_authorize_resource :user
-  load_and_authorize_resource :comment, through: :user, except: :create
+  before_filter :find_user
+  before_filter :find_comment, except: [:create]
 
   def create
     @comment = Comment.new(params[:comment])
@@ -15,7 +15,6 @@ class CommentsController < ApplicationController
   end
 
   def update
-    @comment = Comment.find(params[:id])
     if @comment.update_attributes(params[:comment])
       redirect_to @user, notice: 'Comment was successfully updated.'
     else
@@ -26,5 +25,15 @@ class CommentsController < ApplicationController
   def destroy
     @comment.destroy
     redirect_to @user
+  end
+
+  private
+
+  def find_user
+    @user = User.friendly.find(params[:user_id])
+  end
+
+  def find_comment
+    @comment = Comment.find(params[:id])
   end
 end

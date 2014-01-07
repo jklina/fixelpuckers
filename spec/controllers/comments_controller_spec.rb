@@ -5,10 +5,6 @@ describe CommentsController do
   let(:author) { FactoryGirl.create(:user) }
   let(:invalid_comment_attrs) {{ body: '' }}
 
-  before(:each) do
-    mock_all_abilities
-  end
-
   describe "POST create" do
     let(:comment_attrs) { FactoryGirl.attributes_for(:comment) }
 
