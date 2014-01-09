@@ -5,13 +5,7 @@
 #
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
-puts 'CREATING ROLES'
-Role.create([
-  { :name => 'admin' }, 
-  { :name => 'user' }, 
-  { :name => 'VIP' }
-], :without_protection => true)
-
+# puts 'CREATING ROLES'
 puts 'SETTING UP DEFAULT USER LOGIN'
 
 user = User.new :name => 'First User', 
