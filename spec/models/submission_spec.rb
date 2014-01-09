@@ -12,14 +12,6 @@ describe Submission do
   it { should belong_to(:user) }
   it { should have_many(:reviews) }
 
-  it { should allow_mass_assignment_of(:title) }
-  it { should allow_mass_assignment_of(:description) }
-  it { should_not allow_mass_assignment_of(:user_id) }
-  it { should_not allow_mass_assignment_of(:views) }
-  it { should_not allow_mass_assignment_of(:downloads) }
-  it { should_not allow_mass_assignment_of(:average_rating) }
-  it { should_not allow_mass_assignment_of(:featured_at) }
-
   describe '#find_or_build_review_from' do
     before(:each) do
       @user = double(id: 3)

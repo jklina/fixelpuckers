@@ -19,7 +19,6 @@ gem "friendly_id"
 gem 'sass-rails'
 gem 'coffee-rails'
 gem 'uglifier'
-gem 'protected_attributes'
 
 group :development, :test do
   gem "haml-rails"

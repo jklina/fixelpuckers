@@ -4,9 +4,9 @@ describe CommentsController do
   let(:user) { FactoryGirl.create(:user) }
   let(:author) { FactoryGirl.create(:user) }
   let(:invalid_comment_attrs) {{ body: '' }}
+  let(:comment_attrs) { FactoryGirl.attributes_for(:comment) }
 
   describe "POST create" do
-    let(:comment_attrs) { FactoryGirl.attributes_for(:comment) }
 
     describe "with valid params" do
       it "finds the user that will build the comment" do
@@ -53,7 +53,9 @@ describe CommentsController do
     end
 
     it "finds the user with the given id" do
-      put :update, { user_id: @comment.user, id: @comment}
+      put :update, { user_id: @comment.user,
+        id: @comment,
+        comment: comment_attrs}
       expect(assigns(:user)).to eq(@comment.user)
     end
 

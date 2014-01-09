@@ -1,9 +1,9 @@
 class CommentsController < ApplicationController
-  before_filter :find_user
-  before_filter :find_comment, except: [:create]
+  before_action :find_user
+  before_action :find_comment, except: [:create]
 
   def create
-    @comment = Comment.new(params[:comment])
+    @comment = Comment.new(comment_params)
     @comment.author = current_user
     @comment.user = @user
     if @comment.save
@@ -15,7 +15,7 @@ class CommentsController < ApplicationController
   end
 
   def update
-    if @comment.update_attributes(params[:comment])
+    if @comment.update_attributes(comment_params)
       redirect_to @user, notice: 'Comment was successfully updated.'
     else
       render "users/show"
@@ -35,5 +35,9 @@ class CommentsController < ApplicationController
 
   def find_comment
     @comment = Comment.find(params[:id])
+  end
+
+  def comment_params
+    params.require(:comment).permit(:body)
   end
 end

@@ -2,9 +2,9 @@ require 'spec_helper'
 
 describe ReviewsController do
   let(:submission) { FactoryGirl.create(:submission) }
+  let(:review_attrs) { FactoryGirl.attributes_for(:review) }
 
   describe "POST create" do
-    let(:review_attrs) { FactoryGirl.attributes_for(:review) }
     
     describe "with valid params" do
       it "finds the submission that will build the review" do
@@ -62,7 +62,9 @@ describe ReviewsController do
     end
 
     it "finds the submission with the given id" do
-      put :update, { submission_id: submission, id: @review}
+      put :update, { submission_id: submission,
+        id: @review, 
+        review: review_attrs}
       expect(assigns(:submission)).to eq(submission)
     end
 

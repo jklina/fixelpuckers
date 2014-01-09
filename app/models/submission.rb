@@ -6,8 +6,6 @@ class Submission < ActiveRecord::Base
   belongs_to :user
   has_many :reviews
 
-  attr_accessible :description, :title
-
   friendly_id :title, use: :slugged
 
   validates :title, :description, :user_id, :slug, presence: true

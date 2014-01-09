@@ -10,5 +10,4 @@ class UsersController < ApplicationController
       @comment = @user.find_or_build_comment_from(current_user)
     end
   end
-
 end

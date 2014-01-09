@@ -1,6 +1,5 @@
 class SubmissionsController < ApplicationController
-  # load_and_authorize_resource
-  before_filter :find_submission, only: [:show, :edit, :update, :destroy]
+  before_action :find_submission, only: [:show, :edit, :update, :destroy]
 
   def index
     @submissions = Submission.all
@@ -20,7 +19,7 @@ class SubmissionsController < ApplicationController
   end
 
   def create
-    @submission = Submission.new(params[:submission])
+    @submission = Submission.new(submission_params)
     @submission.user = current_user
     if @submission.save
       redirect_to @submission, notice: 'Submission was successfully created.'
@@ -30,7 +29,7 @@ class SubmissionsController < ApplicationController
   end
 
   def update
-    if @submission.update_attributes(params[:submission])
+    if @submission.update_attributes(submission_params)
       redirect_to @submission, notice: 'Submission was successfully updated.'
     else
       render action: "edit"
@@ -46,5 +45,9 @@ class SubmissionsController < ApplicationController
 
   def find_submission
     @submission = Submission.friendly.find(params[:id])
+  end
+
+  def submission_params
+    params.require(:submission).permit(:description, :title)
   end
 end

@@ -2,6 +2,7 @@ require 'spec_helper'
 
 describe SubmissionsController do
   let(:submission) { stub_model(Submission, id: 'slugged-title') }
+  let(:submission_attrs) { FactoryGirl.attributes_for(:submission, title: 'hi')}
 
   describe "GET index" do
     it "assigns all submissions as submissions" do
@@ -60,7 +61,6 @@ describe SubmissionsController do
   describe "POST create" do
     describe "with valid params" do
       before(:each) do
-        @submission_attrs = FactoryGirl.attributes_for(:submission)
         @user = FactoryGirl.create(:user)
         allow(controller).to receive(:current_user).and_return(@user)
         allow(submission).to receive(:user=).and_return(true)
@@ -68,26 +68,26 @@ describe SubmissionsController do
 
       it "creates a new Submission" do
         expect { 
-          post :create, submission: @submission_attrs
+          post :create, submission: submission_attrs
         }.to change(Submission, :count).by(1)
       end
 
       it "assigns a newly created submission as submission" do
         allow(Submission).to receive(:new).and_return(submission)
-        post :create, submission: submission 
+        post :create, submission: submission_attrs
         expect(assigns(:submission)).to eq(submission)
       end
 
       it 'assigns the submission user to the current user' do
         allow(Submission).to receive(:new).and_return(submission)
         expect(submission).to receive(:user=).with(@user)
-        post :create, submission: submission
+        post :create, submission: submission_attrs
       end
 
       it "redirects to the created submission" do
         allow(Submission).to receive(:new).and_return(submission)
         allow(submission).to receive(:save).and_return(true)
-        post :create, submission: submission 
+        post :create, submission: submission_attrs
         expect(response).to redirect_to(submission)
       end
     end
@@ -121,19 +121,19 @@ describe SubmissionsController do
         put :update, 
           {
             id: @submission,
-            submission: FactoryGirl.attributes_for(:submission, title: 'hi')
+            submission: submission_attrs
           }
           @submission.reload
           expect(@submission.title).to eq('hi')
       end
 
       it "assigns the requested submission as submission" do
-        put :update, id: @submission, submisison: @submission
+        put :update, id: @submission, submission: submission_attrs
         expect(assigns(:submission)).to eq(@submission)
       end
 
       it "redirects to the submission" do
-        put :update, id: @submission, submisison: @submission
+        put :update, id: @submission, submission: submission_attrs
         expect(response).to redirect_to(@submission)
       end
     end
