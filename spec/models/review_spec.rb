@@ -5,4 +5,6 @@ describe Review do
 
   it { should belong_to(:submission) }
   it { should belong_to(:user) }
+
+  it_behaves_like "a votable"
 end

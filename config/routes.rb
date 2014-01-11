@@ -7,6 +7,9 @@ Pf::Application.routes.draw do
     resources :comments
   end
 
+  post 'votes/up/:type/:id', to: 'votes#up', as: :vote_up
+  post 'votes/down/:type/:id', to: 'votes#down', as: :vote_down
+
   resources :submissions do
     resources :reviews
   end
