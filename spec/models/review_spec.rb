@@ -7,4 +7,11 @@ describe Review do
   it { should belong_to(:user) }
 
   it_behaves_like "a votable"
+
+  describe "#selector" do
+    it "returns a unique css selector string" do
+      review = FactoryGirl.create(:review)
+      expect(review.selector).to eq("review-#{review.id}")
+    end
+  end
 end

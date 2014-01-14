@@ -108,18 +108,18 @@ describe "Reviews" do
     end
   end
 
-  # describe "voting on a review" do
-  #   it "a user can vote a review positively", js: true do
-  #     voter = FactoryGirl.create(:user)
-  #     review = FactoryGirl.create(:review, user: user)
-  #     submission.reviews << review
-  #     visit submission_path(submission, as: voter.id)
-  #     click_link("up")
-  #     expect(page).to have_selector("i.ss-icon.arrow.up.active")
-  #     review.reload
-  #     expect(review.votes.size).to eq(1)
-  #   end
-  # end
+  describe "voting on a review" do
+    it "a user can vote a review positively", js: true do
+      voter = FactoryGirl.create(:user)
+      review = FactoryGirl.create(:review, user: user)
+      submission.reviews << review
+      visit submission_path(submission, as: voter.id)
+      click_link("up")
+      expect(page).to have_selector("i.ss-icon.arrow.up.active")
+      review.reload
+      expect(review.votes.size).to eq(1)
+    end
+  end
 
   # describe "Deleting a review" do
   #   before(:each) do
