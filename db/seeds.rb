@@ -10,20 +10,16 @@ puts 'SETTING UP DEFAULT USER LOGIN'
 
 user = User.new :name => 'First User', 
                 :email => 'user@example.com',
-                :password => 'please',
-                :password_confirmation => 'please'
+                :password => 'password'
 user.username = 'user1'
 user.save!
-user.confirm!
 puts 'New user created: ' << user.name
 
 user2 = User.new :name => 'Second User',
                  :email => 'user2@example.com',
-                 :password => 'please',
-                 :password_confirmation => 'please'
+                 :password => 'password'
 user2.username = 'user2'
 user2.save!
-user2.confirm!
 puts 'New user created: ' << user2.name
 
 user.add_role :admin

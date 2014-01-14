@@ -1,11 +1,14 @@
 Pf::Application.routes.draw do
-  # authenticated :user do
-  # end
   root :to => "home#index"
-  devise_for :users
-  resources :users do
+
+  resources :users, controller: 'users' do
     resources :comments
-  end
+    resource :password,
+      controller: 'passwords', 
+      only: [:create, :edit, :update]
+    end
+
+  resources :passwords, controller: 'passwords', only: [:create, :new]
 
   post 'votes/up/:type/:id', to: 'votes#up', as: :vote_up
   post 'votes/down/:type/:id', to: 'votes#down', as: :vote_down

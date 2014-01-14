@@ -7,7 +7,7 @@ gem 'jquery-rails'
 gem "thin"
 gem "haml"
 gem "hominid"
-gem "devise"
+gem "clearance"
 gem "pundit"
 gem "rolify"
 gem "simple_form"
@@ -29,6 +29,7 @@ group :development, :test do
   gem "rspec-rails"
   gem "factory_girl_rails"
   gem "capybara"
+  gem "selenium-webdriver"
   gem "database_cleaner"
   gem "email_spec"
   gem 'shoulda-matchers'

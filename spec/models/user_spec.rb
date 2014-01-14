@@ -19,11 +19,6 @@ describe User do
     should validate_uniqueness_of(:username)
   end
 
-  it { should validate_uniqueness_of(:email) }
-
-  it { should validate_confirmation_of(:password) }
-
-  it { should ensure_length_of(:password).is_at_least(6) }
   it { should ensure_length_of(:username).is_at_most(20) }
 
   it { should allow_value('user@user.org').for(:email) }
@@ -34,19 +29,14 @@ describe User do
   it { should_not allow_value('user_at_foo.org').for(:email) }
   it { should_not allow_value('example.user@foo.').for(:email) }
 
+  it "validates uniqueness of email" do
+    expect(User.new(email: user.email).errors_on(:email)).
+      to include("has already been taken")
+  end
+
 
   it "creates a new instance given a valid attribute" do
     user
-  end
-
-  describe "password encryption" do
-    it "has an encrypted password attribute" do
-      expect(user).to respond_to(:encrypted_password)
-    end
-
-    it "set the encrypted password attribute" do
-      expect(user.encrypted_password).not_to be_blank
-    end
   end
 
   describe "#recent_submissions" do

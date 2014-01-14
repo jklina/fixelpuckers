@@ -16,13 +16,13 @@
 
 %nav.account
   .account-dropdown
-    - if user_signed_in?
+    - if signed_in?
       .avatar
         = link_to '#' do
           = image_tag('http://lorempixel.com/100/100/nature/1', :class => 'avatar--img')
       %ul.account-dropdown-list
         %li.account-dropdown-item
-          = link_to edit_user_registration_path do
+          = link_to "#" do
             %i.ss-icon settings
             Settings
         %li.account-dropdown-item
@@ -39,7 +39,7 @@
               %i.ss-icon star
               Admin
         %li.account-dropdown-item
-          = link_to destroy_user_session_path, :method=>'delete' do
+          = link_to sign_out_path, :method=>'delete' do
             %i.ss-icon logout
             Sign Out
     - else
@@ -47,6 +47,6 @@
         %i.ss-icon user
       %ul.account-dropdown-list
         %li.account-dropdown-item
-          = link_to 'Login', new_user_session_path, :class=> 'login'
+          = link_to 'Login', sign_in_path, :class=> 'login'
         %li.account-dropdown-item
-          = link_to 'Register', new_user_registration_path, :class => 'register'
+          = link_to 'Register', sign_up_path, :class => 'register'

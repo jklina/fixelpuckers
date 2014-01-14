@@ -1,0 +1,2 @@
+require 'clearance/testing'
+

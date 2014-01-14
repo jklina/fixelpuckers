@@ -10,9 +10,12 @@
         = link_to '<i class="ss-icon">delete</i>'.html_safe, 'javascript:void(0)', id: 'action-delete-comment'
     .comment-body
 
-      .arrows
-        %i.ss-icon.arrow.up up
-        %i.ss-icon.arrow.down down
+      -if signed_in?
+        .arrows
+          = link_to vote_up_path(id: review, type: "review"), method: :post, remote: true, id: "up" do
+            %i.ss-icon.arrow.up{ class: ("active" if current_user.likes review)} up
+          = link_to vote_down_path(id: review, type: "review"), method: :post, remote: true, id: "down" do
+            %i.ss-icon.arrow.up{ class: ("active" if current_user.dislikes review)} down
       %p= review.comment
   #draw
     %h4.rating= review.rating
