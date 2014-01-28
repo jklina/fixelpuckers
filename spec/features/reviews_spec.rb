@@ -114,10 +114,23 @@ describe "Reviews" do
       review = FactoryGirl.create(:review, user: user)
       submission.reviews << review
       visit submission_path(submission, as: voter.id)
+      expect(page).to_not have_selector("i.ss-icon.arrow.up.active")
       click_link("up")
       expect(page).to have_selector("i.ss-icon.arrow.up.active")
       review.reload
-      expect(review.votes.size).to eq(1)
+      expect(review.likes.size).to eq(1)
+    end
+
+    it "a user can vote a review negatively", js: true do
+      voter = FactoryGirl.create(:user)
+      review = FactoryGirl.create(:review, user: user)
+      submission.reviews << review
+      visit submission_path(submission, as: voter.id)
+      expect(page).to_not have_selector("i.ss-icon.arrow.down.active")
+      click_link("down")
+      expect(page).to have_selector("i.ss-icon.arrow.down.active")
+      review.reload
+      expect(review.dislikes.size).to eq(1)
     end
   end
 

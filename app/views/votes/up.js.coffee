@@ -1,2 +1,2 @@
-$("<%= @votable_instance.selector %>").replaceWith('<%= j render(@votable_instance) %>')
+$("#<%= @votable_instance.selector %>").replaceWith('<%= j render(@votable_instance) %>')
 

@@ -9,7 +9,7 @@ describe VotesController do
 
   describe "PATCH up" do
     it "finds the votable with the given id" do
-      patch :up, { id: review, type: 'review' }
+      xhr :patch, :up, { id: review, type: 'review' }
       review.reload
       expect(review.upvotes.size).to eq(1)
     end
@@ -17,7 +17,7 @@ describe VotesController do
 
   describe "PATCH down" do
     it "finds the votable with the given id" do
-      patch :down, { id: review, type: 'review' }
+      xhr :patch, :down, { id: review, type: 'review' }
       review.reload
       expect(review.downvotes.size).to eq(1)
     end

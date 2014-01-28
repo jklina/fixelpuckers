@@ -3,10 +3,16 @@ class VotesController < ApplicationController
 
   def up
     @votable_instance.liked_by current_user
+    respond_to do |format|
+      format.js {}
+    end
   end
 
   def down
     @votable_instance.disliked_by current_user
+    respond_to do |format|
+      format.js {}
+    end
   end
 
   private
