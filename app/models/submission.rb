@@ -8,6 +8,8 @@ class Submission < ActiveRecord::Base
 
   friendly_id :title, use: :slugged
 
+  default_scope { order(created_at: :desc) }
+
   validates :title, :description, :user_id, :slug, presence: true
   validates :title, length: { maximum: 120 }
   validates :views, numericality: { only_integer: true }, allow_blank: true

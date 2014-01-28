@@ -12,6 +12,15 @@ describe Submission do
   it { should belong_to(:user) }
   it { should have_many(:reviews) }
 
+  describe "default_scope" do
+    it "orders the submissions by their created date" do
+      sub1 = FactoryGirl.create(:submission, created_at: Date.current - 1.day)
+      sub2 = FactoryGirl.create(:submission, created_at: Date.current)
+
+      expect(Submission.all).to eq([sub2, sub1])
+    end
+  end
+
   describe '#find_or_build_review_from' do
     before(:each) do
       @user = double(id: 3)
