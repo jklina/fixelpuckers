@@ -4,7 +4,7 @@ FactoryGirl.define do
   factory :submission do
     sequence(:title) {|n| "Title:#{n}" }
     description "#{Faker::Lorem.paragraph}"
-    user
+    association :author, factory: :user
 
     factory :invalid_submission do
       title nil

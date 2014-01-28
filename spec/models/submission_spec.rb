@@ -9,7 +9,7 @@ describe Submission do
   it { should validate_numericality_of(:downloads).only_integer }
   it { should validate_numericality_of(:average_rating) }
 
-  it { should belong_to(:user) }
+  it { should belong_to(:author).class_name('User') }
   it { should have_many(:reviews) }
 
   describe "default_scope" do

@@ -42,7 +42,7 @@ describe User do
   describe "#recent_submissions" do
     it "returns the x most recent submissions" do
       user = FactoryGirl.create(:user)
-      submissions = FactoryGirl.create_list(:submission, 4, user: user)
+      submissions = FactoryGirl.create_list(:submission, 4, author: user)
       submissions.sort! { |a, b| b.created_at <=> a.created_at }
       expect(user.recent_submissions(2)).to eq(submissions[0..1])
     end

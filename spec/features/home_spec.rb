@@ -25,8 +25,8 @@ describe "Home Page" do
       within("[data-role='submission-preview']") do
         expect(page).to have_link("#{submission.title}", 
                               href: submission_path(submission))
-        expect(page).to have_link("#{submission.user.username}", 
-                              href: user_path(submission.user))
+        expect(page).to have_link("#{submission.author.username}", 
+                              href: user_path(submission.author))
       end
     end
   end
@@ -35,7 +35,7 @@ describe "Home Page" do
     context "when there are enough submissions to have multiple pages" do
       it "shows the pagination menu" do
         user = FactoryGirl.create(:user)
-        FactoryGirl.create_list(:submission, 7, user: user)
+        FactoryGirl.create_list(:submission, 7, author: user)
         visit root_url
         expect(page).to have_selector("nav.pagination")
       end
@@ -44,7 +44,7 @@ describe "Home Page" do
     context "when there are not enough submissions to have multiple pages" do
       it "does not show the pagination menu" do
         user = FactoryGirl.create(:user)
-        FactoryGirl.create_list(:submission, 6, user: user)
+        FactoryGirl.create_list(:submission, 6, author: user)
         visit root_url
         expect(page).not_to have_selector("nav.pagination")
       end

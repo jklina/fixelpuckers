@@ -6,7 +6,7 @@ class ReviewsController < ApplicationController
 
   def create
     @review = Review.new(review_params)
-    @review.user = current_user
+    @review.author = current_user
     @review.submission = @submission
     if @review.save
       @submission.update_average_rating

@@ -79,7 +79,7 @@ describe "Reviews" do
 
       context "and an existing review is updated" do
         before(:each) do
-          @review = FactoryGirl.create(:review, user: user)
+          @review = FactoryGirl.create(:review, author: user)
           submission.reviews << @review
           visit submission_path(submission)
         end
@@ -111,7 +111,7 @@ describe "Reviews" do
   describe "voting on a review" do
     it "a user can vote a review positively", js: true do
       voter = FactoryGirl.create(:user)
-      review = FactoryGirl.create(:review, user: user)
+      review = FactoryGirl.create(:review, author: user)
       submission.reviews << review
       visit submission_path(submission, as: voter.id)
       expect(page).to_not have_selector("i.ss-icon.arrow.up.active")
@@ -123,7 +123,7 @@ describe "Reviews" do
 
     it "a user can vote a review negatively", js: true do
       voter = FactoryGirl.create(:user)
-      review = FactoryGirl.create(:review, user: user)
+      review = FactoryGirl.create(:review, author: user)
       submission.reviews << review
       visit submission_path(submission, as: voter.id)
       expect(page).to_not have_selector("i.ss-icon.arrow.down.active")

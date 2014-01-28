@@ -15,7 +15,7 @@ describe "Submission page" do
   end
 
   it "shows the submission's user's username" do
-    expect(page).to have_content(@submission.user.username)
+    expect(page).to have_content(@submission.author.username)
   end
 
   it "shows the submission's date" do

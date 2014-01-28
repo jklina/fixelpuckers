@@ -14,7 +14,7 @@ describe "viewing a user" do
 
   it "displays the user's last three submissions" do
     user = FactoryGirl.create(:user)
-    submissions = FactoryGirl.create_list(:submission, 4, user: user)
+    submissions = FactoryGirl.create_list(:submission, 4, author: user)
     visit user_path(user)
     submissions.sort! { |a, b| b.created_at <=> a.created_at }
     submissions[0..2].each do |submission|

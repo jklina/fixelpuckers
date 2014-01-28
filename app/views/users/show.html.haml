@@ -27,8 +27,7 @@
   .wrapper
     %h2 Recent Submissions
     %ol.thumbs
-      = render partial: 'shared/submission',
-               collection: @user.recent_submissions(3)
+      = render @user.recent_submissions(3)
 
 %section.comments
   .wrapper

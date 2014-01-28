@@ -20,7 +20,7 @@ class SubmissionsController < ApplicationController
 
   def create
     @submission = Submission.new(submission_params)
-    @submission.user = current_user
+    @submission.author = current_user
     if @submission.save
       redirect_to @submission, notice: 'Submission was successfully created.'
     else

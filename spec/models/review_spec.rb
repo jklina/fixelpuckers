@@ -4,7 +4,7 @@ describe Review do
   it { should validate_presence_of(:comment) }
 
   it { should belong_to(:submission) }
-  it { should belong_to(:user) }
+  it { should belong_to(:author).class_name('User') }
 
   it_behaves_like "a votable"
 

@@ -28,7 +28,7 @@ describe ReviewsController do
         user = FactoryGirl.create(:user)
         allow(controller).to receive(:current_user).and_return(user)
         post :create, submission_id: submission, review: review_attrs
-        expect(assigns(:review).user).to eq(user)
+        expect(assigns(:review).author).to eq(user)
       end
 
       it "updates the submission's average rating" do

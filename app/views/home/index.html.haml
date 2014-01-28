@@ -12,7 +12,7 @@
     -# TODO: Possible move this into a helper or presenter
     - if @submissions.present?
       %ol.thumbs-list
-        = render partial: 'shared/submission', collection: @submissions
+        = render @submissions
     - else
       %p There are no submissions yet!
 

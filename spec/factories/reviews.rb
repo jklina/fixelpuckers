@@ -4,7 +4,8 @@ FactoryGirl.define do
   factory :review do
     rating 1
     comment "MyText"
-    user
+    association :author, factory: :user
+
 
     factory :invalid_review do
       rating 'hi'

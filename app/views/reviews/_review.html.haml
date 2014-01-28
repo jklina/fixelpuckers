@@ -4,7 +4,7 @@
       = image_tag('http://lorempixel.com/100/100/nature/1', :class => 'avatar--img')
   .comment-chip
     .comment-details
-      %h3= link_to review.user.username, user_path(review.user)
+      %h3= link_to review.author.username, user_path(review.author)
       %span.meta= time_ago_in_words(review.created_at)
       .comment-details-action-menu
         = link_to '<i class="ss-icon">delete</i>'.html_safe, 'javascript:void(0)', id: 'action-delete-comment'

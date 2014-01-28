@@ -8,7 +8,7 @@
       %p.thumb--title= link_to(submission_presenter.title, submission_path(submission))
       %p.thumb--author
         by
-        = link_to(submission_presenter.user.username, user_path(submission_presenter.user))
+        = link_to(submission_presenter.author.username, user_path(submission_presenter.author))
     .thumb--stats
       %span.thumb--boxplot= submission_presenter.boxplot_ratings
       %span.thumb--average-rating= submission_presenter.average_rating

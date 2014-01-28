@@ -12,7 +12,7 @@ describe HomeController do
 
     it "paginates the submissions 6 per page" do
       user = FactoryGirl.create(:user)
-      FactoryGirl.create_list(:submission, 7, user: user)
+      FactoryGirl.create_list(:submission, 7, author: user)
       get :index
       expect(assigns(:submissions).count).to eq(6)
     end

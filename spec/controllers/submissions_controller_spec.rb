@@ -80,7 +80,7 @@ describe SubmissionsController do
 
       it 'assigns the submission user to the current user' do
         allow(Submission).to receive(:new).and_return(submission)
-        expect(submission).to receive(:user=).with(@user)
+        expect(submission).to receive(:author=).with(@user)
         post :create, submission: submission_attrs
       end
 
