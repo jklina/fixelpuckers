@@ -1,0 +1,6 @@
+-if signed_in?
+  .arrows{id: "#{votable.selector}"}
+    = link_to vote_up_path(id: votable, type: votable.class.name), method: :post, remote: true, id: "up" do
+      %i.ss-icon.arrow.up{ class: ("active" if current_user.voted_up_on? votable)} up
+    = link_to vote_down_path(id: votable, type: votable.class.name), method: :post, remote: true, id: "down" do
+      %i.ss-icon.arrow.down{ class: ("active" if current_user.voted_down_on? votable)} down
