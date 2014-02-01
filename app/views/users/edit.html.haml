@@ -1,0 +1,8 @@
+%h2 Edit Profile
+= simple_form_for @user do |f|
+  = f.error_notification
+  .form-inputs
+    = f.input :location
+    = f.input :url, label: "URL"
+  .form-actions
+    = f.button :submit

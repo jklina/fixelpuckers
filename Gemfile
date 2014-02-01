@@ -19,6 +19,7 @@ gem "friendly_id"
 gem 'sass-rails'
 gem 'coffee-rails'
 gem 'uglifier'
+gem 'pundit'
 gem 'acts_as_votable', '~> 0.8.0'
 
 group :development, :test do

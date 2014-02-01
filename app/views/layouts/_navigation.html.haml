@@ -22,7 +22,7 @@
           = image_tag('http://lorempixel.com/100/100/nature/1', :class => 'avatar--img')
       %ul.account-dropdown-list
         %li.account-dropdown-item
-          = link_to "#" do
+          = link_to edit_user_path(current_user) do
             %i.ss-icon settings
             Settings
         %li.account-dropdown-item
