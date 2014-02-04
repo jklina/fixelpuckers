@@ -1,6 +1,8 @@
 require 'spec_helper'
 
 describe Submission do
+  let(:submission) { FactoryGirl.create(:submission) }
+
   it { should validate_presence_of (:title) }
   it { should validate_presence_of (:description) }
   it { should validate_presence_of (:user_id) }
@@ -47,7 +49,6 @@ describe Submission do
 
   describe "#update_average_rating" do
     it "updates the submission's average rating in the db" do
-      submission = FactoryGirl.create(:submission)
       review1 = FactoryGirl.create(:review, rating: 20)
       review2 = FactoryGirl.create(:review, rating: 10)
       submission.reviews << review1
@@ -58,4 +59,12 @@ describe Submission do
     end
   end
 
+  describe "#increment_views!" do
+    it "increments the views attribute" do
+      expect{submission.increment_views!}.
+        to change{submission.views}.by(1)
+      submission.reload
+      expect(submission.views).to eq(1)
+    end
+  end
 end

@@ -13,12 +13,18 @@ describe SubmissionsController do
 
   describe "GET show" do
     before(:each) do
+      allow(submission).to receive(:increment_views!)
       Submission.stub_chain(:friendly, :find).and_return(submission)
     end
 
     it "assigns the requested submission as submission" do
       get :show, id: submission
       expect(assigns(:submission)).to eq(submission)
+    end
+
+    it "increments the submission's views" do
+      get :show, id: submission
+      expect(submission).to have_received(:increment_views!)
     end
 
     context "if current_user is present" do

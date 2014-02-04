@@ -31,7 +31,8 @@ describe "Submission page" do
   end
 
   it "shows the submission's number of views" do
-    expect(page).to have_content("#{@submission.views} Views")
+    @submission.increment_views!
+    expect(page).to have_content("#{@submission.views}")
   end
 
   it "shows the submission's number of downloads" do

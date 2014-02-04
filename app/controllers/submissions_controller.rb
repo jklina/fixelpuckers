@@ -9,6 +9,7 @@ class SubmissionsController < ApplicationController
     if current_user.present?
       @review = @submission.find_or_build_review_from(current_user)
     end
+    @submission.increment_views!
   end
 
   def new

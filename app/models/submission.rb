@@ -26,4 +26,9 @@ class Submission < ActiveRecord::Base
     self.average_rating = Pf::Reviews.calc_average_rating(reviews)
     self.save!
   end
+
+  def increment_views!
+    self.views += 1
+    self.save!
+  end
 end
