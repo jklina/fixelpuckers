@@ -2,14 +2,22 @@ class VotesController < ApplicationController
   before_filter :find_votable_instance
 
   def up
-    @votable_instance.liked_by current_user
+    if current_user.voted_up_on? @votable_instance
+      @votable_instance.unliked_by current_user
+    else
+      @votable_instance.liked_by current_user
+    end
     respond_to do |format|
       format.js {}
     end
   end
 
   def down
-    @votable_instance.disliked_by current_user
+    if current_user.voted_down_on? @votable_instance
+      @votable_instance.undisliked_by current_user
+    else
+      @votable_instance.disliked_by current_user
+    end
     respond_to do |format|
       format.js {}
     end

@@ -119,6 +119,8 @@ describe "Reviews" do
       expect(page).to have_selector("i.ss-icon.arrow.up.active")
       review.reload
       expect(review.likes.size).to eq(1)
+      click_link("up")
+      expect(page).to_not have_selector("i.ss-icon.arrow.up.active")
     end
 
     it "a user can vote a review negatively", js: true do
@@ -131,6 +133,8 @@ describe "Reviews" do
       expect(page).to have_selector("i.ss-icon.arrow.down.active")
       review.reload
       expect(review.dislikes.size).to eq(1)
+      click_link("down")
+      expect(page).to_not have_selector("i.ss-icon.arrow.down.active")
     end
   end
 
