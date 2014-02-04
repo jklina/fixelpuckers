@@ -1,8 +1,6 @@
 window.DataVis = {}
 
 DataVis.scoreDisplay = (->
-
-
   setArc = (paper) ->
     paper.customAttributes.arc = (xloc, yloc, value, total, R) ->
       alpha = 360 / total * value
@@ -41,4 +39,17 @@ DataVis.scoreDisplay = (->
     ratingArc.animate
       arc: [18, 18, rating, 100, 17]
     , 2500, "bounce"
+)()
+
+DataVis.boxPlot = (->
+  drawBoxPlot: (container) ->
+    container.sparkline('html',
+      type: 'box'
+      height: '1.0em'
+      lineColor: '#888'
+      whiskerColor: '#333333'
+      boxLineColor: '#333333'
+      boxFillColor: '#F8F8F5'
+      medianColor: '#e20000'
+    )
 )()
