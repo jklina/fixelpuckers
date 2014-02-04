@@ -1,4 +1,4 @@
-require 'action_view/helpers/tag_helper'
+require 'action_view'
 require 'reviews'
 require 'delegate'
 

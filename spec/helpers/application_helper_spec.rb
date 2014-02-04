@@ -1,4 +1,4 @@
-require 'submissions'
+require 'spec_helper'
 
 describe ApplicationHelper do
   let(:submission) { FactoryGirl.build(:submission) }

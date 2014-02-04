@@ -1,4 +1,4 @@
-require 'submissions'
+require 'presenter_coordinator'
 
 module ApplicationHelper
   def display_base_errors resource
@@ -14,7 +14,7 @@ module ApplicationHelper
   end
   
   def present(object)
-    presenter = Pf::Submissions.present(object)
+    presenter = Pf::PresenterCoordinator.present(object)
     yield presenter if block_given?
     presenter
   end

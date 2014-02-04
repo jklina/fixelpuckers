@@ -1,4 +1,4 @@
-require 'action_view/helpers/tag_helper'
+require 'action_view'
 require 'submissions/presenters/instance'
 
 include ActionView::Helpers::TagHelper

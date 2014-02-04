@@ -1,38 +1,37 @@
-%section.user-info
-  .wrapper
-    .avatar
-      = link_to '#' do
-        = image_tag('http://lorempixel.com/100/100/people/1', :class => 'avatar--img')
-    .user-meta
-      %h3 #{@user.username}
-      %span
-        %i.ss-icon world
-        =link_to 'http://nuance.io', 'http://nuance.io'
-      %span
-        %i.ss-icon send
-        =link_to 'christian@nuance.io', 'mailto:christian@nuance.io'
-      %span
-        %i.ss-icon location
-        Charlotte, NC
-    .stat
-      %span +
-      %span.value 2.85%
-      %span.measure rates vs avg
-    .trophies
-      =image_tag('ribbon.png')
+- present @user do |user_presenter|
+  %section.user-info
+    .wrapper
+      .avatar
+        = link_to '#' do
+          = image_tag('http://lorempixel.com/100/100/people/1', :class => 'avatar--img')
+      .user-meta
+        %h3 #{@user.username}
+        %span
+          %i.ss-icon world
+          =link_to 'http://nuance.io', 'http://nuance.io'
+        %span
+          %i.ss-icon send
+          =link_to 'christian@nuance.io', 'mailto:christian@nuance.io'
+        = user_presenter.location
+      .stat
+        %span +
+        %span.value 2.85%
+        %span.measure rates vs avg
+      .trophies
+        =image_tag('ribbon.png')
 
-%section.full-feature
+  %section.full-feature
 
-%section.submissions
-  .wrapper
-    %h2 Recent Submissions
-    %ol.thumbs
-      = render @user.recent_submissions(3)
+  %section.submissions
+    .wrapper
+      %h2 Recent Submissions
+      %ol.thumbs
+        = render @user.recent_submissions(3)
 
-%section.comments
-  .wrapper
-    %h2 User Comments
-    %ol
-      = render :partial => 'users/comment',
-        collection: @user.comments
-      = render partial: 'users/comment_form'
+  %section.comments
+    .wrapper
+      %h2 User Comments
+      %ol
+        = render :partial => 'users/comment',
+          collection: @user.comments
+        = render partial: 'users/comment_form'
