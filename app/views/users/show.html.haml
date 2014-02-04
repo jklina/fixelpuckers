@@ -6,12 +6,8 @@
           = image_tag('http://lorempixel.com/100/100/people/1', :class => 'avatar--img')
       .user-meta
         %h3 #{@user.username}
-        %span
-          %i.ss-icon world
-          =link_to 'http://nuance.io', 'http://nuance.io'
-        %span
-          %i.ss-icon send
-          =link_to 'christian@nuance.io', 'mailto:christian@nuance.io'
+        = user_presenter.url
+        = user_presenter.email
         = user_presenter.location
       .stat
         %span +

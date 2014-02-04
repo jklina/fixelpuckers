@@ -53,7 +53,7 @@ describe UsersController do
 
   describe "PATCH 'update'" do
     let(:user_attrs) do
-      { "location" => "Philalephia", "url" => "www.w.com" }
+      { "location" => "Philalephia", "domain" => "www.w.com" }
     end
     context "when updated successfully" do
       before(:each) do

@@ -25,45 +25,26 @@ module Pf
               content_tag(:i, "location", class: "ss-icon") +
               "#{user.location}"
             end
-          else
-            ''
           end
         end
 
-        # def featured_at
-        #   if user.featured_at.present?
-        #     content_tag :li do
-        #       content_tag(:i, class: "ss-icon")
-        #       "Featured: #{user.featured_at}"
-        #     end
-        #   else
-        #     nil
-        #   end
-        # end
+        def email
+          if user.email.present?
+            content_tag(:span) do
+              content_tag(:i, "send", class: "ss-icon") +
+              content_tag(:a, user.email, href: "mailto:#{user.email}")
+            end
+          end
+        end
 
-        # def average_rating
-        #   if user.average_rating.present?
-        #     user.average_rating
-        #   else
-        #     "None"
-        #   end
-        # end
-
-        # def downloads
-        #   "#{user.downloads} Downloads"
-        # end
-
-        # def views
-        #   "#{user.views} Views"
-        # end
-
-        # def number_of_reviews
-        #   "#{user.reviews.count} Reviews"
-        # end
-
-        # def boxplot_ratings
-        #   "#{Pf::Reviews.ratings(user.reviews).join(',')}"
-        # end
+        def url
+          if user.domain.present?
+            content_tag(:span) do
+              content_tag(:i, "world", class: "ss-icon") +
+              content_tag(:a, user.domain, href: "http://#{user.domain}")
+            end
+          end
+        end
       end
     end
   end

@@ -27,11 +27,11 @@ feature "User management" do
     it "let's the current user edit their profile" do
       visit edit_user_path(user, as: user.id)
       fill_in("Location", with: "Philadelphia")
-      fill_in("URL", with: "www.w.com")
+      fill_in("Domain", with: "w.com")
       click_button("Update User")
       user.reload
       expect(user.location).to eq("Philadelphia")
-      expect(user.url).to eq("www.w.com")
+      expect(user.domain).to eq("w.com")
     end
   end
 end
