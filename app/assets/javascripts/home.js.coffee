@@ -3,6 +3,7 @@
 # You can use CoffeeScript in this file: http://jashkenas.github.com/coffee-script/
 jQuery ->
   DataVis.boxPlot.drawBoxPlot($("span.thumb--boxplot"))
+  DataVis.scoreDisplay.drawReviewArcVis($(".rating-vis"))
 
   #navigation = responsiveNav("#nav");
 

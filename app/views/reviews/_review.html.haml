@@ -12,8 +12,6 @@
 
       = render :partial => 'votes/voter', locals: {votable: review}
       %p= review.comment
-  #draw
+  .rating-vis
     %h4.rating= review.rating
-:javascript
-  var rating = #{review.rating};
 

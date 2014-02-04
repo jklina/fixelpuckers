@@ -29,9 +29,8 @@ DataVis.scoreDisplay = (->
       arc: [18, 18, 0, 100, 17]
     )
 
-
-  drawReviewArc: (rating) ->
-    paper = Raphael("draw", 36, 36)
+  drawReviewArc = (canvas, rating) ->
+    paper = Raphael(canvas, 36, 36)
     setArc(paper)
     drawFullArc(paper)
     ratingArc = drawRatingArc(paper)
@@ -39,6 +38,14 @@ DataVis.scoreDisplay = (->
     ratingArc.animate
       arc: [18, 18, rating, 100, 17]
     , 2500, "bounce"
+
+  extractRatingFromElement = (element) ->
+    $(element).children('.rating').first().text()
+
+  drawReviewArcVis: (ratings) ->
+    ratings.each((index, element) ->
+      drawReviewArc(element, extractRatingFromElement(element))
+    )
 )()
 
 DataVis.boxPlot = (->
