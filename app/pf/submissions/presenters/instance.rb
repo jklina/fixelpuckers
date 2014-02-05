@@ -48,7 +48,8 @@ module Pf
         end
 
         def number_of_reviews
-          "#{submission.reviews.count} Reviews"
+          content_tag(:span, submission.reviews.count, id: "review-count") +
+            " Reviews"
         end
 
         def boxplot_ratings

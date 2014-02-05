@@ -74,7 +74,8 @@ describe Pf::Submissions::Presenters::Instance do
       submission = double
       submission.stub_chain(:reviews, :count).and_return(reviews_count)
       presenter = Pf::Submissions::Presenters::Instance.for(submission)
-      expect(presenter.number_of_reviews).to eq("#{reviews_count} Reviews")
+      expect(presenter.number_of_reviews).
+        to eq("<span id=\"review-count\">#{reviews_count}</span> Reviews")
     end
   end
 

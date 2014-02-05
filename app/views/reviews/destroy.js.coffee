@@ -9,3 +9,4 @@
 # )
 # 
 Animation.animations.fadeOutAndRemove($("#<%= @review.selector %>"))
+$('#review-count').text("<%= @submission.reviews.size %>")
