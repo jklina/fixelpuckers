@@ -150,13 +150,4 @@ describe "Reviews" do
       expect(page).to have_content('0 Reviews')
     end
   end
-  # describe "Deleting a review" do
-  #   before(:each) do
-  #     user = create_logged_in_user
-  #     @submission = FactoryGirl.create(:submission)
-  #     @review = FactoryGirl.create(:review, user: user)
-  #     @submission.reviews << @review
-  #     visit submission_path(@submission)
-  #   end
-  # end
 end

@@ -55,7 +55,8 @@
               = submission_presenter.downloads
             %li#reviews-average
               %i.ss-icon barchart
-              = "User Rating: #{submission_presenter.average_rating}"
+              User Rating:
+              = submission_presenter.average_rating
             = submission_presenter.featured_at
   %section.comments
     .wrapper

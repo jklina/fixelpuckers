@@ -37,7 +37,8 @@ describe Pf::Submissions::Presenters::Instance do
         average_rating = rand(0..100)
         submission = double(average_rating: average_rating)
         presenter = Pf::Submissions::Presenters::Instance.for(submission)
-        expect(presenter.average_rating).to eq(average_rating)
+        expect(presenter.average_rating).
+          to eq("<span id=\"review-rating\">#{average_rating}</span>")
       end
     end
 

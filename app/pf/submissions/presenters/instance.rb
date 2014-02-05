@@ -33,7 +33,7 @@ module Pf
 
         def average_rating
           if submission.average_rating.present?
-            submission.average_rating
+            content_tag(:span, submission.average_rating, id: "review-rating")
           else
             "None"
           end
