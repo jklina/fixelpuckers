@@ -8,7 +8,6 @@ gem "thin"
 gem "haml"
 gem "hominid"
 gem "clearance"
-gem "pundit"
 gem "rolify"
 gem "simple_form"
 gem 'kaminari'

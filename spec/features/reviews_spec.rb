@@ -138,6 +138,16 @@ describe "Reviews" do
     end
   end
 
+  describe "Deleting a review" do
+    it "allows the user to delete their review" do
+      reviewer = FactoryGirl.create(:user)
+      review = FactoryGirl.create(:review, author: user)
+      submission.reviews << review
+      visit submission_path(submission, as: reviewer.id)
+      click_link("action-delete-review")
+      expect(Review.all.size).to eq(0)
+    end
+  end
   # describe "Deleting a review" do
   #   before(:each) do
   #     user = create_logged_in_user

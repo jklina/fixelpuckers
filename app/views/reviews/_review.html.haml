@@ -7,7 +7,10 @@
       %h3= link_to review.author.username, user_path(review.author)
       %span.meta= time_ago_in_words(review.created_at)
       .comment-details-action-menu
-        = link_to '<i class="ss-icon">delete</i>'.html_safe, 'javascript:void(0)', id: 'action-delete-comment'
+        = link_to '<i class="ss-icon">delete</i>'.html_safe,
+          submission_review_path(@submission, review),
+          remote: true, method: :delete,
+          id: 'action-delete-review'
     .comment-body
 
       = render :partial => 'votes/voter', locals: {votable: review}

@@ -29,7 +29,10 @@ class ReviewsController < ApplicationController
   def destroy
     @review.destroy
     @submission.update_average_rating
-    redirect_to @submission
+    respond_to do |format|
+      format.js {}
+      format.html { redirect_to @submission }
+    end
   end
 
   private
