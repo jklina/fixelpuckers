@@ -1,58 +1,60 @@
 require 'spec_helper'
 
 describe ReviewsController do
-  let(:submission) { FactoryGirl.create(:submission) }
-  let(:review) do
-    review = FactoryGirl.create(:review)
-    submission.reviews << review
-    review
-  end
-
-  let(:review_attrs) { FactoryGirl.attributes_for(:review) }
+  let(:user) { stub_model(User) }
+  let(:review) { stub_model(Review) }
+  let(:submission) { stub_model(Submission) }
+  let(:review_attrs) { {"comment"=>"MyText", "rating"=>"1"} }
 
   describe "POST create" do
-    
     describe "with valid params" do
+      before(:each) do
+        controller.stub(:authorize)
+        review.stub(:save).and_return(true)
+        submission.stub(:update_average_rating)
+        Review.stub(:new).and_return(review)
+        Submission.stub_chain(:friendly, :find).and_return(submission)
+        post :create, submission_id: submission, id: review,
+          review: review_attrs
+      end
+
       it "finds the submission that will build the review" do
-        post :create, submission_id: submission, review: review_attrs
         expect(assigns(:submission)).to eq(submission)
       end
 
       it "creates a new Review from the given submission" do
-        expect {
-          post :create, submission_id: submission, review: review_attrs
-        }.to change(Review, :count).by(1)
+        expect(Review).to have_received(:new).with(review_attrs)
       end
 
-      it 'assigns the review user to the current user' do
-        user = FactoryGirl.create(:user)
-        allow(controller).to receive(:current_user).and_return(user)
-        post :create, submission_id: submission, review: review_attrs
-        expect(assigns(:review).author).to eq(user)
+      it "saves the new review" do
+        expect(review).to have_received(:save)
       end
 
-      it "updates the submission's average rating" do
-        submission
-        Submission.stub_chain(:friendly, :find).and_return(submission)
-        expect(submission).to receive(:update_average_rating)
-        post :create, submission_id: submission, review: review_attrs
+      it "updates the submission rankings" do
+        expect(submission).to have_received(:update_average_rating)
       end
 
-      it "redirects to the submission show page" do
-        post :create, submission_id: submission, review: review_attrs
-        expect(response).to redirect_to(submission)
+      it "redirects to the submission page" do
+        expect(response).to redirect_to(submission_path(submission))
+      end
+
+      it "flashes a successful notice" do
+        expect(flash[:notice]).to match(/^Review was successfully created/)
       end
     end
 
     describe "with invalid params" do
-      let(:invalid_review_attrs) { { rating: 1 }}
       before(:each) do
-        # Trigger the behavior that occurs when invalid params are submitted
-        patch :create, submission_id: submission, review: invalid_review_attrs
+        controller.stub(:authorize)
+        review.stub(:save).and_return(false)
+        Review.stub(:new).and_return(review)
+        Submission.stub_chain(:friendly, :find).and_return(submission)
+        post :create, submission_id: submission, id: review,
+          review: review_attrs
       end
 
-      it "assigns a newly created but unsaved review as @review" do
-        expect(assigns(:review).rating).to eq(invalid_review_attrs[:rating])
+      it "creates a new Review from the given submission" do
+        expect(Review).to have_received(:new).with(review_attrs)
       end
 
       it "re-renders the 'new' template" do
@@ -62,54 +64,50 @@ describe ReviewsController do
   end
 
   describe "PATCH update" do
-    it "finds the submission with the given id" do
-      patch :update, { submission_id: submission,
-        id: review, 
-        review: review_attrs}
-      expect(assigns(:submission)).to eq(submission)
-    end
-
-    describe "with valid params" do
-      it "updates the requested review" do
-        rating = rand(2..99)
-        patch :update, { submission_id: submission, id: review,
-                       review: FactoryGirl.attributes_for(:review, 
-                                                          rating: rating) }
-        review.reload
-        expect(review.rating).to eq(rating)
+    context "when updated successfully" do
+      before(:each) do
+        controller.stub(:authorize)
+        review.stub(:update).and_return(true)
+        submission.stub(:update_average_rating)
+        Review.stub(:find).and_return(review)
+        Submission.stub_chain(:friendly, :find).and_return(submission)
+        patch :update, submission_id: submission, id: review,
+          review: review_attrs
       end
 
-      it "assigns the requested review as review" do
-        patch :update, { submission_id: submission,
-                       id: review,
-                       review: FactoryGirl.attributes_for(:review) }
+      it "authorizes the action" do
+        expect(controller).to have_received(:authorize).with(review)
+      end
+
+      it "assigns @review to the review" do
         expect(assigns(:review)).to eq(review)
       end
 
-      it "updates the submission's average rating" do
-        submission = review.submission
-        rating = rand(2..99)
-        Submission.stub_chain(:friendly, :find).and_return(submission)
-        expect(submission).to receive(:update_average_rating)
-        patch :update, { submission_id: submission, id: review,
-                       review: FactoryGirl.attributes_for(:review, 
-                                                          rating: rating) }
+      it "updates the review" do
+        expect(review).to have_received(:update).with(review_attrs)
       end
 
-      it "redirects to the review" do
-        patch :update, { submission_id: submission,
-                       id: review,
-                       review: FactoryGirl.attributes_for(:review) }
-        expect(response).to redirect_to(submission)
+      it "updates the submission rankings" do
+        expect(submission).to have_received(:update_average_rating)
+      end
+
+      it "redirects to the submission page" do
+        expect(response).to redirect_to(submission_path(submission))
+      end
+
+      it "flashes a successful notice" do
+        expect(flash[:notice]).to match(/^Review was successfully updated/)
       end
     end
 
     describe "with invalid params" do
       before(:each) do
-        @invalid_review_attrs = FactoryGirl.attributes_for(:invalid_review)
-        patch :update, { submission_id: submission,
-                       id: review,
-                       review: @invalid_review_attrs }
+        controller.stub(:authorize)
+        review.stub(:update).and_return(false)
+        submission.stub(:update_average_rating)
+        Review.stub(:find).and_return(review)
+        Submission.stub_chain(:friendly, :find).and_return(submission)
+        patch :update, submission_id: submission, id: review, review: review_attrs
       end
 
       it "assigns the review as review" do
@@ -124,22 +122,29 @@ describe ReviewsController do
 
   describe "DELETE destroy" do
     context "when the user owns the review they're trying to delete" do
-      it "destroys the requested review" do
-        submission = review.submission
-        expect {
-          delete :destroy, {submission_id: submission, id: review}
-        }.to change(Review, :count).by(-1)
-      end
-
-      it "updates the submission's average rating" do
-        expect(submission).to receive(:update_average_rating)
+      before(:each) do
+        controller.stub(:authorize)
+        review.stub(:destroy)
+        submission.stub(:update_average_rating)
+        Review.stub(:find).and_return(review)
         Submission.stub_chain(:friendly, :find).and_return(submission)
-        delete :destroy, {submission_id: submission, id: review}
+        get :destroy, submission_id: submission, id: review
       end
 
-      it "redirects to the review's submission" do
-        delete :destroy, {submission_id: submission, id: review}
-        expect(response).to redirect_to(submission)
+      it "authorizes the action" do
+        expect(controller).to have_received(:authorize).with(review)
+      end
+
+      it "assigns @review to the review" do
+        expect(assigns(:review)).to eq(review)
+      end
+
+      it "destroys the review" do
+        expect(review).to have_received(:destroy)
+      end
+
+      it "updates the submission rankings" do
+        expect(submission).to have_received(:update_average_rating)
       end
     end
 

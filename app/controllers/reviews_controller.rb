@@ -18,7 +18,8 @@ class ReviewsController < ApplicationController
   end
 
   def update
-    if @review.update_attributes(review_params)
+    authorize @review
+    if @review.update(review_params)
       @submission.update_average_rating
       redirect_to @submission, notice: 'Review was successfully updated.'
     else
@@ -27,6 +28,7 @@ class ReviewsController < ApplicationController
   end
 
   def destroy
+    authorize @review
     @review.destroy
     @submission.update_average_rating
     respond_to do |format|

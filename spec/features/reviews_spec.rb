@@ -141,7 +141,7 @@ describe "Reviews" do
   describe "Deleting a review", js: true do
     it "allows the user to delete their review" do
       reviewer = FactoryGirl.create(:user)
-      review = FactoryGirl.create(:review, author: user)
+      review = FactoryGirl.create(:review, author: reviewer)
       submission.reviews << review
       visit submission_path(submission, as: reviewer.id)
       expect(page).to have_content('1 Review')
