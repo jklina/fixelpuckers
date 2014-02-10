@@ -2,6 +2,7 @@ require 'spec_helper'
 
 describe Submission do
   let(:submission) { FactoryGirl.create(:submission) }
+  let(:trashed_submission) { FactoryGirl.create(:submission, trashed: true) }
 
   it { should validate_presence_of (:title) }
   it { should validate_presence_of (:description) }
@@ -65,6 +66,20 @@ describe Submission do
         to change{submission.views}.by(1)
       submission.reload
       expect(submission.views).to eq(1)
+    end
+  end
+
+  describe "#toggle_trash!" do
+    context "when a submission is trashed" do
+      it "untrashes the submission and save it" do
+        trashed_submission.toggle_trash!
+        expect(trashed_submission.trashed?).to be_false
+      end
+
+      it "trashes an untrashed submission" do
+        submission.toggle_trash!
+        expect(submission.trashed?).to be_true
+      end
     end
   end
 end

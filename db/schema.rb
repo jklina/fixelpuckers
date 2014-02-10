@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140204231727) do
+ActiveRecord::Schema.define(version: 20140206031344) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -51,10 +51,11 @@ ActiveRecord::Schema.define(version: 20140204231727) do
     t.datetime "updated_at"
     t.integer  "user_id"
     t.string   "slug"
-    t.integer  "views",          default: 0, null: false
-    t.integer  "downloads",      default: 0, null: false
+    t.integer  "views",          default: 0,     null: false
+    t.integer  "downloads",      default: 0,     null: false
     t.decimal  "average_rating"
     t.date     "featured_at"
+    t.boolean  "trashed",        default: false, null: false
   end
 
   add_index "submissions", ["slug"], name: "index_submissions_on_slug", unique: true, using: :btree

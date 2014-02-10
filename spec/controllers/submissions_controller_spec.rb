@@ -118,7 +118,45 @@ describe SubmissionsController do
     end
   end
 
-  describe "PUT update" do
+  describe "PATCH trash" do
+    context "when trashed successfully" do
+      before(:each) do
+        Submission.stub_chain(:friendly, :find).and_return(submission)
+        allow(submission).to receive(:toggle_trash!).and_return(true)
+        patch :trash, id: submission
+      end
+
+      it "toggles the submissions trash status" do
+        expect(submission).to have_received(:toggle_trash!)
+      end
+
+      it "redirects to the submission path" do
+        expect(response).to redirect_to(submission)
+      end
+
+      it "flashes a notice letting the user know the sub was trashed" do
+        expect(flash[:notice]).to match(/^This submission is un-trashed/)
+      end
+    end
+
+    context "when trashed unsuccessfully" do
+      before(:each) do
+        Submission.stub_chain(:friendly, :find).and_return(submission)
+        allow(submission).to receive(:toggle_trash!).and_return(false)
+        patch :trash, id: submission
+      end
+
+      it "toggles the submissions trash status" do
+        expect(submission).to have_received(:toggle_trash!)
+      end
+
+      it "redirects to the submission path" do
+        expect(response).to render_template("show")
+      end
+    end
+  end
+
+  describe "PATCH update" do
     before(:each) do 
       @submission = FactoryGirl.create(:submission)
     end

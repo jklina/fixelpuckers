@@ -1,5 +1,5 @@
 class SubmissionsController < ApplicationController
-  before_action :find_submission, only: [:show, :edit, :update, :destroy]
+  before_action :find_submission, except: [:index, :new, :create]
 
   def index
     @submissions = Submission.all
@@ -17,6 +17,14 @@ class SubmissionsController < ApplicationController
   end
 
   def edit
+  end
+
+  def trash
+    if @submission.toggle_trash!
+      redirect_to @submission, notice: "This submission is #{trashed_status}."
+    else
+      render :show
+    end
   end
 
   def create
@@ -50,5 +58,9 @@ class SubmissionsController < ApplicationController
 
   def submission_params
     params.require(:submission).permit(:description, :title)
+  end
+
+  def trashed_status
+    @submission.trashed ? "trashed" : "un-trashed"
   end
 end

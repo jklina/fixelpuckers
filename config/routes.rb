@@ -14,6 +14,7 @@ Pf::Application.routes.draw do
   post 'votes/down/:type/:id', to: 'votes#down', as: :vote_down
 
   resources :submissions do
+    patch 'trash', on: :member
     resources :reviews
   end
 end

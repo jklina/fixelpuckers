@@ -146,6 +146,7 @@ describe "Reviews" do
       visit submission_path(submission, as: reviewer.id)
       expect(page).to have_content('1 Review')
       find("#action-delete-review", visible: false).click
+      sleep 1
       expect(Review.all.size).to eq(0)
       expect(page).to have_content('0 Reviews')
     end

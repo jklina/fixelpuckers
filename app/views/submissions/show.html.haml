@@ -16,14 +16,13 @@
           = link_to '&#9776;'.html_safe, '#', "data-dropdown" => '#dropdown-1'
         #dropdown-1.dropdown.dropdown-tip.dropdown-anchor-right
           %ul.dropdown-menu
-            %li
-              = link_to '#' do
-                Trash
-                -#%i.ss-icon trash
-            %li
-              = link_to '#' do
-                Edit
-                -#%i.ss-icon edit
+            - if policy(@submission).edit?
+              %li= trash_toggle(@submission)
+              -#%i.ss-icon trash
+              %li
+                = link_to '#' do
+                  Edit
+                  -#%i.ss-icon edit
             %li.dropdown-divider
             %li
               = link_to '#' do

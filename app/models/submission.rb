@@ -31,4 +31,13 @@ class Submission < ActiveRecord::Base
     self.views += 1
     self.save!
   end
+
+  def toggle_trash!
+    if trashed?
+      self.trashed = false
+    else
+      self.trashed = true
+    end
+    self.save!
+  end
 end
