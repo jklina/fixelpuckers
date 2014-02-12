@@ -17,6 +17,7 @@ class SubmissionsController < ApplicationController
   end
 
   def edit
+    authorize @submission
   end
 
   def trash

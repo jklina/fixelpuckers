@@ -57,9 +57,15 @@ describe SubmissionsController do
   end
 
   describe "GET edit" do
-    it "assigns the requested submission as submission" do
+    before(:each) do
+      allow(controller).to receive(:authorize)
       Submission.stub_chain(:friendly, :find).and_return(submission)
       get :edit, id: submission
+    end
+
+    it { authorize_the_action(with: submission) }
+
+    it "assigns the requested submission as submission" do
       expect(assigns(:submission)).to eq(submission)
     end
   end

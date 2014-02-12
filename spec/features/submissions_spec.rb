@@ -147,7 +147,7 @@ describe "Editing a submission" do
     end
 
     it "updates the submission" do
-      visit(edit_submission_path(submission))
+      visit(edit_submission_path(submission, as: submission.author.id))
       expect(find_field('submission_title').value).to eq(submission.title)
       expect(find_field('submission_description').value).
         to eq(submission.description)
