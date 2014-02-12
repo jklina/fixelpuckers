@@ -18,20 +18,10 @@
           %ul.dropdown-menu
             - if policy(@submission).edit?
               %li= trash_toggle(@submission)
-              -#%i.ss-icon trash
-              %li
-                = link_to edit_submission_path(@submission) do
-                  Edit
-                  -#%i.ss-icon edit
+              %li= link_to "Edit", edit_submission_path(@submission)
             %li.dropdown-divider
-            %li
-              = link_to '#' do
-                Feature
-                -#%i.ss-icon bookmark
-            %li
-              = link_to '#' do
-                Moderate
-                -#%i.ss-icon delete
+            %li= link_to "Feature", '#'
+            %li= link_to "Moderate", '#'
 
       .thumb_submission
         .thumb--img-wrap

@@ -161,4 +161,11 @@ describe "Editing a submission" do
       expect(submission.description).to eq("Meh Description")
     end
   end
+
+  context "when the current user isn't the author" do
+    it "isn't available" do
+      visit(submission_path(submission, as: FactoryGirl.create(:user).id))
+      expect(page).to_not have_content("Edit")
+    end
+  end
 end
