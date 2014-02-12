@@ -50,8 +50,14 @@ describe SubmissionsController do
   end
 
   describe "GET new" do
-    it "assigns a new submission as submission" do
+    before(:each) do
+      allow(controller).to receive(:authorize)
       get :new
+    end
+
+    it { authorizes_the_action }
+
+    it "assigns a new submission as submission" do
       expect(assigns(:submission)).to be_a_new(Submission)
     end
   end
@@ -74,32 +80,30 @@ describe SubmissionsController do
     describe "with valid params" do
       before(:each) do
         @user = FactoryGirl.create(:user)
+        allow(controller).to receive(:authorize)
         allow(controller).to receive(:current_user).and_return(@user)
-        allow(submission).to receive(:user=).and_return(true)
+        allow(submission).to receive(:author=)
+        allow(Submission).to receive(:new).and_return(submission)
+        allow(submission).to receive(:save).and_return(true)
+        post :create, submission: submission_attrs
       end
 
+      it { authorizes_the_action }
+
       it "creates a new Submission" do
-        expect { 
-          post :create, submission: submission_attrs
-        }.to change(Submission, :count).by(1)
+        expect(Submission).
+          to have_received(:new).with(submission_attrs.stringify_keys)
       end
 
       it "assigns a newly created submission as submission" do
-        allow(Submission).to receive(:new).and_return(submission)
-        post :create, submission: submission_attrs
         expect(assigns(:submission)).to eq(submission)
       end
 
       it 'assigns the submission user to the current user' do
-        allow(Submission).to receive(:new).and_return(submission)
-        expect(submission).to receive(:author=).with(@user)
-        post :create, submission: submission_attrs
+        expect(submission).to have_received(:author=).with(@user)
       end
 
       it "redirects to the created submission" do
-        allow(Submission).to receive(:new).and_return(submission)
-        allow(submission).to receive(:save).and_return(true)
-        post :create, submission: submission_attrs
         expect(response).to redirect_to(submission)
       end
     end
@@ -107,9 +111,8 @@ describe SubmissionsController do
     describe "with invalid params" do
       before(:each) do
         @user = FactoryGirl.create(:user)
-        # Trigger the behavior that occurs when invalid params are submitted
+        allow(controller).to receive(:authorize)
         allow(submission).to receive(:save).and_return(false)
-        # Needed to pass CanCan check
         allow(controller).to receive(:current_user).and_return(@user)
         post :create, submission: FactoryGirl.attributes_for(:invalid_submission)
       end

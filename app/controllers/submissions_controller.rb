@@ -13,6 +13,7 @@ class SubmissionsController < ApplicationController
   end
 
   def new
+    authorize
     @submission = Submission.new
   end
 
@@ -29,6 +30,7 @@ class SubmissionsController < ApplicationController
   end
 
   def create
+    authorize
     @submission = Submission.new(submission_params)
     @submission.author = current_user
     if @submission.save
