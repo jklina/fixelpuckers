@@ -114,7 +114,6 @@ describe "Trashing a submission" do
       visit(submission_path(submission, as: submission.author.id))
     end
     it "is available on author's submission" do
-      visit(submission_path(submission, as: submission.author.id))
       expect(page).to have_content("Trash")
     end
 
@@ -134,6 +133,32 @@ describe "Trashing a submission" do
     it "is available on author's submission" do
       visit(submission_path(submission, as: FactoryGirl.create(:user).id))
       expect(page).to_not have_content("Trash")
+    end
+  end
+end
+
+describe "Editing a submission" do
+  let(:submission) { FactoryGirl.create(:submission) }
+
+  context "when the current user is the author" do
+    it "is available" do
+      visit(submission_path(submission, as: submission.author.id))
+      expect(page).to have_content("Edit")
+    end
+
+    it "updates the submission" do
+      visit(edit_submission_path(submission))
+      expect(find_field('submission_title').value).to eq(submission.title)
+      expect(find_field('submission_description').value).
+        to eq(submission.description)
+      fill_in('Title', with: "Meh Title")
+      fill_in('Description', with: "Meh Description")
+      click_button("Update Submission")
+      expect(current_path).to eq(submission_path(submission))
+      expect(page).to have_content("Submission was successfully updated.")
+      submission.reload
+      expect(submission.title).to eq("Meh Title")
+      expect(submission.description).to eq("Meh Description")
     end
   end
 end

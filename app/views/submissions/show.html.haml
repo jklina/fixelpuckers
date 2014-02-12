@@ -20,7 +20,7 @@
               %li= trash_toggle(@submission)
               -#%i.ss-icon trash
               %li
-                = link_to '#' do
+                = link_to edit_submission_path(@submission) do
                   Edit
                   -#%i.ss-icon edit
             %li.dropdown-divider
