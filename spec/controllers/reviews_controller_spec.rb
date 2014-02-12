@@ -75,9 +75,7 @@ describe ReviewsController do
           review: review_attrs
       end
 
-      it "authorizes the action" do
-        expect(controller).to have_received(:authorize).with(review)
-      end
+      it { authorizes_the_action(with: review) }
 
       it "assigns @review to the review" do
         expect(assigns(:review)).to eq(review)
@@ -131,9 +129,7 @@ describe ReviewsController do
         get :destroy, submission_id: submission, id: review
       end
 
-      it "authorizes the action" do
-        expect(controller).to have_received(:authorize).with(review)
-      end
+      it { authorizes_the_action(with: review) }
 
       it "assigns @review to the review" do
         expect(assigns(:review)).to eq(review)

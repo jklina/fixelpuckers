@@ -63,7 +63,7 @@ describe SubmissionsController do
       get :edit, id: submission
     end
 
-    it { authorize_the_action(with: submission) }
+    it { authorizes_the_action(with: submission) }
 
     it "assigns the requested submission as submission" do
       expect(assigns(:submission)).to eq(submission)
