@@ -4,17 +4,11 @@ describe SubmissionsController do
   let(:submission) { stub_model(Submission, id: 'slugged-title') }
   let(:submission_attrs) { FactoryGirl.attributes_for(:submission, title: 'hi')}
 
-  describe "GET index" do
-    it "assigns all submissions as submissions" do
-      get :index
-      expect(assigns(:submissions)).to eq(Submission.all)
-    end
-  end
-
   describe "GET show" do
     before(:each) do
       allow(submission).to receive(:increment_views!)
-      Submission.stub_chain(:friendly, :find).and_return(submission)
+      Submission.stub_chain(:filtered_trash_for, :friendly, :find).
+        and_return(submission)
     end
 
     it "assigns the requested submission as submission" do

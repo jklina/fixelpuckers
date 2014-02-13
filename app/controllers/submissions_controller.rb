@@ -1,10 +1,6 @@
 class SubmissionsController < ApplicationController
   before_action :find_submission, except: [:index, :new, :create]
 
-  def index
-    @submissions = Submission.all
-  end
-
   def show
     if current_user.present?
       @review = @submission.find_or_build_review_from(current_user)
@@ -59,7 +55,9 @@ class SubmissionsController < ApplicationController
   private
 
   def find_submission
-    @submission = Submission.friendly.find(params[:id])
+    @submission = Submission.filtered_trash_for(current_user).
+                                               friendly.
+                                               find(params[:id])
   end
 
   def submission_params

@@ -19,8 +19,20 @@ describe Submission do
     it "orders the submissions by their created date" do
       sub1 = FactoryGirl.create(:submission, created_at: Date.current - 1.day)
       sub2 = FactoryGirl.create(:submission, created_at: Date.current)
-
       expect(Submission.all).to eq([sub2, sub1])
+    end
+  end
+
+  describe ".filtered_trash_for" do
+    it "filters out trashed submissions that are not authored by the given user" do
+      submission
+      trashed_authored_submission =
+        FactoryGirl.create(:submission,
+                           author: submission.author,
+                           trashed: true)
+      trashed_submission = FactoryGirl.create(:submission,trashed: true)
+      expect(Submission.filtered_trash_for(submission.author)).
+             to eq([trashed_authored_submission, submission])
     end
   end
 

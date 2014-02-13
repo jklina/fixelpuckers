@@ -17,7 +17,7 @@ class User < ActiveRecord::Base
   validates :email, uniqueness: true
 
   def recent_submissions(number_of_submissions)
-    submissions.order("created_at DESC").limit(number_of_submissions)
+    submissions.limit(number_of_submissions)
   end
 
   def find_or_build_comment_from(author)
