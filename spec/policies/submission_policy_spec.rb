@@ -25,6 +25,10 @@ describe SubmissionPolicy do
     include_examples "verify user is the author for", :edit?
   end
 
+  describe "#trash?" do
+    include_examples "verify user is the author for", :trash?
+  end
+
   describe "update?" do
     include_examples "verify user is the author for", :update?
   end

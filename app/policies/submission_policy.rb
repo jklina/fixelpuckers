@@ -10,6 +10,10 @@ class SubmissionPolicy
     current_user_is_submission_author?
   end
 
+  def trash?
+    current_user_is_submission_author?
+  end
+
   def update?
     current_user_is_submission_author?
   end

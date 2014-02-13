@@ -132,8 +132,11 @@ describe SubmissionsController do
       before(:each) do
         Submission.stub_chain(:friendly, :find).and_return(submission)
         allow(submission).to receive(:toggle_trash!).and_return(true)
+        allow(controller).to receive(:authorize)
         patch :trash, id: submission
       end
+
+      it { authorizes_the_action(with: submission) }
 
       it "toggles the submissions trash status" do
         expect(submission).to have_received(:toggle_trash!)
@@ -166,61 +169,79 @@ describe SubmissionsController do
   end
 
   describe "PATCH update" do
-    before(:each) do 
-      @submission = FactoryGirl.create(:submission)
-    end
     describe "with valid params" do
-      it "updates the requested submission" do
-        put :update, 
-          {
-            id: @submission,
-            submission: submission_attrs
-          }
-          @submission.reload
-          expect(@submission.title).to eq('hi')
+      before(:each) do
+        Submission.stub_chain(:friendly, :find).and_return(submission)
+        allow(submission).to receive(:update_attributes).and_return(true)
+        allow(controller).to receive(:authorize)
+        put :update, id: submission, submission: submission_attrs
       end
 
+      it { authorizes_the_action(with: submission) }
+
       it "assigns the requested submission as submission" do
-        put :update, id: @submission, submission: submission_attrs
-        expect(assigns(:submission)).to eq(@submission)
+        expect(assigns(:submission)).to eq(submission)
+      end
+
+      it "updates the requested submission" do
+        expect(submission).
+          to have_received(:update_attributes).
+          with(submission_attrs.stringify_keys)
+      end
+
+      it "flashes a notice letting the user know the sub was updated" do
+        expect(flash[:notice]).to match(/^Submission was successfully updated/)
       end
 
       it "redirects to the submission" do
-        put :update, id: @submission, submission: submission_attrs
-        expect(response).to redirect_to(@submission)
+        expect(response).to redirect_to(submission)
       end
     end
 
     describe "with invalid params" do
       before(:each) do
-        @invalid_sub = FactoryGirl.attributes_for(:invalid_submission)
-      end
-      it "assigns the submission as submission" do
-        put :update, id: @submission, submission: @invalid_sub
-        expect(assigns(:submission)).to eq(@submission)
+        Submission.stub_chain(:friendly, :find).and_return(submission)
+        allow(submission).to receive(:update_attributes).and_return(false)
+        allow(controller).to receive(:authorize)
+        put :update, id: submission, submission: submission_attrs
       end
 
-      it "re-renders the 'edit' template" do
-        put :update, id: @submission, submission: @invalid_sub
-        expect(response).to render_template("edit")
+      it "assigns the requested submission as submission" do
+        expect(assigns(:submission)).to eq(submission)
+      end
+
+      it "updates the requested submission" do
+        expect(submission).
+          to have_received(:update_attributes).
+          with(submission_attrs.stringify_keys)
+      end
+
+      it "rerenders the new template" do
+        expect(response).to render_template(:edit)
       end
     end
   end
 
   describe "DELETE destroy" do
     before(:each) do 
-      @submission = FactoryGirl.create(:submission)
+      Submission.stub_chain(:friendly, :find).and_return(submission)
+      allow(submission).to receive(:destroy)
+      allow(controller).to receive(:authorize)
+      delete :destroy, id: submission
+    end
+
+    it { authorizes_the_action(with: submission) }
+
+    it "assigns the requested submission as submission" do
+      expect(assigns(:submission)).to eq(submission)
     end
 
     it "destroys the requested submission" do
-      expect {
-        delete :destroy, id: @submission
-      }.to change(Submission, :count).by(-1)
+      expect(submission).to have_received(:destroy)
     end
 
     it "redirects to the submissions list" do
-      delete :destroy, id: @submission
-      expect(response).to redirect_to(submissions_url)
+      expect(response).to redirect_to(submissions_path)
     end
   end
 end

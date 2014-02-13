@@ -22,6 +22,7 @@ class SubmissionsController < ApplicationController
   end
 
   def trash
+    authorize @submission
     if @submission.toggle_trash!
       redirect_to @submission, notice: "This submission is #{trashed_status}."
     else
@@ -41,6 +42,7 @@ class SubmissionsController < ApplicationController
   end
 
   def update
+    authorize @submission
     if @submission.update_attributes(submission_params)
       redirect_to @submission, notice: 'Submission was successfully updated.'
     else
@@ -49,8 +51,9 @@ class SubmissionsController < ApplicationController
   end
 
   def destroy
+    authorize @submission
     @submission.destroy
-    redirect_to submissions_url
+    redirect_to submissions_path
   end
 
   private
