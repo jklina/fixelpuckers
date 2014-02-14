@@ -22,7 +22,7 @@
     .wrapper
       %h2 Recent Submissions
       %ol.thumbs
-        = render @user.recent_submissions(3).filtered_trash_for(current_user)
+        = render @user.submissions.filtered_trash_for(current_user).limit(3)
 
   %section.comments
     .wrapper

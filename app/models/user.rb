@@ -16,10 +16,6 @@ class User < ActiveRecord::Base
   validates :slug, presence: true
   validates :email, uniqueness: true
 
-  def recent_submissions(number_of_submissions)
-    submissions.limit(number_of_submissions)
-  end
-
   def find_or_build_comment_from(author)
     comments.where(author_id: author.id).first_or_initialize
   end

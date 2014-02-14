@@ -13,6 +13,7 @@ describe Submission do
   it { should validate_numericality_of(:average_rating) }
 
   it { should belong_to(:author).class_name('User') }
+  it { should belong_to(:category) }
   it { should have_many(:reviews) }
 
   describe "default_scope" do
