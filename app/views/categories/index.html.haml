@@ -1,0 +1,17 @@
+%section.submissions
+  .wrapper
+    %h1 Manage Categories
+    %table.categories
+      %thead
+        %th Name
+        %th Slug
+        %th Submissions
+        %th Manage
+      %tbody
+        - @categories.each do |category|
+          %tr
+            %td= category.name
+            %td= category.slug
+            %td= category.submissions.size
+            %td Manage Links Will Go Here
+

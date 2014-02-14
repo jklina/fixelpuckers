@@ -6,7 +6,9 @@ Pf::Application.routes.draw do
     resource :password,
       controller: 'passwords', 
       only: [:create, :edit, :update]
-    end
+  end
+
+  resources :categories
 
   resources :passwords, controller: 'passwords', only: [:create, :new]
 
