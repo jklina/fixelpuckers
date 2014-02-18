@@ -126,6 +126,12 @@ nav.account {
   }
 }
 
+.header-aux {
+  @extend %dark;
+  @include row;
+  background: #353230;
+}
+
 
 .search {
   @extend %header-addon;

@@ -1,4 +1,4 @@
-class CategoriesController < ApplicationController
+class Admin::CategoriesController < ApplicationController
   before_action :find_category, only: [:edit, :update]
 
   def index
@@ -13,7 +13,7 @@ class CategoriesController < ApplicationController
   def update
     authorize @category
     if @category.update_attributes(category_params)
-      redirect_to categories_path,
+      redirect_to admin_categories_path,
         notice: 'Category was successfully updated.'
     else
       render action: "edit"

@@ -6,14 +6,20 @@ class CategoryPolicy
   end
 
   def index?
-    user.admin?
+    user_admin?
   end
 
   def edit?
-    user.admin?
+    user_admin?
   end
 
   def update?
+    user_admin?
+  end
+
+  private
+
+  def user_admin?
     user.admin?
   end
 end

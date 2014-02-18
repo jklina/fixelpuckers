@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe CategoriesController do
+describe Admin::CategoriesController do
   let(:category) { double("category") }
   let(:category_attrs) { FactoryGirl.attributes_for(:category) }
   let(:categories) { double("categories") }
@@ -55,7 +55,7 @@ describe CategoriesController do
       end
 
       it "redirects to the categories path" do
-        expect(response).to redirect_to(categories_path)
+        expect(response).to redirect_to(admin_categories_path)
       end
     end
 
@@ -67,7 +67,7 @@ describe CategoriesController do
         patch :update, id: category, category: category_attrs
       end
 
-      it "redirects to the categories path" do
+      it "renders the edit template" do
         expect(response).to render_template("edit")
       end
     end

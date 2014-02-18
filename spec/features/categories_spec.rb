@@ -7,14 +7,14 @@ describe "Categories" do
   describe "viewing" do
     it "an admin can view all the categories" do
       category
-      visit(categories_path(as: admin.id))
+      visit(admin_categories_path(as: admin.id))
       expect(page).to have_content(category.name)
     end
   end
 
   describe "editing" do
     before(:each) do
-      visit(edit_category_path(category, as: admin.id))
+      visit(edit_admin_category_path(category, as: admin.id))
     end
 
     it "has the form filled out with the existing values" do
@@ -26,7 +26,7 @@ describe "Categories" do
       click_button("Update Category")
       category.reload
       expect(category.name).to eq("Screenshots")
-      expect(current_path).to eq(categories_path)
+      expect(current_path).to eq(admin_categories_path)
     end
   end
 end
