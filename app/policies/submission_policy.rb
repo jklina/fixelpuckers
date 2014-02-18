@@ -6,6 +6,14 @@ class SubmissionPolicy
     @submission = submission
   end
 
+  def new?
+    true
+  end
+
+  def create?
+    true
+  end
+
   def edit?
     current_user_is_submission_author?
   end

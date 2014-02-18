@@ -13,5 +13,7 @@
             %td= category.name
             %td= category.slug
             %td= category.submissions.size
-            %td Manage Links Will Go Here
-
+            %td
+              %ul.manage-nav.ss-icon
+                %li= link_to 'Edit', edit_category_path(category)
+                %li= link_to 'Delete', "#"

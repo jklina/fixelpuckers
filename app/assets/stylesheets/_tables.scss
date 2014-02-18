@@ -35,3 +35,7 @@ caption {
 tr, td, th {
   vertical-align: middle;
 }
+
+.manage-nav {
+  @include horizontal-list
+}

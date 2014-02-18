@@ -9,8 +9,8 @@ class SubmissionsController < ApplicationController
   end
 
   def new
-    authorize
     @submission = Submission.new
+    authorize @submission
   end
 
   def edit
@@ -27,8 +27,8 @@ class SubmissionsController < ApplicationController
   end
 
   def create
-    authorize
     @submission = Submission.new(submission_params)
+    authorize @submission
     @submission.author = current_user
     if @submission.save
       redirect_to @submission, notice: 'Submission was successfully created.'

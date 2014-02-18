@@ -107,6 +107,21 @@ describe "Viewing a submission" do
   end
 end
 
+describe "Creating a submission" do
+  let(:author) { FactoryGirl.create(:user) }
+
+  it "let's a logged in user create a submission" do
+    visit(new_submission_path(as: author.id))
+    fill_in("Title", with: "Sub1")
+    fill_in("Description", with: "meh notes")
+    click_button("Create Submission")
+    submission = Submission.last
+    expect(submission.title).to eq("Sub1")
+    expect(submission.description).to eq("meh notes")
+    expect(current_path).to eq(submission_path(submission))
+  end
+end
+
 describe "Trashing a submission" do
   let(:submission) { FactoryGirl.create(:submission) }
   context "when the current user is the author" do
