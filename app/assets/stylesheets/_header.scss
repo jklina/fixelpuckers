@@ -99,29 +99,29 @@ nav.account {
     top: -1px;
     width: pix(4) - 1px;
   }
-}
 
-.account-dropdown-item {
-  display: block;
-  float: none;
-  width: 9em;
-
-  &:not(:last-child) {
-    border-bottom: 1px dotted $base-border-color;
-  }
-
-  a {
+  li {
     display: block;
-    padding: 1em 0 1em .5em;
-    width: 100%;
+    float: none;
+    width: 9em;
 
-    &:hover i {
-      color: $hover-link-color;
+    &:not(:last-child) {
+      border-bottom: 1px dotted $base-border-color;
     }
 
-    i {
-      color: $icon-color;
-      margin-right: .75em;
+    a {
+      display: block;
+      padding: 1em 0 1em .5em;
+      width: 100%;
+
+      &:hover i {
+        color: $hover-link-color;
+      }
+
+      i {
+        color: $icon-color;
+        margin-right: .75em;
+      }
     }
   }
 }
@@ -131,7 +131,6 @@ nav.account {
   @include row;
   background: #353230;
 }
-
 
 .search {
   @extend %header-addon;

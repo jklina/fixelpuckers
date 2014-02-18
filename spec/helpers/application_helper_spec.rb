@@ -15,4 +15,21 @@ describe ApplicationHelper do
       expect { |b| present(submission, &b) }.to yield_with_args(presenter)
     end
   end
+
+  describe "#admin?" do
+    it "returns true when the current controller is in the admin namespace" do
+      controller.stub_chain(:class, :name).and_return("Admin::Test")
+      expect(admin?).to be_true
+    end
+
+    it "returns true when the current controller is admin" do
+      controller.stub_chain(:class, :name).and_return("AdminController")
+      expect(admin?).to be_true
+    end
+
+    it "returns false when the controller isn't in the admin namespace" do
+      controller.stub_chain(:class, :name).and_return("Test")
+      expect(admin?).to be_false
+    end
+  end
 end

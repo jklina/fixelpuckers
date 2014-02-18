@@ -18,4 +18,8 @@ module ApplicationHelper
     yield presenter if block_given?
     presenter
   end
+
+  def admin?
+    controller.class.name.split("::").first.start_with?("Admin")
+  end
 end
