@@ -1,6 +1,9 @@
 %section.submissions
   .wrapper
-    %h1 Manage Categories
+    .heading
+      %h1 
+        Manage Categories
+        %span.action= link_to "Add Category", new_admin_category_path
     %table.categories
       %thead
         %th Name

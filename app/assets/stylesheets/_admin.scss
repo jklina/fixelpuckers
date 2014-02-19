@@ -1,3 +1,19 @@
 #admin-nav {
   @include horizontal-list
 }
+
+span.action {
+  float: right;
+  font-family: $sans-serif;
+
+  a {
+    @include button(simple, #fafafa);
+
+    // Button Overrides
+    border-color: #BBB;
+    box-shadow: 0 1px 1px hsla(0, 0%, 0%, 0.06);
+    font-size: $form-font-size;
+    padding: 0.3em 1.5em;
+  }
+}
+

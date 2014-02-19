@@ -21,8 +21,16 @@ describe CategoryPolicy do
     end
   end
 
+  describe "#new?" do
+    include_examples "verify user is admin", :new?
+  end
+
+  describe "#create?" do
+    include_examples "verify user is admin", :create?
+  end
+
   describe "#index?" do
-    include_examples "verify user is admin", :edit?
+    include_examples "verify user is admin", :index?
   end
 
   describe "#edit?" do

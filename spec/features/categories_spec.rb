@@ -29,4 +29,14 @@ describe "Categories" do
       expect(current_path).to eq(admin_categories_path)
     end
   end
+
+  describe "creating" do
+    it "lets admins add new categories to the database" do
+      visit(new_admin_category_path(as: admin.id))
+      fill_in("Name", with: "Screenshots")
+      click_button("Create Category")
+      expect(Category.last.name).to eq("Screenshots")
+      expect(current_path).to eq(admin_categories_path)
+    end
+  end
 end

@@ -9,6 +9,14 @@ class CategoryPolicy
     user_admin?
   end
 
+  def new?
+    user_admin?
+  end
+
+  def create?
+    user_admin?
+  end
+
   def edit?
     user_admin?
   end

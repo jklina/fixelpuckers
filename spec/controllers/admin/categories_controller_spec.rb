@@ -19,6 +19,55 @@ describe Admin::CategoriesController do
     end
   end
 
+  describe "GET new" do
+    before(:each) do
+      allow(controller).to receive(:authorize)
+      get :new
+    end
+
+    it { authorizes_the_action }
+
+    it "assigns the requested category as category" do
+      expect(assigns(:category)).to be_a_new(Category)
+    end
+  end
+
+  describe "POST create" do
+    describe "with valid params" do
+      before(:each) do
+        allow(controller).to receive(:authorize)
+        allow(Category).to receive(:new).and_return(category)
+        allow(category).to receive(:save).and_return(true)
+        post :create, category: category_attrs
+      end
+
+      it { authorizes_the_action }
+
+      it "creates a new Submission" do
+        expect(Category).
+          to have_received(:new).with(category_attrs.stringify_keys)
+      end
+
+      it "assigns a newly created category as category" do
+        expect(assigns(:category)).to eq(category)
+      end
+
+      it "redirects to the categories page" do
+        expect(response).to redirect_to(admin_categories_path)
+      end
+    end
+
+    describe "with invalid params" do
+      it "re-renders the 'new' template" do
+        allow(controller).to receive(:authorize)
+        allow(Category).to receive(:new).and_return(category)
+        allow(category).to receive(:save).and_return(false)
+        post :create, category: category_attrs
+        expect(response).to render_template("new")
+      end
+    end
+  end
+
   describe "GET edit" do
     before(:each) do
       allow(controller).to receive(:authorize)
