@@ -162,18 +162,21 @@ describe "Editing a submission" do
     end
 
     it "updates the submission" do
+      category = FactoryGirl.create(:category)
       visit(edit_submission_path(submission, as: submission.author.id))
       expect(find_field('submission_title').value).to eq(submission.title)
       expect(find_field('submission_description').value).
         to eq(submission.description)
       fill_in('Title', with: "Meh Title")
       fill_in('Description', with: "Meh Description")
+      select(category.name, from: 'Category')
       click_button("Update Submission")
       expect(current_path).to eq(submission_path(submission))
       expect(page).to have_content("Submission was successfully updated.")
       submission.reload
       expect(submission.title).to eq("Meh Title")
       expect(submission.description).to eq("Meh Description")
+      expect(submission.category).to eq(category)
     end
   end
 

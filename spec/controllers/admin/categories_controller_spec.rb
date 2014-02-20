@@ -75,7 +75,7 @@ describe Admin::CategoriesController do
       get :edit, id: category
     end
 
-    it { authorizes_the_action(with: category) }
+    it { authorizes_the_action }
 
     it "assigns the requested category as category" do
       expect(assigns(:category)).to eq(category)
@@ -91,7 +91,7 @@ describe Admin::CategoriesController do
         patch :update, id: category, category: category_attrs
       end
 
-      it { authorizes_the_action(with: category) }
+      it { authorizes_the_action }
 
       it "assigns the requested category as category" do
         expect(assigns(:category)).to eq(category)

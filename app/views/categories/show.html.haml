@@ -1,0 +1,15 @@
+%section.category-description
+  .wrapper
+    %h2= @category.name
+
+%section.submissions
+  .wrapper
+    %h2 Recent Submissions
+    -# TODO: Possible move this into a helper or presenter
+    - if @submissions.present?
+      %ol.thumbs-list
+        = render @submissions
+    - else
+      %p There are no submissions yet!
+
+    = paginate @submissions

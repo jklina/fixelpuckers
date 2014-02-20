@@ -4,11 +4,23 @@ describe "Categories" do
   let(:admin) { FactoryGirl.create(:admin) }
   let(:category) { FactoryGirl.create(:category) }
 
-  describe "viewing" do
+  describe "viewing a list" do
     it "an admin can view all the categories" do
       category
       visit(admin_categories_path(as: admin.id))
       expect(page).to have_content(category.name)
+    end
+  end
+
+  describe "viewing" do
+    it "displays the categorys submissions" do
+      sub1 = FactoryGirl.create(:submission, category: category)
+      sub2 = FactoryGirl.create(:submission)
+      visit(category_path(category))
+      within(".category-description") do
+        expect(page).to have_content(category.name)
+      end
+      expect(page).to have_content(sub1.title)
     end
   end
 

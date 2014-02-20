@@ -61,7 +61,7 @@ class SubmissionsController < ApplicationController
   end
 
   def submission_params
-    params.require(:submission).permit(:description, :title)
+    params.require(:submission).permit(:description, :title, :category_id)
   end
 
   def trashed_status

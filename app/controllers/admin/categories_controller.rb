@@ -1,23 +1,20 @@
 class Admin::CategoriesController < ApplicationController
   before_action :find_category, only: [:edit, :update]
+  before_action :authorize_category
 
   def index
-    authorize Category
     @categories = Category.all
   end
 
   def edit
-    authorize @category
   end
 
   def new
-    authorize Category
     @category = Category.new
   end
 
   def create
     @category = Category.new(category_params)
-    authorize @category
     if @category.save
       redirect_to admin_categories_path,
         notice: 'Category was successfully created.'
@@ -27,7 +24,6 @@ class Admin::CategoriesController < ApplicationController
   end
 
   def update
-    authorize @category
     if @category.update_attributes(category_params)
       redirect_to admin_categories_path,
         notice: 'Category was successfully updated.'
@@ -37,6 +33,10 @@ class Admin::CategoriesController < ApplicationController
   end
 
   private
+
+  def authorize_category
+    authorize Category
+  end
 
   def find_category
     @category = Category.friendly.find(params[:id])

@@ -14,9 +14,11 @@ Pf::Application.routes.draw do
   post 'votes/up/:type/:id', to: 'votes#up', as: :vote_up
   post 'votes/down/:type/:id', to: 'votes#down', as: :vote_down
 
+
+  resources :categories, only: [:show]
   get '/admin', to: 'admin#index'
   namespace :admin do
-    resources :categories
+    resources :categories, except: [:show]
   end
 
   resources :submissions do
