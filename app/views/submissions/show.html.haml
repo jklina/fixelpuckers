@@ -9,7 +9,9 @@
           .byline
             %p.title
               = "#{submission_presenter.title} by "
-              = link_to submission_presenter.author.username, user_path(submission_presenter.author)
+              = link_to submission_presenter.author.username, 
+                user_path(submission_presenter.author),
+                class: "highlight"
             %span.date
               = submission_presenter.created_at.to_formatted_s(:pf_long)
         .action-menu

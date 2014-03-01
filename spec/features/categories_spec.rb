@@ -17,7 +17,7 @@ describe "Categories" do
       sub1 = FactoryGirl.create(:submission, category: category)
       sub2 = FactoryGirl.create(:submission)
       visit(category_path(category))
-      within(".category-description") do
+      within(".featured") do
         expect(page).to have_content(category.name)
       end
       expect(page).to have_content(sub1.title)

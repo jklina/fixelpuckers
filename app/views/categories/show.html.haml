@@ -1,10 +1,18 @@
-%section.category-description
+%section.featured
   .wrapper
     %h2= @category.name
+    .thumb_featured
+      .thumb--img-wrap
+        = link_to '#' do
+          =image_tag('http://lorempixel.com/1200/400/abstract/3', :class => 'thumb--img')
+          .thumb--img-shadow
+    %p.description 
+      This is a test &mdash; 
+      = link_to "fate0000", "#", class: "highlight"
 
 %section.submissions
   .wrapper
-    %h2 Recent Submissions
+    %h2= "Recent #{@category.name}"
     -# TODO: Possible move this into a helper or presenter
     - if @submissions.present?
       %ol.thumbs-list
