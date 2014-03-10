@@ -22,7 +22,7 @@
               %li= trash_toggle(@submission)
               %li= link_to "Edit", edit_submission_path(@submission)
             %li.dropdown-divider
-            %li= link_to "Feature", '#'
+            %li= link_to "Feature", admin_new_feature_path(@submission)
             %li= link_to "Moderate", '#'
 
       .thumb_submission

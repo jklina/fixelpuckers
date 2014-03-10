@@ -1,0 +1,9 @@
+= simple_form_for([:admin, @feature]) do |f|
+  = f.error_notification
+
+  .form-inputs
+    = f.input :description
+    = f.hidden_field :submission_id
+
+  .form-actions
+    = f.button :submit

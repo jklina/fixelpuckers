@@ -15,6 +15,7 @@ describe Submission do
   it { should belong_to(:author).class_name('User') }
   it { should belong_to(:category) }
   it { should have_many(:reviews) }
+  it { should have_many(:features) }
 
   describe "default_scope" do
     it "orders the submissions by their created date" do

@@ -6,6 +6,7 @@ class Submission < ActiveRecord::Base
   belongs_to :author, class_name: "User", foreign_key: "user_id"
   belongs_to :category
   has_many :reviews
+  has_many :features
 
   friendly_id :title, use: :slugged
 
