@@ -1,5 +1,6 @@
 class Admin::FeaturesController < ApplicationController
   before_action :authorize_feature
+  before_action :find_feature, only: [:edit, :update]
 
   def new
     @submission = Submission.friendly.find(params[:id])
@@ -16,7 +17,22 @@ class Admin::FeaturesController < ApplicationController
     end
   end
 
+  def edit
+  end
+
+  def update
+    if @feature.update_attributes(feature_params)
+      redirect_to root_path, notice: 'Feature was successfully updated.'
+    else
+      render action: "edit"
+    end
+  end
+
   private
+
+  def find_feature
+    @feature = Feature.find(params[:id])
+  end
 
   def authorize_feature
     authorize Feature

@@ -19,4 +19,8 @@ class User < ActiveRecord::Base
   def find_or_build_comment_from(author)
     comments.where(author_id: author.id).first_or_initialize
   end
+
+  def to_s
+    username
+  end
 end

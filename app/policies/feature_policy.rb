@@ -13,6 +13,13 @@ class FeaturePolicy
     user_admin?
   end
 
+  def edit?
+    user_admin?
+  end
+
+  def update?
+    user_admin?
+  end
   private
 
   def user_admin?

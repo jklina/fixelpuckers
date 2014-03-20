@@ -3,4 +3,6 @@ class Feature < ActiveRecord::Base
   belongs_to :submission
 
   validates :description, :user_id, presence: true
+
+  default_scope { order(created_at: :desc) }
 end

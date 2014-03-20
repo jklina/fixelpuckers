@@ -5,6 +5,10 @@
         = link_to '#' do
           =image_tag('http://lorempixel.com/1200/400/abstract/3', :class => 'thumb--img')
           .thumb--img-shadow
+    %p.description 
+      = @feature.description
+      &mdash; 
+      = link_to @feature.author, @feature.author, class: "highlight"
 
 %section.submissions
   .wrapper

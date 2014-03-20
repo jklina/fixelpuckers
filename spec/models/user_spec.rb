@@ -34,6 +34,13 @@ describe User do
       to include("has already been taken")
   end
 
+  describe "#to_s" do
+    it "displays the username for its string conversion" do
+      user = User.new(username: "fate0000")
+      expect(user.to_s).to eq("fate0000")
+    end
+  end
+
   describe '#find_or_build_comment_from' do
     it "finds the author's comment when the author has a comment" do
       @comment = FactoryGirl.create(:comment)
