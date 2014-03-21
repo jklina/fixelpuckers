@@ -1,28 +1,7 @@
+require 'concerns/adminable'
+
 class FeaturePolicy
-  attr_reader :user
+  include Adminable
 
-  def initialize(user, category)
-    @user = user
-  end
-
-  def new?
-    user_admin?
-  end
-
-  def create?
-    user_admin?
-  end
-
-  def edit?
-    user_admin?
-  end
-
-  def update?
-    user_admin?
-  end
-  private
-
-  def user_admin?
-    user.admin?
-  end
+  admin_actions :new, :create, :edit, :update
 end
