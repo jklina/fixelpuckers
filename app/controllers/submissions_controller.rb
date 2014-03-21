@@ -2,7 +2,7 @@ class SubmissionsController < ApplicationController
   before_action :find_submission, except: [:index, :new, :create]
 
   def show
-    if current_user.present?
+    if signed_in?
       @review = @submission.find_or_build_review_from(current_user)
     end
     @submission.increment_views!

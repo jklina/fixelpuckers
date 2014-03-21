@@ -9,7 +9,8 @@ describe ReviewsController do
   describe "POST create" do
     describe "with valid params" do
       before(:each) do
-        controller.stub(:authorize)
+        allow(controller).to receive(:authorize)
+        allow(controller).to receive(:current_user).and_return(user)
         review.stub(:save).and_return(true)
         submission.stub(:update_average_rating)
         Review.stub(:new).and_return(review)
@@ -45,9 +46,10 @@ describe ReviewsController do
 
     describe "with invalid params" do
       before(:each) do
-        controller.stub(:authorize)
-        review.stub(:save).and_return(false)
-        Review.stub(:new).and_return(review)
+        allow(controller).to receive(:authorize)
+        allow(controller).to receive(:current_user).and_return(user)
+        allow(review).to receive(:save).and_return(false)
+        allow(Review).to receive(:new).and_return(review)
         Submission.stub_chain(:friendly, :find).and_return(submission)
         post :create, submission_id: submission, id: review,
           review: review_attrs

@@ -7,4 +7,8 @@ class ApplicationController < ActionController::Base
   def fetch_categories
     @browsable_categories = Category.all
   end
+
+  def current_user
+    super || Guest.new
+  end
 end

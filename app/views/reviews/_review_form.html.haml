@@ -1,5 +1,5 @@
 #review-form-holder
-  - if current_user.present?
+  - if signed_in?
     .avatar
       = link_to '#' do
         = image_tag('http://lorempixel.com/100/100/nature/5', :class => 'avatar--img')

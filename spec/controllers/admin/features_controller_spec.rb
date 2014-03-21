@@ -9,6 +9,8 @@ describe Admin::FeaturesController do
   describe "GET new" do
     before(:each) do
       Submission.stub_chain(:friendly, :find).and_return(submission)
+      allow(controller).to receive(:current_user).
+        and_return(FactoryGirl.create(:user))
       allow(controller).to receive(:authorize)
       get :new, id: submission
     end

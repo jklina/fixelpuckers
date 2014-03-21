@@ -3,7 +3,7 @@
   %td= feature.submission.title
   %td= feature.description
   %td= feature.author
-  - if admin?
+  - if policy(feature).update?
     %td
       %ul.manage-nav.ss-icon
         %li= link_to 'Edit', edit_admin_feature_path(feature)

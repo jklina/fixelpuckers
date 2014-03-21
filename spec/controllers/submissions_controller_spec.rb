@@ -27,6 +27,7 @@ describe SubmissionsController do
         user = FactoryGirl.create(:user)
         allow(submission).to receive(:find_or_build_review_from).
           and_return(review)
+        allow(controller).to receive(:signed_in?).and_return(true)
         allow(controller).to receive(:current_user).and_return(user)
         get :show, id: submission
         expect(assigns(:review)).to eq(review)
@@ -36,7 +37,7 @@ describe SubmissionsController do
     context "if current_user is not present" do
       it "does not find or creates a review and assign it to @review" do
         allow(Submission).to receive(:find).and_return(submission)
-        allow(controller).to receive(:current_user).and_return(nil)
+        allow(controller).to receive(:signed_in?).and_return(false)
         expect(submission).to_not receive(:find_or_build_review_from)
         get :show, id: submission
       end
@@ -147,6 +148,7 @@ describe SubmissionsController do
 
     context "when trashed unsuccessfully" do
       before(:each) do
+        allow(controller).to receive(:authorize).and_return(true)
         Submission.stub_chain(:friendly, :find).and_return(submission)
         allow(submission).to receive(:toggle_trash!).and_return(false)
         patch :trash, id: submission

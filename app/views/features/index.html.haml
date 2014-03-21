@@ -8,5 +8,9 @@
         %th Submission Title
         %th Description
         %th Author
+        - if policy(Feature).update?
+          %th Manage
       %tbody
         = render @features
+
+    = paginate @features

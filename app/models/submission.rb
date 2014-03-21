@@ -21,7 +21,7 @@ class Submission < ActiveRecord::Base
   # TODO: Validate that there can only be 1 review per user per submission
 
   def self.filtered_trash_for(author)
-    where("trashed = ? or user_id = ?", false, author)
+    where("trashed = ? or user_id = ?", false, author.id)
   end
   
   def find_or_build_review_from(user)

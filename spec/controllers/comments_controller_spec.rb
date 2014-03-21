@@ -9,7 +9,9 @@ describe CommentsController do
   describe "POST create" do
 
     describe "with valid params" do
+
       it "finds the user that will build the comment" do
+        allow(controller).to receive(:current_user).and_return(user)
         post :create, user_id: user, comment: comment_attrs
         expect(assigns(:user)).to eq(user)
       end
@@ -36,12 +38,9 @@ describe CommentsController do
     end
 
     describe "with invalid params" do
-      before(:each) do
-        # Trigger the behavior that occurs when invalid params are submitted
-        put :create, user_id: user, comment: invalid_comment_attrs
-      end
-
       it "re-renders the 'new' template" do
+        allow(controller).to receive(:current_user).and_return(user)
+        put :create, user_id: user, comment: invalid_comment_attrs
         expect(response).to render_template("users/show")
       end
     end
