@@ -16,10 +16,11 @@ Pf::Application.routes.draw do
 
   resources :categories, only: [:show]
   get '/admin', to: 'admin#index'
+  get 'features', to: 'features#index'
 
   namespace :admin do
     resources :categories, except: [:show]
-    resources :features, except: [:new]
+    resources :features, except: [:new, :index]
     get 'features/new/submission/:id', to: 'features#new', as: :new_feature
   end
 

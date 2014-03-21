@@ -1,0 +1,9 @@
+%tr
+  %td= image_tag("http://lorempixel.com/90/90/nature/#{rand(8)}")
+  %td= feature.submission.title
+  %td= feature.description
+  %td= feature.author
+  - if admin?
+    %td
+      %ul.manage-nav.ss-icon
+        %li= link_to 'Edit', edit_admin_feature_path(feature)

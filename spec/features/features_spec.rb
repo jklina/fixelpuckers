@@ -2,6 +2,7 @@ require 'spec_helper'
 
 describe "Features" do
   let(:admin) { FactoryGirl.create(:admin) }
+  let(:feature) { FactoryGirl.create(:feature) }
 
   describe "viewing a feature" do
     it "let's us view the homepage if there are no features" do
@@ -34,7 +35,6 @@ describe "Features" do
 
   describe "editing" do
     it "changes an existing feature" do
-      feature = FactoryGirl.create(:feature)
       visit(edit_admin_feature_path(feature, as: admin.id))
       expect(find_field('feature_description').value).
         to eq(feature.description)
@@ -44,6 +44,15 @@ describe "Features" do
       expect(page).to have_content("Feature was successfully updated.")
       feature.reload
       expect(feature.description).to eq("Great sub")
+    end
+  end
+
+  describe "viewing" do
+    it "lets any user view a list of submissions that were featured" do
+      feature
+      visit(features_path)
+      expect(page).to have_content(feature.description)
+      expect(page).to have_content(feature.author)
     end
   end
 end

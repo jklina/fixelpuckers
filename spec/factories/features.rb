@@ -3,7 +3,7 @@
 FactoryGirl.define do
   factory :feature do
     description "#{Faker::Lorem.paragraph}"
-
     association :author, factory: :user
+    submission
   end
 end
