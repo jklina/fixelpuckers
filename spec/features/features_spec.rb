@@ -55,4 +55,13 @@ describe "Features" do
       expect(page).to have_content(feature.author)
     end
   end
+
+  describe "deleting" do
+    it "let's an admin delete a feature" do
+      feature
+      visit(features_path(as: admin.id))
+      click_link("delete")
+      expect(Feature.last).to be_nil
+    end
+  end
 end

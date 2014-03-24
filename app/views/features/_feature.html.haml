@@ -7,3 +7,5 @@
     %td
       %ul.manage-nav.ss-icon
         %li= link_to 'Edit', edit_admin_feature_path(feature)
+        %li= link_to 'Delete', admin_feature_path(feature), id: "delete", method: :delete, data: { confirm: "Are you sure you want to delete this feature?" }
+

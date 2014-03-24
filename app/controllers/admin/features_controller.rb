@@ -1,6 +1,6 @@
 class Admin::FeaturesController < ApplicationController
   before_action :authorize_feature
-  before_action :find_feature, only: [:edit, :update]
+  before_action :find_feature, only: [:edit, :update, :destroy]
 
   def new
     @submission = Submission.friendly.find(params[:id])
@@ -25,6 +25,14 @@ class Admin::FeaturesController < ApplicationController
       redirect_to root_path, notice: 'Feature was successfully updated.'
     else
       render action: "edit"
+    end
+  end
+
+  def destroy
+    if @feature.destroy
+      redirect_to features_path, notice: 'Feature was successfully destroyed.'
+    else
+      redirect_to features_path, notice: 'Feature was not destroyed.'
     end
   end
 

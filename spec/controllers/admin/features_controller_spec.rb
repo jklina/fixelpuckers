@@ -122,4 +122,40 @@ describe Admin::FeaturesController do
       end
     end
   end
+
+  describe "GET 'delete'" do
+    context "when deleted successfully" do
+      before(:each) do
+        allow(controller).to receive(:authorize)
+        allow(feature).to receive(:destroy).and_return(true)
+        allow(Feature).to receive(:find).and_return(feature)
+        delete :destroy, id: feature
+      end
+
+      it "finds the feature" do
+        expect(assigns(:feature)).to eq(feature)
+      end
+     
+      it "deletes the feature" do
+        expect(feature).to have_received(:destroy)
+      end
+
+      it "redirects to the features path" do
+        expect(response).to redirect_to(features_path)
+      end
+    end
+
+    context "when the feature isn't deleted" do
+      before(:each) do
+        allow(controller).to receive(:authorize)
+        allow(feature).to receive(:destroy).and_return(false)
+        allow(Feature).to receive(:find).and_return(feature)
+        delete :destroy, id: feature
+      end
+
+      it "redirects to the features path" do
+        expect(response).to redirect_to(features_path)
+      end
+    end
+  end
 end
