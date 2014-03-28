@@ -1,0 +1,20 @@
+%section.submissions
+  .wrapper
+    .heading
+      %h1 
+        Manage News Articles
+        %span.action= link_to "Add News Article", new_admin_news_article_path
+    %table.categories
+      %thead
+        %th Title
+        %th Story
+        %th Manage
+      %tbody
+        - @news_articles.each do |news_article|
+          %tr
+            %td= news_article.title
+            %td= news_article.story
+            %td
+              %ul.manage-nav.ss-icon
+                %li= link_to 'Edit', edit_admin_news_article_path(news_article)
+                %li= link_to 'Delete', admin_news_article_path(news_article), id: "delete", method: :delete, data: { confirm: "Are you sure you want to delete this news article?" }

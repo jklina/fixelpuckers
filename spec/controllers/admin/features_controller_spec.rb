@@ -1,17 +1,19 @@
 require 'spec_helper'
 
 describe Admin::FeaturesController do
-  let(:feature) { stub_model(Feature) }
-  let(:user) { double("user") }
+  let(:feature) { FactoryGirl.create(:feature) }
+  let(:author) { FactoryGirl.create(:user) }
   let(:submission) { stub_model(Submission) }
-  let(:feature_attrs) { FactoryGirl.attributes_for(:feature, submission_id: submission.id.to_s) }
+  let(:feature_attrs) { FactoryGirl.attributes_for(:feature, description: "hi", submission_id: submission.id.to_s) }
+
+  before(:each) do
+    allow(controller).to receive(:current_user).and_return(author)
+    allow(controller).to receive(:authorize)
+  end
 
   describe "GET new" do
     before(:each) do
       Submission.stub_chain(:friendly, :find).and_return(submission)
-      allow(controller).to receive(:current_user).
-        and_return(FactoryGirl.create(:user))
-      allow(controller).to receive(:authorize)
       get :new, id: submission
     end
 
@@ -33,23 +35,13 @@ describe Admin::FeaturesController do
   describe "POST create" do
     describe "with valid params" do
       before(:each) do
-        allow(controller).to receive(:authorize)
-        allow(controller).to receive(:current_user).and_return(user)
-        allow(Feature).to receive(:new).and_return(feature)
-        allow(feature).to receive(:save).and_return(true)
-        allow(feature).to receive(:author=)
         post :create, feature: feature_attrs
       end
 
       it { authorizes_the_action }
 
-      it "creates a new Feature" do
-        expect(Feature).
-          to have_received(:new).with(feature_attrs.stringify_keys)
-      end
-
-      it "assigns a newly created feature as feature" do
-        expect(assigns(:feature)).to eq(feature)
+      it "creates the new feature" do
+        expect(assigns(:feature)).to be_persisted
       end
 
       it "redirects to the categories page" do
@@ -59,11 +51,7 @@ describe Admin::FeaturesController do
 
     describe "with invalid params" do
       it "re-renders the 'new' template" do
-        allow(controller).to receive(:authorize)
-        allow(Feature).to receive(:new).and_return(feature)
-        allow(feature).to receive(:save).and_return(false)
-        allow(feature).to receive(:author=)
-        post :create, feature: feature_attrs
+        post :create, feature: {feature:{}}
         expect(response).to render_template("new")
       end
     end
@@ -71,24 +59,20 @@ describe Admin::FeaturesController do
 
   describe "GET edit" do
     before(:each) do
-      allow(controller).to receive(:authorize)
-      allow(Feature).to receive(:find).and_return(feature)
+      feature
       get :edit, id: feature
     end
 
     it { authorizes_the_action }
 
     it "finds the given feature" do
-      expect(Feature).to have_received(:find).with(feature.id.to_s)
+      expect(assigns(:feature)).to eq(feature)
     end
   end
 
   describe "PATCH 'update'" do
     context "when updated successfully" do
       before(:each) do
-        allow(controller).to receive(:authorize)
-        allow(feature).to receive(:update_attributes).and_return(true)
-        allow(Feature).to receive(:find).and_return(feature)
         patch :update, id: feature, feature: feature_attrs
       end
 
@@ -99,9 +83,8 @@ describe Admin::FeaturesController do
       end
 
       it "updates the attributes with the given attributes" do
-        expect(feature).
-          to have_received(:update_attributes).
-          with(feature_attrs.stringify_keys)
+        expect(assigns(:feature).description).
+          to eq(feature_attrs[:description])
       end
 
       it "redirects to the categories path" do
@@ -112,13 +95,11 @@ describe Admin::FeaturesController do
     context "when update fails" do
       before(:each) do
         allow(controller).to receive(:authorize)
-        allow(feature).to receive(:update_attributes).and_return(false)
-        allow(Feature).to receive(:find).and_return(feature)
-        patch :update, id: feature, feature: feature_attrs
+        patch :update, id: feature, feature: {description: ''}
       end
 
       it "renders the edit template" do
-        expect(response).to render_template("edit")
+        expect(response).to render_template(:edit)
       end
     end
   end
@@ -126,9 +107,6 @@ describe Admin::FeaturesController do
   describe "GET 'delete'" do
     context "when deleted successfully" do
       before(:each) do
-        allow(controller).to receive(:authorize)
-        allow(feature).to receive(:destroy).and_return(true)
-        allow(Feature).to receive(:find).and_return(feature)
         delete :destroy, id: feature
       end
 
@@ -137,7 +115,7 @@ describe Admin::FeaturesController do
       end
      
       it "deletes the feature" do
-        expect(feature).to have_received(:destroy)
+        expect(Feature.all).to be_empty
       end
 
       it "redirects to the features path" do
@@ -149,7 +127,6 @@ describe Admin::FeaturesController do
       before(:each) do
         allow(controller).to receive(:authorize)
         allow(feature).to receive(:destroy).and_return(false)
-        allow(Feature).to receive(:find).and_return(feature)
         delete :destroy, id: feature
       end
 

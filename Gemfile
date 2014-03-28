@@ -19,6 +19,7 @@ gem 'sass-rails'
 gem 'coffee-rails'
 gem 'uglifier'
 gem 'pundit'
+gem 'inherited_resources'
 gem 'acts_as_votable', '~> 0.8.0'
 
 group :development, :test do

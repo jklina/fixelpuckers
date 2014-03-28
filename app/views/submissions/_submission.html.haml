@@ -2,7 +2,7 @@
   %li.thumb{:data => {:role => 'submission-preview'}}
     .thumb--img-wrap
       = link_to submission_path(submission_presenter) do
-        = image_tag("http://lorempixel.com/360/225/nature/#{rand(8)}", :class => 'thumb--img')
+        = image_tag("http://lorempixel.com/#{rand(260..360)}/#{rand(100..225)}/nature/#{rand(8)}", :class => 'thumb--img')
         .thumb--img-shadow
     .thumb--identity
       %p.thumb--title= link_to(submission_presenter.title, submission_path(submission))
@@ -11,4 +11,3 @@
         = link_to(submission_presenter.author.username, user_path(submission_presenter.author))
     .thumb--stats
       %span.thumb--boxplot= submission_presenter.boxplot_ratings
-      %span.thumb--average-rating= submission_presenter.average_rating

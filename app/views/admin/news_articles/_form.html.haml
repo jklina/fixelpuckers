@@ -1,0 +1,9 @@
+= simple_form_for([:admin, @news_article]) do |f|
+  = f.error_notification
+
+  .form-inputs
+    = f.input :title
+    = f.input :story
+
+  .form-actions
+    = f.button :submit

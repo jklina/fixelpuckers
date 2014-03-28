@@ -20,7 +20,8 @@ Pf::Application.routes.draw do
 
   namespace :admin do
     resources :categories, except: [:show]
-    resources :features, except: [:new, :index]
+    resources :news_articles, except: [:show]
+    resources :features, except: [:new, :index, :show]
     get 'features/new/submission/:id', to: 'features#new', as: :new_feature
   end
 

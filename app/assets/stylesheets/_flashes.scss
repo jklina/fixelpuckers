@@ -5,7 +5,7 @@
 ///////////////////////////////////////////////////////////////////////////////
 
 /* Success, error & notice boxes for messages and errors. */
-div.error, div.notice, div.success, #flash_failure, #flash_success, #flash_notice {
+div.error, div.notice, div.success, div.news, #flash_failure, #flash_success, #flash_notice, #flash_news {
   /*margin-bottom: .75em;*/
   /*margin-bottom: .75rem;*/
   padding: .75em;
@@ -41,4 +41,14 @@ div.success, #flash_success {
 
 div.success a, #flash_success a {
   color: darken($success-color, 50%);
+}
+
+div.news, #flash_news {
+  background: $news-color;
+  color: darken($news-color, 50%);
+  border-color: darken($news-color, 20%);
+}
+
+div.news a, #flash_news a {
+  color: darken($news-color, 50%);
 }
