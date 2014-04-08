@@ -1,7 +1,7 @@
 source 'https://rubygems.org'
-ruby '2.1.0'
+ruby '2.1.1'
 
-gem 'rails', '4.0.2'
+gem 'rails', '4.0.3'
 gem 'pg'
 gem 'jquery-rails'
 gem "thin"
@@ -15,7 +15,7 @@ gem "bourbon"
 gem "neat"
 gem "high_voltage"
 gem "friendly_id"
-gem 'sass-rails'
+gem 'sass-rails', '~> 4.0.0'
 gem 'coffee-rails'
 gem 'uglifier'
 gem 'pundit'

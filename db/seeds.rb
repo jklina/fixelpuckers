@@ -28,7 +28,7 @@ user2.add_role :VIP
 12.times.each do |n|
   submission = Submission.new :title => "Sub#{n}",
                               :description => 'This is a submission'
-  submission.user = user
+  submission.author = user
   submission.save!
   puts 'New submission created: ' << submission.title
 end
