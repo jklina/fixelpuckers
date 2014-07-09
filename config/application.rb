@@ -28,5 +28,8 @@ module Pf
     config.assets.version = '1.0'
 
     config.i18n.enforce_available_locales = true
+
+    # For Heroku
+    config.assets.initialize_on_precompile = false
   end
 end
