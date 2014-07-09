@@ -21,6 +21,7 @@ gem 'uglifier'
 gem 'pundit'
 gem 'inherited_resources'
 gem 'acts_as_votable', '~> 0.8.0'
+gem 'rails_12factor'
 
 group :development, :test do
   gem "haml-rails"
