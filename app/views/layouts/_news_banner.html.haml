@@ -1,0 +1,3 @@
+- if @current_news_article.present?
+  = content_tag :div, :id => "flash_news" do
+    .wrapper= link_to(@current_news_article.title, @current_news_article)

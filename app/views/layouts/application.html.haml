@@ -12,6 +12,7 @@
         = yield(:head)
   %body{:class => "#{controller_name} #{action_name}"}
     = render 'layouts/messages'
+    = render 'layouts/news_banner'
     %header
       .wrapper
         = render 'layouts/navigation'

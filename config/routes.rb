@@ -15,6 +15,8 @@ Pf::Application.routes.draw do
   post 'votes/down/:type/:id', to: 'votes#down', as: :vote_down
 
   resources :categories, only: [:show]
+  resources :news_articles, only: [:show, :index]
+
   get '/admin', to: 'admin#index'
   get 'features', to: 'features#index'
 
