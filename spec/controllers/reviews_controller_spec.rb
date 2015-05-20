@@ -1,20 +1,17 @@
 require 'spec_helper'
 
-describe ReviewsController do
-  let(:user) { stub_model(User) }
-  let(:review) { stub_model(Review) }
-  let(:submission) { stub_model(Submission) }
-  let(:review_attrs) { {"comment"=>"MyText", "rating"=>"1"} }
+describe ReviewsController, type: :controller do
+  let(:user) { FactoryGirl.create(:user) }
+  let(:review) { FactoryGirl.create(:review) }
+  let(:submission) { FactoryGirl.create(:submission, id: 1) }
+  let(:review_attrs) { {"comment"=>"Whoa", "rating"=>"100"} }
+  let(:invalid_review_attrs) { {"comment"=>"", "rating"=>""} }
 
   describe "POST create" do
     describe "with valid params" do
       before(:each) do
         allow(controller).to receive(:authorize)
         allow(controller).to receive(:current_user).and_return(user)
-        review.stub(:save).and_return(true)
-        submission.stub(:update_average_rating)
-        Review.stub(:new).and_return(review)
-        Submission.stub_chain(:friendly, :find).and_return(submission)
         post :create, submission_id: submission, id: review,
           review: review_attrs
       end
@@ -24,15 +21,13 @@ describe ReviewsController do
       end
 
       it "creates a new Review from the given submission" do
-        expect(Review).to have_received(:new).with(review_attrs)
-      end
-
-      it "saves the new review" do
-        expect(review).to have_received(:save)
+        expect(Review.last.comment).to eq('Whoa')
+        expect(Review.last.rating).to eq(100)
       end
 
       it "updates the submission rankings" do
-        expect(submission).to have_received(:update_average_rating)
+        submission.reload
+        expect(submission.average_rating).to eq(100)
       end
 
       it "redirects to the submission page" do
@@ -48,15 +43,12 @@ describe ReviewsController do
       before(:each) do
         allow(controller).to receive(:authorize)
         allow(controller).to receive(:current_user).and_return(user)
-        allow(review).to receive(:save).and_return(false)
-        allow(Review).to receive(:new).and_return(review)
-        Submission.stub_chain(:friendly, :find).and_return(submission)
         post :create, submission_id: submission, id: review,
-          review: review_attrs
+          review: invalid_review_attrs
       end
 
       it "creates a new Review from the given submission" do
-        expect(Review).to have_received(:new).with(review_attrs)
+        expect(assigns(:review)).to be_a_new(Review)
       end
 
       it "re-renders the 'new' template" do
@@ -68,11 +60,9 @@ describe ReviewsController do
   describe "PATCH update" do
     context "when updated successfully" do
       before(:each) do
-        controller.stub(:authorize)
-        review.stub(:update).and_return(true)
-        submission.stub(:update_average_rating)
-        Review.stub(:find).and_return(review)
-        Submission.stub_chain(:friendly, :find).and_return(submission)
+        allow(controller).to receive(:authorize)
+        review.submission = submission
+        review.save!
         patch :update, submission_id: submission, id: review,
           review: review_attrs
       end
@@ -84,11 +74,14 @@ describe ReviewsController do
       end
 
       it "updates the review" do
-        expect(review).to have_received(:update).with(review_attrs)
+        review.reload
+        expect(review.comment).to eq('Whoa')
+        expect(review.rating).to eq(100)
       end
 
       it "updates the submission rankings" do
-        expect(submission).to have_received(:update_average_rating)
+        submission.reload
+        expect(submission.average_rating).to eq(100)
       end
 
       it "redirects to the submission page" do
@@ -102,11 +95,12 @@ describe ReviewsController do
 
     describe "with invalid params" do
       before(:each) do
-        controller.stub(:authorize)
-        review.stub(:update).and_return(false)
-        submission.stub(:update_average_rating)
-        Review.stub(:find).and_return(review)
-        Submission.stub_chain(:friendly, :find).and_return(submission)
+        allow(controller).to receive(:authorize)
+        allow(review).to receive(:update).and_return(false)
+        allow(submission).to receive(:update_average_rating)
+        allow(Review).to receive(:find).and_return(review)
+        allow(Submission).
+          to receive_message_chain(:friendly, :find).and_return(submission)
         patch :update, submission_id: submission, id: review, review: review_attrs
       end
 
@@ -123,11 +117,12 @@ describe ReviewsController do
   describe "DELETE destroy" do
     context "when the user owns the review they're trying to delete" do
       before(:each) do
-        controller.stub(:authorize)
-        review.stub(:destroy)
-        submission.stub(:update_average_rating)
-        Review.stub(:find).and_return(review)
-        Submission.stub_chain(:friendly, :find).and_return(submission)
+        allow(controller).to receive(:authorize)
+        allow(review).to receive(:destroy)
+        allow(submission).to receive(:update_average_rating)
+        allow(Review).to receive(:find).and_return(review)
+        allow(Submission).
+          to receive_message_chain(:friendly, :find).and_return(submission)
         get :destroy, submission_id: submission, id: review
       end
 

@@ -1,10 +1,10 @@
 require 'spec_helper'
 
-describe Admin::FeaturesController do
-  let(:feature) { FactoryGirl.create(:feature) }
-  let(:author) { FactoryGirl.create(:user) }
-  let(:submission) { stub_model(Submission) }
-  let(:feature_attrs) { FactoryGirl.attributes_for(:feature, description: "hi", submission_id: submission.id.to_s) }
+describe Admin::FeaturesController, type: :controller do
+  let(:feature) { create(:feature) }
+  let(:author) { create(:user) }
+  let(:submission) { create(:submission) }
+  let(:feature_attrs) { attributes_for(:feature, description: "hi", submission_id: submission.id.to_s) }
 
   before(:each) do
     allow(controller).to receive(:current_user).and_return(author)
@@ -13,7 +13,7 @@ describe Admin::FeaturesController do
 
   describe "GET new" do
     before(:each) do
-      Submission.stub_chain(:friendly, :find).and_return(submission)
+      allow(controller).to receive(:authorize)
       get :new, id: submission
     end
 

@@ -1,13 +1,13 @@
 require 'spec_helper'
 
-describe HomeController do
-
+describe HomeController, type: :controller do
   describe "GET 'index'" do
     let(:submissions) { double }
     let(:feature) { double }
 
     before(:each) do
-      Submission.stub_chain(:filtered_trash_for, :page, :per).
+      allow(Submission).
+        to receive_message_chain(:filtered_trash_for, :page, :per).
         and_return(submissions)
       allow(Feature).to receive(:first_or_initialize).and_return(feature)
       get :index

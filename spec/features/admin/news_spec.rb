@@ -1,8 +1,8 @@
 require 'spec_helper'
 
-describe "News Articles" do
-  let(:admin) { FactoryGirl.create(:admin) }
-  let(:news_article) { FactoryGirl.create(:news_article) }
+describe "News Articles", type: :feature do
+  let(:admin) { create(:admin) }
+  let(:news_article) { create(:news_article) }
 
   it "an admin can view all the news articles in a table" do
     news_article

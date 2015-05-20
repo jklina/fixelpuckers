@@ -1,13 +1,18 @@
 require 'spec_helper'
 
-describe CategoriesController do
+describe CategoriesController, type: :controller do
   describe "GET show" do
     let(:category) { double("category") }
     let(:submissions) { double("submissions") }
 
     before(:each) do
-      Category.stub_chain(:friendly, :find).and_return(category)
-      category.stub_chain(:submissions, :filtered_trash_for, :page, :per).
+      allow(Category).
+        to receive_message_chain(:friendly, :find).and_return(category)
+      allow(category).
+        to receive_message_chain(:submissions,
+                                 :filtered_trash_for,
+                                 :page,
+                                 :per).
         and_return(submissions)
       get :show, id: category
     end

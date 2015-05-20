@@ -7,7 +7,7 @@ describe Submission do
   it { should validate_presence_of (:title) }
   it { should validate_presence_of (:description) }
   it { should validate_presence_of (:user_id) }
-  it { should ensure_length_of(:title).is_at_most(120) }
+  it { should validate_length_of(:title).is_at_most(120) }
   it { should validate_numericality_of(:views).only_integer }
   it { should validate_numericality_of(:downloads).only_integer }
   it { should validate_numericality_of(:average_rating) }
@@ -43,7 +43,9 @@ describe Submission do
       @user = double(id: 3)
       @review = double
       @submission = Submission.new
-      @submission.stub_chain(:reviews, :where, :first_or_initialize).and_return(@review)
+      allow(@submission).
+        to receive_message_chain(:reviews, :where, :first_or_initialize).
+        and_return(@review)
     end
 
     it 'attempts to find a review' do
@@ -87,12 +89,12 @@ describe Submission do
     context "when a submission is trashed" do
       it "untrashes the submission and save it" do
         trashed_submission.toggle_trash!
-        expect(trashed_submission.trashed?).to be_false
+        expect(trashed_submission.trashed?).to be_falsey
       end
 
       it "trashes an untrashed submission" do
         submission.toggle_trash!
-        expect(submission.trashed?).to be_true
+        expect(submission.trashed?).to be_truthy
       end
     end
   end

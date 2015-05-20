@@ -1,7 +1,7 @@
 require 'spec_helper'
 
-feature "News Articles" do
-  let(:news_article) { FactoryGirl.create(:news_article) }
+feature "News Articles", type: :feature do
+  let(:news_article) { create(:news_article) }
   feature "viewing a news article" do
     scenario "the headline appears at the top of the layout" do
       news_article

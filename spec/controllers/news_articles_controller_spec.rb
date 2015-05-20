@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe NewsArticlesController do
+describe NewsArticlesController, type: :controller do
   let(:news_article) { FactoryGirl.create(:news_article) }
 
   describe "GET index" do

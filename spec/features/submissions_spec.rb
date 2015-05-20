@@ -1,7 +1,7 @@
 require 'spec_helper'
 
-describe "Viewing a submission" do
-  let(:submission) { FactoryGirl.create(:submission) }
+describe "Viewing a submission", type: :feature do
+  let(:submission) { create(:submission) }
 
   context "as a guest" do
     before (:each) do
@@ -93,11 +93,11 @@ describe "Viewing a submission" do
 
     context "when there are reviews" do 
       before (:each) do
-        submission = FactoryGirl.create(:submission)
+        submission = create(:submission)
       end
 
       it "lists reviews" do
-        review = FactoryGirl.create(:review)
+        review = create(:review)
         submission.reviews << review
         visit submission_path(submission)
         expect(page).to have_content(review.comment)
@@ -107,8 +107,8 @@ describe "Viewing a submission" do
   end
 end
 
-describe "Creating a submission" do
-  let(:author) { FactoryGirl.create(:user) }
+describe "Creating a submission", type: :feature do
+  let(:author) { create(:user) }
 
   it "let's a logged in user create a submission" do
     visit(new_submission_path(as: author.id))
@@ -122,8 +122,8 @@ describe "Creating a submission" do
   end
 end
 
-describe "Trashing a submission" do
-  let(:submission) { FactoryGirl.create(:submission) }
+describe "Trashing a submission", type: :feature do
+  let(:submission) { create(:submission) }
   context "when the current user is the author" do
     before(:each) do
       visit(submission_path(submission, as: submission.author.id))
@@ -136,24 +136,24 @@ describe "Trashing a submission" do
       click_link("Trash")
       expect(page).to have_content("This submission is trashed.")
       submission.reload
-      expect(submission.trashed?).to be_true
+      expect(submission.trashed?).to be_truthy
       click_link("Un-Trash")
       expect(page).to have_content("This submission is un-trashed.")
       submission.reload
-      expect(submission.trashed?).to be_false
+      expect(submission.trashed?).to be_falsey
     end
   end
 
   context "when the current user isn't the author" do
     it "is available on author's submission" do
-      visit(submission_path(submission, as: FactoryGirl.create(:user).id))
+      visit(submission_path(submission, as: create(:user).id))
       expect(page).to_not have_content("Trash")
     end
   end
 end
 
-describe "Editing a submission" do
-  let(:submission) { FactoryGirl.create(:submission) }
+describe "Editing a submission", type: :feature do
+  let(:submission) { create(:submission) }
 
   context "when the current user is the author" do
     it "is available" do
@@ -162,7 +162,7 @@ describe "Editing a submission" do
     end
 
     it "updates the submission" do
-      category = FactoryGirl.create(:category)
+      category = create(:category)
       visit(edit_submission_path(submission, as: submission.author.id))
       expect(find_field('submission_title').value).to eq(submission.title)
       expect(find_field('submission_description').value).
@@ -182,7 +182,7 @@ describe "Editing a submission" do
 
   context "when the current user isn't the author" do
     it "isn't available" do
-      visit(submission_path(submission, as: FactoryGirl.create(:user).id))
+      visit(submission_path(submission, as: create(:user).id))
       expect(page).to_not have_content("Edit")
     end
   end

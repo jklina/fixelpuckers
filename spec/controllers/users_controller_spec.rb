@@ -1,16 +1,13 @@
 require 'spec_helper'
 
-describe UsersController do
-  let(:user) { stub_model(User) }
-  let(:author) { stub_model(User) }
+describe UsersController, type: :controller do
+  let(:user) { create(:user) }
+  let(:author) { create(:user) }
 
   describe "GET 'show'" do
-    before(:each) { User.stub_chain(:friendly, :find).and_return(user) }
     context "if current_user is present" do
       before(:each) do
-        allow(user).to receive(:find_or_build_comment_from).and_return(true)
-        allow(controller).to receive(:signed_in?).and_return(true)
-        allow(controller).to receive(:current_user).and_return(author)
+        sign_in_as(user)
         get :show, id: user
       end
 
@@ -23,28 +20,26 @@ describe UsersController do
       end
 
       it "finds or creates a comment and assigns it to @comment" do
-        expect(user).to have_received(:find_or_build_comment_from).with(author)
+        expect(assigns(:comment).author).to eq(user)
       end
     end
 
     context "if current_user is not present" do
       it "does not find or creates a comment and assign it to @comment" do
-        expect(user).not_to receive(:find_or_build_comment_from)
         get :show, id: user
+        expect(assigns(:comment)).to be_nil
       end
     end
   end
 
   describe "GET 'edit'" do
     before(:each) do
-      controller.stub(:authorize)
-      controller.stub(:current_user).and_return(user)
+      sign_in_as(user)
+      allow(controller).to receive(:authorize)
       get :edit, id: user
     end
 
-    it "authorizes the action" do
-      expect(controller).to have_received(:authorize).with(user)
-    end
+    it { authorizes_the_action(with: user) }
 
     it "assigns @user to the current_user" do
       expect(assigns(:user)).to eq(user)
@@ -53,26 +48,26 @@ describe UsersController do
 
   describe "PATCH 'update'" do
     let(:user_attrs) do
-      { "location" => "Philalephia", "domain" => "www.w.com" }
+      { "location" => "Philadelphia", "domain" => "www.w.com" }
     end
+
     context "when updated successfully" do
       before(:each) do
-        controller.stub(:authorize)
-        user.stub(:update).and_return(true)
-        controller.stub(:current_user).and_return(user)
+        allow(controller).to receive(:authorize)
+        sign_in_as(user)
         patch :update, id: user, user: user_attrs
       end
 
-      it "authorizes the action" do
-        expect(controller).to have_received(:authorize).with(user)
-      end
+      it { authorizes_the_action(with: user) }
 
       it "assigns @user to the current_user" do
         expect(assigns(:user)).to eq(user)
       end
 
       it "updates the user" do
-        expect(user).to have_received(:update).with(user_attrs)
+        user.reload
+        expect(user.location).to eq('Philadelphia')
+        expect(user.domain).to eq('www.w.com')
       end
 
       it "redirects to the user page" do
@@ -86,10 +81,9 @@ describe UsersController do
 
     context "when update is unsuccessful" do
       before(:each) do
-        controller.stub(:authorize)
-        user.stub(:update).and_return(false)
-        controller.stub(:current_user).and_return(user)
-        patch :update, id: user, user: user_attrs
+        allow(controller).to receive(:authorize)
+        sign_in_as(user)
+        patch :update, id: user, user: { 'email' => '' }
       end
 
       it "renders the edit action" do

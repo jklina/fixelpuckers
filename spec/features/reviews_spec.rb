@@ -1,13 +1,13 @@
 require 'spec_helper'
 
-describe "Reviews" do
-  let(:user) { FactoryGirl.create(:user) }
-  let(:submission) { FactoryGirl.create(:submission) }
+describe "Reviews", type: :feature do
+  let(:user) { create(:user) }
+  let(:submission) { create(:submission) }
   let(:paragraph) { Faker::Lorem.paragraph }
 
   describe "Viewing reviews" do
     it "shows reviews on the submission page" do
-      review = FactoryGirl.create(:review, submission: submission)
+      review = create(:review, submission: submission)
       visit submission_path(submission)
       expect(page).to have_content(review.comment)
     end
@@ -79,7 +79,7 @@ describe "Reviews" do
 
       context "and an existing review is updated" do
         before(:each) do
-          @review = FactoryGirl.create(:review, author: user)
+          @review = create(:review, author: user)
           submission.reviews << @review
           visit submission_path(submission)
         end

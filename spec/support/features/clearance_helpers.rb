@@ -24,7 +24,7 @@ module Features
 
     def user_should_be_signed_in
       visit root_path
-      page.should have_content "Sign Out"
+      expect(page).to have_content "Sign Out"
     end
 
     def sign_out
@@ -32,7 +32,7 @@ module Features
     end
 
     def user_should_be_signed_out
-      page.should have_content "Login"
+      expect(page).to have_content "Login"
     end
 
     def user_with_reset_password

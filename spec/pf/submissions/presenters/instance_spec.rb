@@ -73,7 +73,8 @@ describe Pf::Submissions::Presenters::Instance do
     it "displays the number of reviews" do
       reviews_count = rand(0..100)
       submission = double
-      submission.stub_chain(:reviews, :count).and_return(reviews_count)
+      allow(submission).
+        to receive_message_chain(:reviews, :count).and_return(reviews_count)
       presenter = Pf::Submissions::Presenters::Instance.for(submission)
       expect(presenter.number_of_reviews).
         to eq("<span id=\"review-count\">#{reviews_count}</span> Reviews")

@@ -1,9 +1,9 @@
 require 'spec_helper'
 
-describe "Comments" do
-  let(:comment) { FactoryGirl.create(:comment, author: author, user: user) }
-  let(:user) { FactoryGirl.create(:user) }
-  let(:author) { FactoryGirl.create(:user) }
+describe "Comments", type: :feature do
+  let(:comment) { create(:comment, author: author, user: user) }
+  let(:user) { create(:user) }
+  let(:author) { create(:user) }
   let(:paragraph) { Faker::Lorem.paragraph }
 
   describe "Viewing Comments" do

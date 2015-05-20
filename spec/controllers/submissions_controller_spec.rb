@@ -1,16 +1,12 @@
 require 'spec_helper'
 
-describe SubmissionsController do
-  let(:submission) { stub_model(Submission, id: 'slugged-title') }
-  let(:submission_attrs) { FactoryGirl.attributes_for(:submission, title: 'hi')}
+describe SubmissionsController, type: :controller do
+  let(:author) { create(:user) }
+  let(:submission) { create(:submission, author: author) }
+  let(:submission_attrs) { attributes_for(:submission, title: 'hi')}
+  let(:invalid_submission_attrs) { attributes_for(:submission, title: '')}
 
   describe "GET show" do
-    before(:each) do
-      allow(submission).to receive(:increment_views!)
-      Submission.stub_chain(:filtered_trash_for, :friendly, :find).
-        and_return(submission)
-    end
-
     it "assigns the requested submission as submission" do
       get :show, id: submission
       expect(assigns(:submission)).to eq(submission)
@@ -18,19 +14,19 @@ describe SubmissionsController do
 
     it "increments the submission's views" do
       get :show, id: submission
-      expect(submission).to have_received(:increment_views!)
+      submission.reload
+      expect(submission.views).to eq(1)
     end
 
     context "if current_user is present" do
       it "finds or creates a review and assigns it to @review" do
-        review = double
-        user = FactoryGirl.create(:user)
-        allow(submission).to receive(:find_or_build_review_from).
-          and_return(review)
-        allow(controller).to receive(:signed_in?).and_return(true)
-        allow(controller).to receive(:current_user).and_return(user)
+        user = create(:user)
+
+        sign_in_as(user)
         get :show, id: submission
-        expect(assigns(:review)).to eq(review)
+
+        expect(assigns(:review)).to be_a_new(Review)
+        expect(assigns(:review).author).to eq(user)
       end
     end
 
@@ -60,7 +56,6 @@ describe SubmissionsController do
   describe "GET edit" do
     before(:each) do
       allow(controller).to receive(:authorize)
-      Submission.stub_chain(:friendly, :find).and_return(submission)
       get :edit, id: submission
     end
 
@@ -74,42 +69,32 @@ describe SubmissionsController do
   describe "POST create" do
     describe "with valid params" do
       before(:each) do
-        @user = FactoryGirl.create(:user)
+        sign_in_as(author)
         allow(controller).to receive(:authorize)
-        allow(controller).to receive(:current_user).and_return(@user)
-        allow(submission).to receive(:author=)
-        allow(Submission).to receive(:new).and_return(submission)
-        allow(submission).to receive(:save).and_return(true)
         post :create, submission: submission_attrs
+        @submission = Submission.last
       end
 
       it { authorizes_the_action }
 
-      it "creates a new Submission" do
-        expect(Submission).
-          to have_received(:new).with(submission_attrs.stringify_keys)
-      end
-
       it "assigns a newly created submission as submission" do
-        expect(assigns(:submission)).to eq(submission)
+        expect(assigns(:submission)).to eq(@submission)
       end
 
       it 'assigns the submission user to the current user' do
-        expect(submission).to have_received(:author=).with(@user)
+        expect(@submission.author).to eq(author)
       end
 
       it "redirects to the created submission" do
-        expect(response).to redirect_to(submission)
+        expect(response).to redirect_to(@submission)
       end
     end
 
     describe "with invalid params" do
       before(:each) do
-        @user = FactoryGirl.create(:user)
+        sign_in_as(author)
         allow(controller).to receive(:authorize)
-        allow(submission).to receive(:save).and_return(false)
-        allow(controller).to receive(:current_user).and_return(@user)
-        post :create, submission: FactoryGirl.attributes_for(:invalid_submission)
+        post :create, submission: invalid_submission_attrs
       end
 
       it "assigns a newly created but unsaved submission as submission" do
@@ -125,8 +110,7 @@ describe SubmissionsController do
   describe "PATCH trash" do
     context "when trashed successfully" do
       before(:each) do
-        Submission.stub_chain(:friendly, :find).and_return(submission)
-        allow(submission).to receive(:toggle_trash!).and_return(true)
+        sign_in_as(author)
         allow(controller).to receive(:authorize)
         patch :trash, id: submission
       end
@@ -134,7 +118,8 @@ describe SubmissionsController do
       it { authorizes_the_action(with: submission) }
 
       it "toggles the submissions trash status" do
-        expect(submission).to have_received(:toggle_trash!)
+        submission.reload
+        expect(submission.trashed?).to be_truthy
       end
 
       it "redirects to the submission path" do
@@ -142,20 +127,23 @@ describe SubmissionsController do
       end
 
       it "flashes a notice letting the user know the sub was trashed" do
-        expect(flash[:notice]).to match(/^This submission is un-trashed/)
+        expect(flash[:notice]).to match(/^This submission is trashed/)
       end
     end
 
     context "when trashed unsuccessfully" do
       before(:each) do
-        allow(controller).to receive(:authorize).and_return(true)
-        Submission.stub_chain(:friendly, :find).and_return(submission)
-        allow(submission).to receive(:toggle_trash!).and_return(false)
-        patch :trash, id: submission
+        @submission = double("submission")
+        allow(Submission).to receive_message_chain(:friendly, :find) do
+          @submission
+        end
+        allow(controller).to receive(:authorize)
+        allow(@submission).to receive(:toggle_trash!).and_return(false)
+        patch :trash, id: 1
       end
 
       it "toggles the submissions trash status" do
-        expect(submission).to have_received(:toggle_trash!)
+        expect(@submission).to have_received(:toggle_trash!)
       end
 
       it "redirects to the submission path" do
@@ -167,8 +155,6 @@ describe SubmissionsController do
   describe "PATCH update" do
     describe "with valid params" do
       before(:each) do
-        Submission.stub_chain(:friendly, :find).and_return(submission)
-        allow(submission).to receive(:update_attributes).and_return(true)
         allow(controller).to receive(:authorize)
         put :update, id: submission, submission: submission_attrs
       end
@@ -180,9 +166,8 @@ describe SubmissionsController do
       end
 
       it "updates the requested submission" do
-        expect(submission).
-          to have_received(:update_attributes).
-          with(submission_attrs.stringify_keys)
+        submission.reload
+        expect(submission.title).to eq("hi")
       end
 
       it "flashes a notice letting the user know the sub was updated" do
@@ -196,32 +181,26 @@ describe SubmissionsController do
 
     describe "with invalid params" do
       before(:each) do
-        Submission.stub_chain(:friendly, :find).and_return(submission)
-        allow(submission).to receive(:update_attributes).and_return(false)
         allow(controller).to receive(:authorize)
-        put :update, id: submission, submission: submission_attrs
+        put :update, id: submission, submission: invalid_submission_attrs
       end
 
       it "assigns the requested submission as submission" do
         expect(assigns(:submission)).to eq(submission)
       end
 
-      it "updates the requested submission" do
-        expect(submission).
-          to have_received(:update_attributes).
-          with(submission_attrs.stringify_keys)
-      end
-
       it "rerenders the new template" do
         expect(response).to render_template(:edit)
+      end
+
+      it "generates an error on the submission" do
+        expect(submission.errors.include?(:title))
       end
     end
   end
 
   describe "DELETE destroy" do
     before(:each) do 
-      Submission.stub_chain(:friendly, :find).and_return(submission)
-      allow(submission).to receive(:destroy)
       allow(controller).to receive(:authorize)
       delete :destroy, id: submission
     end
@@ -233,7 +212,7 @@ describe SubmissionsController do
     end
 
     it "destroys the requested submission" do
-      expect(submission).to have_received(:destroy)
+      expect { submission.reload }.to raise_error(ActiveRecord::RecordNotFound)
     end
 
     it "redirects to the submissions list" do

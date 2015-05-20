@@ -13,11 +13,11 @@ describe UserPolicy do
 
   shared_examples "verify user is requesting current user for" do |action|
     it "returns true when the current user is equal to the requested user" do
-      expect(valid_user_policy.send(action)).to be_true
+      expect(valid_user_policy.send(action)).to be_truthy
     end
 
     it "returns false when the current user is different from the req user" do
-      expect(invalid_user_policy.send(action)).to be_false
+      expect(invalid_user_policy.send(action)).to be_falsey
     end
   end
 

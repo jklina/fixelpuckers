@@ -1,8 +1,8 @@
 require 'spec_helper'
 
-describe Admin::CategoriesController do
-  let(:category) { FactoryGirl.create(:category) }
-  let(:category_attrs) { FactoryGirl.attributes_for(:category) }
+describe Admin::CategoriesController, type: :controller do
+  let(:category) { create(:category) }
+  let(:category_attrs) { attributes_for(:category) }
 
   describe "GET 'index'" do
     before(:each) do

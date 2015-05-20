@@ -1,7 +1,6 @@
 require 'spec_helper'
 
-describe AdminController do
-  let(:review) { FactoryGirl.create(:review) }
-  let(:user) { stub_model(User) }
-
+describe AdminController, type: :controller do
+  let(:review) { create(:review) }
+  let(:user) { User.new }
 end

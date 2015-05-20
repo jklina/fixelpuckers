@@ -1,8 +1,8 @@
 require 'spec_helper'
 
-describe "Features" do
-  let(:admin) { FactoryGirl.create(:admin) }
-  let(:feature) { FactoryGirl.create(:feature) }
+describe "Features", type: :feature do
+  let(:admin) { create(:admin) }
+  let(:feature) { create(:feature) }
 
   describe "viewing a feature" do
     it "let's us view the homepage if there are no features" do
@@ -11,7 +11,7 @@ describe "Features" do
     end
 
     it "displays the feature author and description on the homepage" do
-      feature = FactoryGirl.create(:feature)
+      feature = create(:feature)
       visit(root_path)
       expect(page).to have_content(feature.author.username)
       expect(page).to have_content(feature.description)
@@ -20,7 +20,7 @@ describe "Features" do
 
   describe "Featuring a submission" do
     it "creates a new feature" do
-      submission = FactoryGirl.create(:submission)
+      submission = create(:submission)
       visit(submission_path(submission, as: admin.id))
       click_link("Feature")
       expect(current_path).to eq(admin_new_feature_path(submission))

@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe User do
+describe User, type: :model do
 
   let(:user) { FactoryGirl.create(:user) }
 
@@ -19,7 +19,7 @@ describe User do
     should validate_uniqueness_of(:username)
   end
 
-  it { should ensure_length_of(:username).is_at_most(20) }
+  it { should validate_length_of(:username).is_at_most(20) }
 
   it { should allow_value('user@user.org').for(:email) }
   it { should allow_value('user_me@user.jp').for(:email) }
@@ -30,8 +30,10 @@ describe User do
   it { should_not allow_value('example.user@foo.').for(:email) }
 
   it "validates uniqueness of email" do
-    expect(User.new(email: user.email).errors_on(:email)).
-      to include("has already been taken")
+    new_user = User.new(email: user.email)
+    new_user.validate
+
+    expect(new_user.errors[:email]).to include("has already been taken")
   end
 
   describe "#to_s" do

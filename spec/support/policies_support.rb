@@ -11,11 +11,11 @@ shared_examples "an adminable policy with actions" do |actions|
 
   actions.each do |action|
     it "returns true when the current user is an admin" do
-      expect(valid_user_policy.send("#{action}?")).to be_true
+      expect(valid_user_policy.send("#{action}?")).to be_truthy
     end
 
     it "returns false when the current user is not an admin" do
-      expect(invalid_user_policy.send("#{action}?")).to be_false
+      expect(invalid_user_policy.send("#{action}?")).to be_falsey
     end
   end
 end

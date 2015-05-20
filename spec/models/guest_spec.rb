@@ -5,13 +5,13 @@ describe Guest do
 
   describe "#admin" do
     it "returns false" do
-      expect(guest.admin).to be_false
+      expect(guest.admin).to be_falsey
     end
   end
 
   describe "#admin?" do
     it "returns false" do
-      expect(guest.admin?).to be_false
+      expect(guest.admin?).to be_falsey
     end
   end
 

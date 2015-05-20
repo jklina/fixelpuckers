@@ -1,11 +1,11 @@
 require 'spec_helper'
 
-describe VotesController do
-  let(:review) { FactoryGirl.create(:review) }
-  let(:user) { stub_model(User) }
+describe VotesController, type: :controller do
+  let(:review) { create(:review) }
+  let(:user) { create(:user) }
 
   before(:each) do
-    allow(controller).to receive(:current_user).and_return(user)
+    sign_in_as(user)
   end
 
   describe "PATCH up" do

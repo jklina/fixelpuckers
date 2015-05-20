@@ -1,15 +1,14 @@
 require 'spec_helper'
 
-describe CommentsController do
-  let(:user) { FactoryGirl.create(:user) }
-  let(:author) { FactoryGirl.create(:user) }
+describe CommentsController, type: :controller do
+  let(:user) { create(:user) }
+  let(:author) { create(:user) }
   let(:invalid_comment_attrs) {{ body: '' }}
-  let(:comment_attrs) { FactoryGirl.attributes_for(:comment) }
+  let(:comment_attrs) { attributes_for(:comment) }
 
   describe "POST create" do
 
     describe "with valid params" do
-
       it "finds the user that will build the comment" do
         allow(controller).to receive(:current_user).and_return(user)
         post :create, user_id: user, comment: comment_attrs
@@ -24,7 +23,7 @@ describe CommentsController do
       end
 
       it 'assigns the comment user to the current user' do
-        author = FactoryGirl.create(:user)
+        author = create(:user)
         allow(controller).to receive(:current_user).and_return(author)
         post :create, user_id: user, comment: comment_attrs
         expect(assigns(:comment).author).to eq(author)
@@ -48,7 +47,7 @@ describe CommentsController do
 
   describe "PUT update" do
     before(:each) do
-      @comment = FactoryGirl.create(:comment)
+      @comment = create(:comment)
     end
 
     it "finds the user with the given id" do
@@ -70,14 +69,14 @@ describe CommentsController do
       it "assigns the requested comment as @comment" do
         put :update, { user_id: @comment.user,
                        id: @comment,
-                       comment: FactoryGirl.attributes_for(:comment) }
+                       comment: attributes_for(:comment) }
         expect(assigns(:comment)).to eq(@comment)
       end
 
       it "redirects to the user show page" do
         put :update, { user_id: @comment.user,
                        id: @comment,
-                       comment: FactoryGirl.attributes_for(:comment) }
+                       comment: attributes_for(:comment) }
         expect(response).to redirect_to(@comment.user)
       end
     end
@@ -102,7 +101,7 @@ describe CommentsController do
   describe "DELETE destroy" do
     context "when the user owns the comment they're trying to delete" do
       before(:each) do
-        @comment = FactoryGirl.create(:comment)
+        @comment = create(:comment)
       end
 
       it "destroys the requested comment" do

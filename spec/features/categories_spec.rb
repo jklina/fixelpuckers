@@ -1,8 +1,8 @@
 require 'spec_helper'
 
-describe "Categories" do
-  let(:admin) { FactoryGirl.create(:admin) }
-  let(:category) { FactoryGirl.create(:category) }
+describe "Categories", type: :feature do
+  let(:admin) { create(:admin) }
+  let(:category) { create(:category) }
 
   describe "viewing a list" do
     it "an admin can view all the categories" do
@@ -14,8 +14,8 @@ describe "Categories" do
 
   describe "viewing" do
     it "displays the categorys submissions" do
-      sub1 = FactoryGirl.create(:submission, category: category)
-      sub2 = FactoryGirl.create(:submission)
+      sub1 = create(:submission, category: category)
+      sub2 = create(:submission)
       visit(category_path(category))
       within(".featured") do
         expect(page).to have_content(category.name)
