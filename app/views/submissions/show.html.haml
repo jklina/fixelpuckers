@@ -27,14 +27,18 @@
 
       .thumb_submission
         .thumb--img-wrap
-          = link_to '#' do
-            = image_tag('http://placekitten.com/1280/768')
+          = link_to submission_presenter.preview.url do
+            = image_tag submission_presenter.preview.url
       .submission-details
         .notes
           %h2 Artist Notes
           %p= submission_presenter.description
         .meta
           %ol
+            %li
+              %i.ss-icon download
+              -if @submission.attachment?
+                = link_to 'Download', @submission.attachment.url, class: 'download
             %li
               %i.ss-icon comment
               = submission_presenter.number_of_reviews

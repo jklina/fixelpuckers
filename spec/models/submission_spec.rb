@@ -1,8 +1,8 @@
 require 'spec_helper'
 
 describe Submission do
-  let(:submission) { FactoryGirl.create(:submission) }
-  let(:trashed_submission) { FactoryGirl.create(:submission, trashed: true) }
+  let(:submission) { create(:submission) }
+  let(:trashed_submission) { create(:submission, trashed: true) }
 
   it { should validate_presence_of (:title) }
   it { should validate_presence_of (:description) }
@@ -17,10 +17,23 @@ describe Submission do
   it { should have_many(:reviews) }
   it { should have_many(:features) }
 
+  it { should have_attached_file(:preview) }
+  it { should validate_attachment_presence(:preview) }
+  it { should validate_attachment_content_type(:preview).
+                allowing("image/jpg", "image/jpeg", "image/png", "image/gif").
+                rejecting('text/plain', 'text/xml') }
+  it { should validate_attachment_size(:preview).less_than(8.megabytes) }
+  it { should have_attached_file(:attachment) }
+  it { should validate_attachment_content_type(:attachment).
+                allowing("image/jpg", "image/jpeg", "image/png", "image/gif",
+                         "application/zip", "application/x-zip").
+                rejecting('text/plain', 'text/xml') }
+  it { should validate_attachment_size(:attachment).less_than(25.megabytes) }
+
   describe "default_scope" do
     it "orders the submissions by their created date" do
-      sub1 = FactoryGirl.create(:submission, created_at: Date.current - 1.day)
-      sub2 = FactoryGirl.create(:submission, created_at: Date.current)
+      sub1 = create(:submission, created_at: Date.current - 1.day)
+      sub2 = create(:submission, created_at: Date.current)
       expect(Submission.all).to eq([sub2, sub1])
     end
   end
@@ -29,10 +42,10 @@ describe Submission do
     it "filters out trashed submissions that are not authored by the given user" do
       submission
       trashed_authored_submission =
-        FactoryGirl.create(:submission,
+        create(:submission,
                            author: submission.author,
                            trashed: true)
-      trashed_submission = FactoryGirl.create(:submission,trashed: true)
+      trashed_submission = create(:submission,trashed: true)
       expect(Submission.filtered_trash_for(submission.author)).
              to eq([trashed_authored_submission, submission])
     end
@@ -66,8 +79,8 @@ describe Submission do
 
   describe "#update_average_rating" do
     it "updates the submission's average rating in the db" do
-      review1 = FactoryGirl.create(:review, rating: 20)
-      review2 = FactoryGirl.create(:review, rating: 10)
+      review1 = create(:review, rating: 20)
+      review2 = create(:review, rating: 10)
       submission.reviews << review1
       submission.reviews << review2
       submission.update_average_rating

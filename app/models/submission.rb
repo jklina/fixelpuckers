@@ -7,6 +7,8 @@ class Submission < ActiveRecord::Base
   belongs_to :category
   has_many :reviews
   has_many :features
+  has_attached_file :preview, styles: { thumbnail: "348x221>" }
+  has_attached_file :attachment
 
   friendly_id :title, use: :slugged
 
@@ -17,6 +19,14 @@ class Submission < ActiveRecord::Base
   validates :views, numericality: { only_integer: true }, allow_blank: true
   validates :downloads, numericality: { only_integer: true }, allow_blank: true
   validates :average_rating, numericality:true , allow_blank: true
+  validates_attachment :preview, content_type:
+    { content_type: ["image/jpg", "image/jpeg", "image/png", "image/gif"] },
+    size: { in: 0..8.megabytes }
+  validates :preview, attachment_presence: true
+  validates_attachment :attachment, content_type:
+    { content_type: ["image/jpg", "image/jpeg", "image/png", "image/gif",
+                     "application/zip", "application/x-zip"] },
+    size: { in: 0..25.megabytes }
 
   # TODO: Validate that there can only be 1 review per user per submission
 

@@ -7,6 +7,7 @@ module Pf
     module Presenters
       class Instance < SimpleDelegator
         include ActionView::Helpers::TagHelper
+        include ActionView::Helpers::UrlHelper
         include ActionView::Context 
 
         def self.for(submission)

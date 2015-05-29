@@ -11,21 +11,21 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140324194030) do
+ActiveRecord::Schema.define(version: 20150528230535) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
-  create_table "categories", force: true do |t|
-    t.string   "name"
-    t.string   "slug"
+  create_table "categories", force: :cascade do |t|
+    t.string   "name",       limit: 255
+    t.string   "slug",       limit: 255
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
   add_index "categories", ["slug"], name: "index_categories_on_slug", unique: true, using: :btree
 
-  create_table "comments", force: true do |t|
+  create_table "comments", force: :cascade do |t|
     t.text     "body"
     t.integer  "author_id"
     t.integer  "user_id"
@@ -33,7 +33,7 @@ ActiveRecord::Schema.define(version: 20140324194030) do
     t.datetime "updated_at"
   end
 
-  create_table "features", force: true do |t|
+  create_table "features", force: :cascade do |t|
     t.text     "description"
     t.integer  "user_id"
     t.datetime "created_at"
@@ -41,17 +41,17 @@ ActiveRecord::Schema.define(version: 20140324194030) do
     t.integer  "submission_id"
   end
 
-  create_table "news_articles", force: true do |t|
-    t.string   "title"
+  create_table "news_articles", force: :cascade do |t|
+    t.string   "title",      limit: 255
     t.text     "story"
-    t.string   "slug"
+    t.string   "slug",       limit: 255
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
   add_index "news_articles", ["slug"], name: "index_news_articles_on_slug", unique: true, using: :btree
 
-  create_table "reviews", force: true do |t|
+  create_table "reviews", force: :cascade do |t|
     t.integer  "rating"
     t.text     "comment"
     t.datetime "created_at"
@@ -60,10 +60,10 @@ ActiveRecord::Schema.define(version: 20140324194030) do
     t.integer  "submission_id"
   end
 
-  create_table "roles", force: true do |t|
-    t.string   "name"
+  create_table "roles", force: :cascade do |t|
+    t.string   "name",          limit: 255
     t.integer  "resource_id"
-    t.string   "resource_type"
+    t.string   "resource_type", limit: 255
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -71,55 +71,63 @@ ActiveRecord::Schema.define(version: 20140324194030) do
   add_index "roles", ["name", "resource_type", "resource_id"], name: "index_roles_on_name_and_resource_type_and_resource_id", using: :btree
   add_index "roles", ["name"], name: "index_roles_on_name", using: :btree
 
-  create_table "submissions", force: true do |t|
-    t.string   "title"
+  create_table "submissions", force: :cascade do |t|
+    t.string   "title",                   limit: 255
     t.text     "description"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "user_id"
-    t.string   "slug"
-    t.integer  "views",          default: 0,     null: false
-    t.integer  "downloads",      default: 0,     null: false
+    t.string   "slug",                    limit: 255
+    t.integer  "views",                               default: 0,     null: false
+    t.integer  "downloads",                           default: 0,     null: false
     t.decimal  "average_rating"
     t.date     "featured_at"
-    t.boolean  "trashed",        default: false, null: false
+    t.boolean  "trashed",                             default: false, null: false
     t.integer  "category_id"
+    t.string   "preview_file_name"
+    t.string   "preview_content_type"
+    t.integer  "preview_file_size"
+    t.datetime "preview_updated_at"
+    t.string   "attachment_file_name"
+    t.string   "attachment_content_type"
+    t.integer  "attachment_file_size"
+    t.datetime "attachment_updated_at"
   end
 
   add_index "submissions", ["slug"], name: "index_submissions_on_slug", unique: true, using: :btree
 
-  create_table "users", force: true do |t|
+  create_table "users", force: :cascade do |t|
     t.datetime "created_at",                                     null: false
     t.datetime "updated_at",                                     null: false
-    t.string   "email",                                          null: false
+    t.string   "email",              limit: 255,                 null: false
     t.string   "encrypted_password", limit: 128,                 null: false
     t.string   "confirmation_token", limit: 128
     t.string   "remember_token",     limit: 128,                 null: false
-    t.string   "name"
-    t.string   "username"
-    t.string   "slug"
-    t.string   "domain"
-    t.string   "location"
+    t.string   "name",               limit: 255
+    t.string   "username",           limit: 255
+    t.string   "slug",               limit: 255
+    t.string   "domain",             limit: 255
+    t.string   "location",           limit: 255
     t.boolean  "admin",                          default: false, null: false
   end
 
   add_index "users", ["email"], name: "index_users_on_email", using: :btree
   add_index "users", ["remember_token"], name: "index_users_on_remember_token", using: :btree
 
-  create_table "users_roles", id: false, force: true do |t|
+  create_table "users_roles", id: false, force: :cascade do |t|
     t.integer "user_id"
     t.integer "role_id"
   end
 
   add_index "users_roles", ["user_id", "role_id"], name: "index_users_roles_on_user_id_and_role_id", using: :btree
 
-  create_table "votes", force: true do |t|
+  create_table "votes", force: :cascade do |t|
     t.integer  "votable_id"
-    t.string   "votable_type"
+    t.string   "votable_type", limit: 255
     t.integer  "voter_id"
-    t.string   "voter_type"
+    t.string   "voter_type",   limit: 255
     t.boolean  "vote_flag"
-    t.string   "vote_scope"
+    t.string   "vote_scope",   limit: 255
     t.integer  "vote_weight"
     t.datetime "created_at"
     t.datetime "updated_at"

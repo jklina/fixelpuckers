@@ -39,6 +39,11 @@ GEM
     acts_as_votable (0.8.0)
     addressable (2.3.8)
     arel (6.0.0)
+    aws-sdk (1.64.0)
+      aws-sdk-v1 (= 1.64.0)
+    aws-sdk-v1 (1.64.0)
+      json (~> 1.4)
+      nokogiri (>= 1.4.4)
     bcrypt (3.1.10)
     bourbon (3.2.4)
       sass (~> 3.2)
@@ -56,6 +61,10 @@ GEM
       bcrypt
       email_validator (~> 1.4)
       rails (>= 3.1)
+    climate_control (0.0.3)
+      activesupport (>= 3.0)
+    cocaine (0.5.7)
+      climate_control (>= 0.0.3, < 1.0)
     coderay (1.1.0)
     coffee-rails (4.1.0)
       coffee-script (>= 2.2.0)
@@ -67,6 +76,9 @@ GEM
     daemons (1.2.2)
     database_cleaner (1.4.1)
     diff-lcs (1.2.5)
+    dotenv (2.0.1)
+    dotenv-rails (2.0.1)
+      dotenv (= 2.0.1)
     email_spec (1.6.0)
       launchy (~> 2.1)
       mail (~> 2.2)
@@ -137,6 +149,11 @@ GEM
       sass (~> 3.2.19)
     nokogiri (1.6.6.2)
       mini_portile (~> 0.6.0)
+    paperclip (4.2.1)
+      activemodel (>= 3.0.0)
+      activesupport (>= 3.0.0)
+      cocaine (~> 0.5.3)
+      mime-types
     pg (0.18.1)
     pry (0.10.1)
       coderay (~> 1.1.0)
@@ -252,11 +269,13 @@ PLATFORMS
 
 DEPENDENCIES
   acts_as_votable (~> 0.8.0)
+  aws-sdk (< 2.0)
   bourbon
   capybara
   clearance
   coffee-rails
   database_cleaner
+  dotenv-rails
   email_spec
   factory_girl_rails
   faker
@@ -270,6 +289,7 @@ DEPENDENCIES
   jquery-rails
   kaminari
   neat
+  paperclip (~> 4.2)
   pg
   pry-rails
   pundit

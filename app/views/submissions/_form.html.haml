@@ -4,6 +4,8 @@
   .form-inputs
     = f.input :title
     = f.input :description
+    = f.input :preview, as: :file
+    = f.input :attachment, as: :file
     = f.association :category
 
   .form-actions

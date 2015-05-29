@@ -21,6 +21,8 @@ gem 'uglifier'
 gem 'pundit'
 gem 'inherited_resources'
 gem 'acts_as_votable', '~> 0.8.0'
+gem "paperclip", "~> 4.2"
+gem 'aws-sdk', '< 2.0'
 
 group :production do
   gem 'rails_12factor'
@@ -40,4 +42,5 @@ group :development, :test do
   gem 'shoulda-matchers'
   gem "faker"
   gem "pry-rails"
+  gem 'dotenv-rails'
 end
