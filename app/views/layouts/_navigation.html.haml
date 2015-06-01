@@ -33,11 +33,11 @@
           = link_to '#' do
             %i.ss-icon inbox
             Activity
-        - if current_user.has_role? :admin
+        - if current_user.admin?
           %li.account-dropdown-item
             = link_to admin_path do
               %i.ss-icon star
-              Admin
+              = t(".menu.admin")
         %li.account-dropdown-item
           = link_to sign_out_path, :method=>'delete' do
             %i.ss-icon logout
