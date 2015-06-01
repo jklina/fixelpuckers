@@ -1,6 +1,4 @@
 Pf::Application.configure do
-  # Settings specified here will take precedence over those in config/application.rb
-
   config.cache_classes = true
 
   config.consider_all_requests_local       = false
