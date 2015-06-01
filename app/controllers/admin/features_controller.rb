@@ -31,6 +31,6 @@ class Admin::FeaturesController < InheritedResources::Base
   end
 
   def permitted_params
-    params.permit(feature: [:description, :submission_id])
+    params.permit(feature: [:description, :submission_id, :preview])
   end
 end

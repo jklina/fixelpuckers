@@ -11,10 +11,11 @@ describe "Features", type: :feature do
       click_link("Feature")
       expect(current_path).to eq(admin_new_feature_path(submission))
       fill_in("Description", with: "Great sub")
+      attach_file "Preview", "spec/assets/images/photo.jpg"
       click_button("Create Feature")
       expect(current_path).to eq(root_path)
       expect(page).to have_content("Great sub")
-      expect(feature.submission).to eq(submission)
+      expect(Feature.last.submission).to eq(submission)
     end
   end
 

@@ -5,5 +5,9 @@ FactoryGirl.define do
     description "#{Faker::Lorem.paragraph}"
     association :author, factory: :user
     submission
+
+    preview do
+      fixture_file_upload( 'spec/assets/images/photo.jpg', 'image/jpeg')
+    end
   end
 end
