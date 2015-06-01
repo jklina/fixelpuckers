@@ -6,7 +6,7 @@ describe "Features", type: :feature do
   describe "viewing a feature on the homepage" do
     it "let's us view the homepage if there are no features" do
       visit(root_path)
-      expect(page).to have_content("Pixelfuckers")
+      expect(page).to have_content("PixelPeddlers")
     end
 
     it "displays the feature author and description on the homepage" do
