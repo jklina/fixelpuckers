@@ -35,9 +35,9 @@
           %p= submission_presenter.description
         .meta
           %ol
-            %li
-              %i.ss-icon download
-              - if @submission.attachment?
+            - if @submission.attachment?
+              %li
+                %i.ss-icon download
                 = link_to 'Download', @submission.attachment.url, html_options: { class: 'download' }
             %li
               %i.ss-icon comment
