@@ -37,8 +37,8 @@
           %ol
             %li
               %i.ss-icon download
-              -if @submission.attachment?
-                = link_to 'Download', @submission.attachment.url, class: 'download
+              - if @submission.attachment?
+                = link_to 'Download', @submission.attachment.url, html_options: { class: 'download' }
             %li
               %i.ss-icon comment
               = submission_presenter.number_of_reviews

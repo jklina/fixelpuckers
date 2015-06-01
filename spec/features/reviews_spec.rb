@@ -2,7 +2,9 @@ require 'spec_helper'
 
 describe "Reviews", type: :feature do
   let(:user) { create(:user) }
-  let(:submission) { create(:submission) }
+  let(:submission) do
+    submission = create(:submission)
+  end
   let(:paragraph) { Faker::Lorem.paragraph }
 
   describe "Viewing reviews" do
@@ -109,30 +111,33 @@ describe "Reviews", type: :feature do
   end
 
   describe "voting on a review" do
-    it "a user can vote a review positively", js: true do
-      voter = FactoryGirl.create(:user)
-      review = FactoryGirl.create(:review, author: user)
-      submission.reviews << review
+    before(:each) do
+      voter = create(:user)
+      @review = create(:review, author: user)
+      submission = create(:submission)
+      submission.reviews << @review
+
+      stub_out_submission_preview_url(submission)
+
       visit submission_path(submission, as: voter.id)
+    end
+
+    it "a user can vote a review positively", js: true do
       expect(page).to_not have_selector("i.ss-icon.arrow.up.active")
       click_link("up")
       expect(page).to have_selector("i.ss-icon.arrow.up.active")
-      review.reload
-      expect(review.likes.size).to eq(1)
+      @review.reload
+      expect(@review.likes.size).to eq(1)
       click_link("up")
       expect(page).to_not have_selector("i.ss-icon.arrow.up.active")
     end
 
-    it "a user can vote a review negatively", js: true do
-      voter = FactoryGirl.create(:user)
-      review = FactoryGirl.create(:review, author: user)
-      submission.reviews << review
-      visit submission_path(submission, as: voter.id)
+    it "a user can vote a @review negatively", js: true do
       expect(page).to_not have_selector("i.ss-icon.arrow.down.active")
       click_link("down")
       expect(page).to have_selector("i.ss-icon.arrow.down.active")
-      review.reload
-      expect(review.dislikes.size).to eq(1)
+      @review.reload
+      expect(@review.dislikes.size).to eq(1)
       click_link("down")
       expect(page).to_not have_selector("i.ss-icon.arrow.down.active")
     end
@@ -140,15 +145,27 @@ describe "Reviews", type: :feature do
 
   describe "Deleting a review", js: true do
     it "allows the user to delete their review" do
-      reviewer = FactoryGirl.create(:user)
-      review = FactoryGirl.create(:review, author: reviewer)
+      reviewer = create(:user)
+      review = create(:review, author: reviewer)
+      stub_out_submission_preview_url(submission)
       submission.reviews << review
+
       visit submission_path(submission, as: reviewer.id)
+
       expect(page).to have_content('1 Review')
       find("#action-delete-review", visible: false).click
       sleep 1
       expect(Review.all.size).to eq(0)
       expect(page).to have_content('0 Reviews')
     end
+  end
+
+  def stub_out_submission_preview_url(submission)
+    #Stubbing out image url to avoid 404
+    preview = submission.preview
+    allow(preview).to receive(:url).and_return('/')
+    allow(Submission).
+      to receive_message_chain(:filtered_trash_for, :friendly, :find).
+      and_return(submission)
   end
 end

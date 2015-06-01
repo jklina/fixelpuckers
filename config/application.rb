@@ -28,5 +28,7 @@ module Pf
     config.assets.version = '1.0'
 
     config.i18n.enforce_available_locales = true
+
+    config.active_record.raise_in_transactional_callbacks = true
   end
 end

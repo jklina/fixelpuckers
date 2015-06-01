@@ -111,12 +111,7 @@ describe "Creating a submission", type: :feature do
   let(:author) { create(:user) }
 
   it "let's a logged in user create a submission" do
-    visit(new_submission_path(as: author.id))
-    fill_in("Title", with: "Sub1")
-    fill_in("Description", with: "meh notes")
-    attach_file "Attachment", "spec/assets/files/photo.zip"
-    attach_file "Preview", "spec/assets/images/photo.jpg"
-    click_button("Create Submission")
+    create_submission(author: author)
     submission = Submission.last
     expect(submission.title).to eq("Sub1")
     expect(submission.description).to eq("meh notes")
