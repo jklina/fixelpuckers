@@ -3,7 +3,7 @@
     .thumb_featured
       .thumb--img-wrap
         = link_to '#' do
-          =image_tag('http://lorempixel.com/1200/400/abstract/3', :class => 'thumb--img')
+          =image_tag(@feature.preview.url, :class => 'thumb--img')
           .thumb--img-shadow
     %p.description 
       = @feature.description
