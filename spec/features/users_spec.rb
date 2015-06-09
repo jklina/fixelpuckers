@@ -28,10 +28,12 @@ feature "User management", type: :feature do
       visit edit_user_path(user, as: user.id)
       fill_in("Location", with: "Philadelphia")
       fill_in("Domain", with: "w.com")
+      attach_file "Avatar", "spec/assets/images/photo.jpg"
       click_button("Update User")
       user.reload
       expect(user.location).to eq("Philadelphia")
       expect(user.domain).to eq("w.com")
+      expect(user.avatar.url).to include("photo.jpg")
     end
   end
 end

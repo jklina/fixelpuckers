@@ -17,9 +17,13 @@
 %nav.account
   .account-dropdown
     - if signed_in?
-      .avatar
-        = link_to '#' do
-          = image_tag('http://lorempixel.com/100/100/nature/1', :class => 'avatar--img')
+      -# TODO: Clean this up
+      - if current_user.avatar?
+        .avatar
+          = link_to '#' do
+            = image_tag(current_user.avatar.url(:thumb), :class => 'avatar--img')
+      -else
+        .avatar.placeholder
       %ul.account-dropdown-list
         %li.account-dropdown-item
           = link_to edit_user_path(current_user) do

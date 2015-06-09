@@ -3,7 +3,7 @@
     .wrapper
       .avatar
         = link_to '#' do
-          = image_tag('http://lorempixel.com/100/100/people/1', :class => 'avatar--img')
+          = image_tag(user_presenter.avatar.url, :class => 'avatar--img')
       .user-meta
         %h3 #{@user.username}
         = user_presenter.url

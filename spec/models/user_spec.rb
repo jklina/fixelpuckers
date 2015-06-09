@@ -12,6 +12,11 @@ describe User, type: :model do
   it { should validate_presence_of (:username) }
   it { should validate_presence_of (:slug) }
 
+  it { should have_attached_file(:avatar) }
+  it { should validate_attachment_content_type(:avatar).
+                allowing("image/jpg", "image/jpeg", "image/png", "image/gif").
+                rejecting('text/plain', 'text/xml') }
+  it { should validate_attachment_size(:avatar).less_than(2.megabytes) }
 
   # Have to create an existing record for this to work correctly
   it do
