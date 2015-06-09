@@ -24,6 +24,7 @@
             = image_tag(current_user.avatar.url(:thumb), :class => 'avatar--img')
       -else
         .avatar.placeholder
+          %i.ss-icon user
       %ul.account-dropdown-list
         %li.account-dropdown-item
           = link_to edit_user_path(current_user) do
