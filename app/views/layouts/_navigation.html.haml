@@ -20,7 +20,7 @@
       -# TODO: Clean this up
       - if current_user.avatar?
         .avatar
-          = link_to '#' do
+          = link_to current_user do
             = image_tag(current_user.avatar.url(:thumb), :class => 'avatar--img')
       -else
         .avatar.placeholder
